@@ -1,11 +1,21 @@
 import { useRef, useEffect, useState } from 'react';
 import { useForm, Controller,SubmitHandler } from "react-hook-form";
 import { TextField, Button, Grid, Box, Card, Typography } from "@mui/material";
-import { useNavigate } from 'react-router-dom';
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Swal from 'sweetalert2';
 import './Login.css';
+import { useNavigate } from 'react-router-dom';
+
+function Login() {
+  return (
+    <div>
+      <h1> Login </h1>
+    </div>
+  );
+}
+
+
 
 // Esquema de validação com Yup
 const schema = yup.object().shape({
@@ -13,7 +23,7 @@ const schema = yup.object().shape({
   password: yup.string().min(8, "A senha deve ter no mínimo 8 caracteres").required("Senha é obrigatória"),
 });
 
-export default function LoginForm() {
+export default function LoginData() {
   const { handleSubmit, control, formState: { errors }, reset } = useForm({
     resolver: yupResolver(schema),
   });
@@ -32,7 +42,7 @@ export default function LoginForm() {
     email: string;
     password: string;
   };
-  
+ 
   const onSubmit: SubmitHandler<FormData> = (data) => {
     console.log(data);
     Swal.fire({
@@ -43,6 +53,8 @@ export default function LoginForm() {
     reset();
   };
   
+  const navigate = useNavigate();
+
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5 }}>
 
@@ -131,8 +143,17 @@ export default function LoginForm() {
 
               {/* Link de-esqueci minha senha */}
               <Grid item xs={12}>
-                <Typography  align="center" variant="body2">
-                  <a className='manolo' href="#">Esqueceu sua senha?</a>
+                <Typography align="center" variant="body2">
+                  <a
+                    href="/react-teste=ing/src/Cadastro.tsx"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate('/EsqueciSenha'); // Call the function here
+                    }}
+                    style={{ color: '#eb832e', textDecoration: 'none', marginLeft: '8px' }}
+                  >
+                    Esqueci minha senha
+                  </a>
                 </Typography>
               </Grid>
 
@@ -143,3 +164,6 @@ export default function LoginForm() {
     </Box>
   );
 }
+
+export { Login };
+

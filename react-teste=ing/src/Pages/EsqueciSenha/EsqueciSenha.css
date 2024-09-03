@@ -1,0 +1,102 @@
+/* Centralizar o formulário e limitar a largura máxima */
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+/* Estilização para o logo */
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms ease;
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+/* Animação de rotação para o logo */
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+/* Estilização para os cartões */
+.card {
+  padding: 2em;
+  background: linear-gradient(145deg, #ffffff, #f0f0f0);
+  border-radius: 16px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+  transition: box-shadow 300ms ease, transform 300ms ease;
+}
+
+
+
+/* Estilização para o texto informativo ou auxiliar */
+.read-the-docs {
+  color: #646cff;
+  margin-top: 1.5rem;
+  font-size: 0.9em;
+  transition: color 300ms ease;
+}
+
+.read-the-docs:hover {
+  color: #3f50b5;
+}
+
+/* Estilização para os botões */
+button {
+  background: linear-gradient(135deg, #eb832e, #e66e0d);
+  color: white;
+  padding: 0.75em 1.5em;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 300ms ease, transform 300ms ease;
+}
+/* Estilização para os campos de texto */
+.MuiTextField-root {
+  margin-bottom: 1.5rem;
+  width: 100%;
+  border-radius: 8px;
+}
+
+/* Estilização para erros nos campos */
+.MuiFormHelperText-root {
+  color: #ff6f61;
+}
+
+/* Container principal do formulário */
+form {
+  max-width: 400px;
+  margin: 0 auto;
+  background: #f0f0f0;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0px 10px 20px rgba(0.1, 0.1, 0.1, 0);
+  transition: box-shadow 300ms ease, transform 300ms ease;
+}
+
+.manolo{
+  color: #ff6f61;
+  text-decoration: none;
+}
+

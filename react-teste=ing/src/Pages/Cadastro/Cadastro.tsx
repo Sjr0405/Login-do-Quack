@@ -7,6 +7,15 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Swal from 'sweetalert2';
 import './Cadastro.css';
+export { Cadastro }
+
+function Cadastro() {
+  return (
+    <div>
+      <h1> Cadastro </h1>
+    </div>
+  );
+}
 
 // Esquema de validação com Yup
 const schema = yup.object().shape({
@@ -23,7 +32,7 @@ const schema = yup.object().shape({
   .required("Confirmação de senha é obrigatória")
 });
 
-export default function MeuFormulario() {
+export default function CadastroData() {
   const [dataList, setDataList] = useState([]);
   const { handleSubmit, control, formState: { errors }, reset } = useForm({
     resolver: yupResolver(schema),
@@ -69,13 +78,15 @@ export default function MeuFormulario() {
     });
   };
 
+  const navigate = useNavigate();
+
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5 }}>
 
       {/* Card de apresentação */}
       <Box sx={{ width: 700, mr: -20  , height: formCardHeight , display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
         <Card sx={{ padding: 4, backgroundColor: '#eb832e', color: 'white', height: '100%' }}>
-          <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 , mt: 20}}>
+          <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 ,  mt: 30 }}>
             {/* Lugar para a logo */}
             <img src="src/assets/Quack-logo.svg" alt="Logo" style={{ width: '100px' }} />
           </Box>
@@ -243,7 +254,7 @@ export default function MeuFormulario() {
                     href="/react-teste=ing/src/Login.tsx"
                     onClick={(e) => {
                       e.preventDefault();
-                      navigate('/login'); // Navegação para a página de login
+                      navigate('/'); // Use the navigate function from useNavigate
                     }}
                     style={{ color: '#eb832e', textDecoration: 'none', marginLeft: '8px' }}
                   >
@@ -254,8 +265,18 @@ export default function MeuFormulario() {
 
               {/* Link de-esqueci minha senha */}
               <Grid item xs={12}>
-                <Typography align="center" variant="body2">
-                  <a className='manolo' href="#">Esqueceu sua senha?</a>
+                <Typography variant="body1" align="center">
+                  Lembrou a senha?{' '}
+                  <a
+                    href="/react-teste=ing/src/Login.tsx"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate('/EsqueciSenha'); // Use the navigate function from useNavigate
+                    }}
+                    style={{ color: '#eb832e', textDecoration: 'none', marginLeft: '8px' }}
+                  >
+                    Clique aqui para Esqueci a Senha
+                  </a>
                 </Typography>
               </Grid>
 
@@ -302,3 +323,4 @@ export default function MeuFormulario() {
     </Box>
   );
 }
+
