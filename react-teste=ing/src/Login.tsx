@@ -47,10 +47,10 @@ export default function LoginForm() {
 
       {/* Card de apresentação */}
       <Box sx={{ width: 700, height: formCardHeight, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-        <Card sx={{ mr: -5, padding: 4, backgroundColor: 'primary.main', color: 'white', height: '100%' }}>
+        <Card sx={{ mr: -5, padding: 4, backgroundColor: '#eb832e', color: 'white', height: '100%' }}>
           <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
             {/* Lugar para a logo */}
-            <img src="public/vite.svg" alt="Logo" style={{ width: '80px' }} />
+            <img src="src/assets/Quack-logo.svg" alt="Logo" style={{ width: '80px' }} />
           </Box>
           {/* Texto */}
           <Typography variant="h5" align="center" gutterBottom>
@@ -123,7 +123,7 @@ export default function LoginForm() {
 
               {/* Link de-esqueci minha senha */}
               <Grid item xs={12}>
-                <Typography align="center" variant="body2">
+                <Typography className='manolo' align="center" variant="body2">
                   <a href="#">Esqueceu sua senha?</a>
                 </Typography>
               </Grid>

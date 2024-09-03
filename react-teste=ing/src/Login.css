@@ -95,3 +95,7 @@ form {
   transition: box-shadow 300ms ease, transform 300ms ease;
 }
 
+.manolo{
+  color: #ff6f61;
+  text-decoration: none;
+}
