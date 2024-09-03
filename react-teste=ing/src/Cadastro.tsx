@@ -1,7 +1,8 @@
 import { useRef, useEffect, useState } from 'react';
 import { useForm, Controller,SubmitHandler } from "react-hook-form";
 import { TextField, Button, Grid, Box, Card, Typography } from "@mui/material";
-import InputMask from "react-input-mask"; 
+import InputMask from "react-input-mask";
+import { useNavigate } from 'react-router-dom'; 
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Swal from 'sweetalert2';
@@ -39,6 +40,7 @@ export default function MeuFormulario() {
   }, [formCardRef]);
 
   interface FormData {
+    name: string;
     phone: string;
     cpf: string;
     email: string;
@@ -233,20 +235,27 @@ export default function MeuFormulario() {
                 </Button>
               </Grid>
 
-              {/* Botão de Enviar */}
-              <Grid item xs={12}>
-                <Typography variant="body1" align="center" >
-                    Já Possui uma conta?
-                    <a className = "manolo"  href="/src/login.tsx" >
-                    Clique aqui para Entar
+               {/* Link de Entrar */}
+               <Grid item xs={12}>
+                <Typography variant="body1" align="center">
+                  Já possui uma conta?
+                  <a
+                    href="/react-teste=ing/src/Login.tsx"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate('/login'); // Navegação para a página de login
+                    }}
+                    style={{ color: '#eb832e', textDecoration: 'none', marginLeft: '8px' }}
+                  >
+                    Clique aqui para Entrar
                   </a>
-                  </Typography>
+                </Typography>
               </Grid>
 
               {/* Link de-esqueci minha senha */}
               <Grid item xs={12}>
-                <Typography className = "manolo" align="center" variant="body2">
-                  <a href="#">Esqueceu sua senha?</a>
+                <Typography align="center" variant="body2">
+                  <a className='manolo' href="#">Esqueceu sua senha?</a>
                 </Typography>
               </Grid>
 

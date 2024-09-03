@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState } from 'react';
 import { useForm, Controller,SubmitHandler } from "react-hook-form";
 import { TextField, Button, Grid, Box, Card, Typography } from "@mui/material";
+import { useNavigate } from 'react-router-dom';
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Swal from 'sweetalert2';
@@ -48,7 +49,7 @@ export default function LoginForm() {
       {/* Card de apresentação */}
       <Box sx={{ width: 700, height: formCardHeight, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
         <Card sx={{ mr: -5, padding: 4, backgroundColor: '#eb832e', color: 'white', height: '100%' }}>
-          <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 , mt: 10}}>
             {/* Lugar para a logo */}
             <img src="src/assets/Quack-logo.svg" alt="Logo" style={{ width: '80px' }} />
           </Box>
@@ -115,7 +116,14 @@ export default function LoginForm() {
               <Grid item xs={12}>
                 <Typography variant="body1" align="center" >
                     Ainda não Possui uma conta?
-                    <a className = "manolo"  href="/src/login.tsx" >
+                    <a
+                    href="/react-teste=ing/src/Cadastro.tsx"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate('/Cadastro'); // Navegação para a página de login
+                    }}
+                    style={{ color: '#eb832e', textDecoration: 'none', marginLeft: '8px' }}
+                  >
                     Clique aqui para Cadastrar-se
                   </a>
                   </Typography>
@@ -123,8 +131,8 @@ export default function LoginForm() {
 
               {/* Link de-esqueci minha senha */}
               <Grid item xs={12}>
-                <Typography className='manolo' align="center" variant="body2">
-                  <a href="#">Esqueceu sua senha?</a>
+                <Typography  align="center" variant="body2">
+                  <a className='manolo' href="#">Esqueceu sua senha?</a>
                 </Typography>
               </Grid>
 
