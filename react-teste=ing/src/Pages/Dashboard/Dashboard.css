@@ -1,0 +1,109 @@
+/* Centralizar o dashboard e limitar a largura máxima */
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+/* Estilização para o container principal do dashboard */
+.dashboard-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 2rem;
+}
+
+/* Estilização para os cartões que exibem os dados */
+.card {
+  padding: 2em;
+  background: #ff6f61;
+  border-radius: 16px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 300ms ease, transform 300ms ease;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  max-width: 600px;
+}
+
+/* Estilização para o título dentro dos cartões */
+.card h6 {
+  margin-bottom: 1.5rem;
+  color: #646cff;
+  font-size: 1.25em;
+}
+
+/* Estilização para o texto dentro dos cartões */
+.card p {
+  margin: 0.5rem 0;
+  font-size: 1em;
+  color: #333;
+}
+
+/* Estilização para os botões de Editar e Deletar */
+.card btn-edit {
+  background: linear-gradient(135deg, #eb832e, #e66e0d);
+  color: white;
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 300ms ease, transform 300ms ease;
+  margin-top: 1rem;
+  margin-right: 0.5rem;
+}
+
+.card btn-edit:hover {
+  background: linear-gradient(135deg, #d77b1e, #ca6600);
+}
+
+.card btn-delete {
+  background: linear-gradient(135deg, #eb832e, #e66e0d);
+  color: white;
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 300ms ease, transform 300ms ease;
+  margin-top: 1rem;
+  margin-right: 0.5rem;
+}
+
+.card btn-delete:hover {
+  background: linear-gradient(135deg, #d77b1e, #ca6600);
+}
+
+/* Estilização para os campos de texto */
+.MuiTextField-root {
+  margin-bottom: 1.5rem;
+  width: 100%;
+  border-radius: 8px;
+}
+
+/* Estilização para erros nos campos */
+.MuiFormHelperText-root {
+  color: #ff6f61;
+}
+
+/* Estilização para links */
+.manolo {
+  color: #ff6f61;
+  text-decoration: none;
+}
+
+/* Estilização para hover no link */
+.manolo:hover {
+  color: #e66e0d;
+}
+
+btn-edit{
+  background-color: #19d300;
+  color: aliceblue
+}
+
+btn-delete{
+  background-color: #ff4130;
+  color: aliceblue
+}

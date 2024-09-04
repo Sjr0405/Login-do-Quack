@@ -64,9 +64,14 @@ export default function CadastroData() {
       icon: 'success',
       title: 'Sucesso!',
       text: 'Login realizado com sucesso.',
+    }).then(() => {
+      // Use o hook useNavigate para redirecionar
+      navigate('/');
     });
+    
     reset();
   };
+  
 
   const handleDelete = (index: number) => {
     const newDataList = dataList.filter((_, i) => i !== index);
