@@ -80,27 +80,32 @@ const Dashboard: React.FC = () => {
           </Typography>
           {dataList.map((data, index) => (
             <Box key={index} sx={{ mb: 2 }}>
-              <Typography>Nome: {data.name}</Typography>
-              <Typography>Email: {data.email}</Typography>
-              <Typography>CPF: {data.cpf}</Typography>
-              <Typography>Telefone: {data.phone}</Typography>
+              <Typography> class:"dados" Nome: {data.name}</Typography>
+              <Typography> class:"dados" Email: {data.email}</Typography>
+              <Typography> class:"dados" CPF: {data.cpf}</Typography>
+              <Typography> class:"dados" Telefone: {data.phone}</Typography>
 
               {isAdmin && (
                 <Box sx={{ mt: 1 }}>
                   <Button
+                    className="Editar"
                     variant="outlined"
                     color="success"
                     onClick={() => handleEdit(index)}
                     sx={{ mr: 1 }}
+                    startIcon={<img src="https://img.icons8.com/ios/50/000000/edit.png" height={15} width={15} />}
                   >
                     Editar
                   </Button>
                   <Button
+                    className="Deletar"
                     variant="outlined"
                     color="error"
                     onClick={() => handleDelete(index)}
+                    sx={{ mr: 1 }}
+                    startIcon={<img src="https://img.icons8.com/ios/50/000000/trash.png" height={15} width={15}/>}
                   >
-                    Deletar
+                    Delete
                   </Button>
                 </Box>
               )}

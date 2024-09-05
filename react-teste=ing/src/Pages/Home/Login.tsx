@@ -71,10 +71,10 @@ export default function Login() {
   };
 
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5 }}>
-      
+    <Box sx={{  display: 'flex', justifyContent: 'center', mt: 5 }}>
+
       {/* Card de apresentação */}
-      <Box sx={{ width: 700, height: formCardHeight, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+      <Box sx={{ width: 600, height: `${parseInt(formCardHeight) * 1.27}px` , display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
         <Card sx={{ mr: -5, padding: 4, backgroundColor: '#eb832e', color: 'white', height: '100%' }}>
           <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3, mt: 10 }}>
             <img src="src/assets/Quack-logo.svg" alt="Logo" style={{ width: '80px' }} />

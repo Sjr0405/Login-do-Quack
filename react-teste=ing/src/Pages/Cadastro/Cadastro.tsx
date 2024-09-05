@@ -89,7 +89,7 @@ export default function CadastroData() {
     <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5 }}>
 
       {/* Card de apresentação */}
-      <Box sx={{ width: 700, mr: -20  , height: formCardHeight , display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+      <Box sx={{ width: 700, mr: -20  , height: `${parseInt(formCardHeight) * 0.9}px` , display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
         <Card sx={{ padding: 4, backgroundColor: '#eb832e', color: 'white', height: '100%' }}>
           <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 ,  mt: 30 }}>
             {/* Lugar para a logo */}
