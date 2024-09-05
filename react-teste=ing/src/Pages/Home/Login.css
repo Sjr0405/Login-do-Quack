@@ -145,3 +145,9 @@ a {
   font-style: normal;
 }
 
+.swal2-footer :hover{
+  text-decoration: none;
+  transition: color 300ms ease;
+  color: #3f50b5;
+}
+

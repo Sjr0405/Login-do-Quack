@@ -96,11 +96,11 @@ export default function CadastroData() {
             <img src="src/assets/Quack-logo.svg" alt="Logo" style={{ width: '100px' }} />
           </Box>
           {/* Texto */}
-          <Typography variant="h5" align="center" gutterBottom>
+          <Typography className='title' variant="h5" align="center" gutterBottom>
             Bem-vindo ao Quack()
           </Typography>
           {/* Subtexto */}
-          <Typography variant="body1" align="center" >
+          <Typography className='subtitle' variant="body1" align="center" >
             Complete o Cadastro ao lado para começar.
             </Typography>
           <Typography variant="body1" align="center" >

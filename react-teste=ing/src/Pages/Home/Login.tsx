@@ -4,36 +4,36 @@ import { TextField, Button, Grid, Box, Card, Typography } from "@mui/material";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Swal from 'sweetalert2';
-import './Login.css';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../AuthContext';  // Contexto de autenticação
+import './Login.css';
 
+// Esquema de validação
 const schema = yup.object().shape({
   email: yup.string().email("Email inválido").required("Email é obrigatório"),
   password: yup.string().min(8, "A senha deve ter no mínimo 8 caracteres").required("Senha é obrigatória"),
 });
 
-// Função simulada para obter dados dos usuários
+// Função simulada para buscar dados de usuários
 const fetchUserData = async () => {
-  // Simulando uma chamada para uma API
   return [
-    { email: 'Admin@gmail.com', password: 'Admin1' },
+    { email: 'Admin@gmail.com', password: 'Administrator1' },
     { email: 'user1@example.com', password: '12345678' },
     { email: 'user2@example.com', password: '87654321' },
-    { email: 'user3@example.com', password: '12345678' },
-    { email: 'user4@example.com', password: '87654321' },
   ];
 };
 
-export default function LoginData() {
+export default function Login() {
   const { handleSubmit, control, formState: { errors }, reset } = useForm({
     resolver: yupResolver(schema),
   });
-
+  
+  const { login } = useAuth();  // Hook para gerenciar login via contexto
+  const navigate = useNavigate();
   const [formCardHeight, setFormCardHeight] = useState('auto');
   const formCardRef = useRef(null);
 
-  const navigate = useNavigate();
-
+  // Atualiza a altura do card do formulário para ser igual ao card de apresentação
   useEffect(() => {
     if (formCardRef.current) {
       const current = formCardRef.current as HTMLElement;
@@ -41,23 +41,15 @@ export default function LoginData() {
     }
   }, [formCardRef]);
 
-  type FormData = {
-    email: string;
-    password: string;
-  };
-
-  const onSubmit: SubmitHandler<FormData> = async (data) => {
+  const onSubmit: SubmitHandler<{ email: string; password: string }> = async (data) => {
     try {
       const users = await fetchUserData();
       const user = users.find(user => user.email === data.email && user.password === data.password);
 
       if (user) {
-        Swal.fire({
-          icon: 'success',
-          title: 'Sucesso!',
-          text: 'Login realizado com sucesso.',
-        }).then(() => {
-          navigate('/dashboard', { state: { email: data.email, password: data.password } });
+        login(data.email, data.password);  // Armazena no contexto
+        Swal.fire('Sucesso!', 'Login realizado com sucesso.', 'success').then(() => {
+          navigate('/dashboard');  // Redireciona para o dashboard após o login
         });
       } else {
         Swal.fire({
@@ -65,28 +57,22 @@ export default function LoginData() {
           title: 'Falha no Login',
           text: 'E-mail ou senha incorretos.',
           footer: `
-            <a id: 1; className:op1; href="/Cadastro" onclick="event.preventDefault(); window.location.href='/Cadastro';" style="text-decoration: none; color: #eb832e;">Clique aqui para se cadastrar</a>
+            <a class="Clique-aqui" href="/Cadastro" onclick="event.preventDefault(); window.location.href='/Cadastro';" style="text-decoration: none; color: #eb832e;">Clique aqui para se cadastrar</a>
             <br />
-            <a className:op2; href="#" onclick="event.preventDefault(); window.location.reload();" style="text-decoration: none; color: #eb832e; margin-left: 15px;">Tentar novamente</a>
-          `
+            <a class="Tente-novamente" href="#" onclick="event.preventDefault(); window.location.reload();" style="text-decoration: none; color: #eb832e; margin-left: 25px;">Tentar novamente</a>
+          `,
         });
       }
-    } 
-    
-    catch (error) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Erro',
-        text: 'Houve um problema ao tentar fazer login. Por favor, tente novamente.',
-      });
+    } catch (error) {
+      Swal.fire('Erro', 'Houve um problema ao tentar fazer login. Por favor, tente novamente.', 'error');
     }
 
     reset();
   };
 
   return (
-    <Box sx={{  display: 'flex', justifyContent: 'center', mt: 5 }}>
-
+    <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5 }}>
+      
       {/* Card de apresentação */}
       <Box sx={{ width: 700, height: formCardHeight, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
         <Card sx={{ mr: -5, padding: 4, backgroundColor: '#eb832e', color: 'white', height: '100%' }}>
@@ -105,7 +91,7 @@ export default function LoginData() {
       {/* Formulário de Login */}
       <Box sx={{ width: 500 }}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Card sx={{ padding: 4, mb: 4 }}>
+          <Card sx={{ padding: 4, mb: 4 }} ref={formCardRef}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <Controller
