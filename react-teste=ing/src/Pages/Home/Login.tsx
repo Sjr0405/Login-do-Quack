@@ -65,13 +65,15 @@ export default function LoginData() {
           title: 'Falha no Login',
           text: 'E-mail ou senha incorretos.',
           footer: `
-            <a href="/Cadastro" onclick="event.preventDefault(); window.location.href='/Cadastro';" style="text-decoration: none; color: #eb832e;">Clique aqui para se cadastrar</a>
+            <a id: 1; className:op1; href="/Cadastro" onclick="event.preventDefault(); window.location.href='/Cadastro';" style="text-decoration: none; color: #eb832e;">Clique aqui para se cadastrar</a>
             <br />
-            <a href="#" onclick="event.preventDefault(); window.location.reload();" style="text-decoration: none; color: #eb832e; margin-left: 15px;">Tentar novamente</a>
+            <a className:op2; href="#" onclick="event.preventDefault(); window.location.reload();" style="text-decoration: none; color: #eb832e; margin-left: 15px;">Tentar novamente</a>
           `
         });
       }
-    } catch (error) {
+    } 
+    
+    catch (error) {
       Swal.fire({
         icon: 'error',
         title: 'Erro',
@@ -83,7 +85,7 @@ export default function LoginData() {
   };
 
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5 }}>
+    <Box sx={{  display: 'flex', justifyContent: 'center', mt: 5 }}>
 
       {/* Card de apresentação */}
       <Box sx={{ width: 700, height: formCardHeight, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>

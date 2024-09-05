@@ -119,5 +119,18 @@ form {
   background-color: #eb832e;
 }
 
+/* Estilo para o título */
+.swal2-title {
+  font-family: "Lilita One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Estilo para o texto (conteúdo) */
+.swal2-content {
+  font-family: "Lilita One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
 
 
