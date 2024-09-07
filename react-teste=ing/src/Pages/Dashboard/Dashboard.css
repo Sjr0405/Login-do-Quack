@@ -101,16 +101,6 @@
   color: #e66e0d;
 }
 
-btn-edit{
-  background-color: #19d300;
-  color: aliceblue
-}
-
-btn-delete{
-  background-color: #ff4130;
-  color: aliceblue
-}
-
 .swal2-title{
   font-family: "Lilita One", sans-serif;
   font-weight: 400;
@@ -139,5 +129,33 @@ btn-delete{
   font-family: "Lilita One", sans-serif;
   font-weight: 400;
   font-style: normal;
+}
+
+
+p-dados{
+  font-family: "Lilita One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Dashboard.css */
+.card-color-1 {
+  background-color: #c0c0c0; /* Cor 1 */
+  color: rgb(0, 0, 0);
+}
+
+.card-color-2 {
+  background-color: #c0c0c0; /* Cor 1 */
+  color: rgb(0, 0, 0);
+}
+
+.card-color-3 {
+  background-color: #c0c0c0; /* Cor 1 */
+  color: rgb(0, 0, 0);
+}
+
+.card-color-4 {
+  background-color: #c0c0c0; /* Cor 1 */
+  color: rgb(0, 0, 0);
 }
 

@@ -89,7 +89,7 @@ export default function CadastroData() {
     <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5 }}>
 
       {/* Card de apresentação */}
-      <Box sx={{ width: 700, mr: -20  , height: `${parseInt(formCardHeight) * 0.9}px` , display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+      <Box sx={{ width: 700, mr: -20  , height: formCardHeight , display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
         <Card sx={{ padding: 4, backgroundColor: '#eb832e', color: 'white', height: '100%' }}>
           <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 ,  mt: 30 }}>
             {/* Lugar para a logo */}
@@ -103,7 +103,7 @@ export default function CadastroData() {
           <Typography className='subtitle' variant="body1" align="center" >
             Complete o Cadastro ao lado para começar.
             </Typography>
-          <Typography variant="body1" align="center" >
+          <Typography className='subtitle' variant="body1" align="center" >
           sua jornada de programacão
             </Typography>
         </Card>
@@ -139,7 +139,7 @@ export default function CadastroData() {
                   control={control}
                   render={({ field }) => (
                     <InputMask mask="(99) 99999-9999" value={field.value} onChange={field.onChange}>
-                      {(inputProps) => (
+                      {(inputProps) =>  (
                         <TextField
                           {...inputProps}
                           label="Telefone"

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Button, Card, Typography, Box, Grid, TextField, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import Swal from 'sweetalert2';
 import { useAuth } from '../../AuthContext';
+import { useNavigate } from 'react-router-dom'; // Importa useNavigate
+import './Dashboard.css'; // Certifique-se de importar o CSS
 
 interface User {
   email: string;
@@ -11,6 +13,7 @@ interface User {
 }
 
 const Dashboard: React.FC = () => {
+  const navigate = useNavigate(); // Inicializa o useNavigate
   const { user } = useAuth();
   const [dataList, setDataList] = useState<User[]>([]);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
@@ -74,51 +77,75 @@ const Dashboard: React.FC = () => {
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5 }}>
       <Box sx={{ flexGrow: 1 }}>
-        <Card sx={{ padding: 4, mt: 5 }}>
-          <Typography variant="h6">
+        <Card sx={{ padding: 4, mt: 5 , backgroundColor: "#e0e0e0"}}>
+          <Typography variant="h6" className='dados'>
             {isAdmin ? 'Todos os Usuários Registrados' : 'Seus Dados'}
           </Typography>
+
+          {/* Adiciona um botão para voltar à página inicial */}
+          <Button
+            variant="contained"
+            color="black"
+            onClick={() => navigate('/')} // Navega para a página inicial
+            sx={{ mb: 2, display: 'flex', alignItems: 'center' }}
+            startIcon={<img src="https://img.icons8.com/ios/50/000000/left.png" height={20} width={20} />} // Adiciona um ícone de seta
+          >
+            Voltar
+          </Button>
+
           {dataList.map((data, index) => (
-            <Box key={index} sx={{ mb: 2 }}>
-              <Typography> class:"dados" Nome: {data.name}</Typography>
-              <Typography> class:"dados" Email: {data.email}</Typography>
-              <Typography> class:"dados" CPF: {data.cpf}</Typography>
-              <Typography> class:"dados" Telefone: {data.phone}</Typography>
+            <Box key={index} sx={{ mb: 2, padding: 2, borderRadius: 1 }}>
+              <Card sx={{ padding: 2, backgroundColor: '#b9b9b9', marginBottom: 2}}>
+                <Card sx={{ padding: 2, backgroundColor: '#e0e0e0', marginLeft: 32, width:350}}>
+                  <Typography className='dados'> Nome: {data.name}</Typography>
+                  <Typography className='dados'> Email: {data.email}</Typography>
+                  <Typography className='dados'> CPF: {data.cpf}</Typography>
+                  <Typography className='dados'> Telefone: {data.phone}</Typography>
+                </Card>
+              </Card>
 
               {isAdmin && (
                 <Box sx={{ mt: 1 }}>
-                  <Button
-                    className="Editar"
-                    variant="outlined"
-                    color="success"
-                    onClick={() => handleEdit(index)}
-                    sx={{ mr: 1 }}
-                    startIcon={<img src="https://img.icons8.com/ios/50/000000/edit.png" height={15} width={15} />}
-                  >
-                    Editar
-                  </Button>
-                  <Button
-                    className="Deletar"
-                    variant="outlined"
-                    color="error"
-                    onClick={() => handleDelete(index)}
-                    sx={{ mr: 1 }}
-                    startIcon={<img src="https://img.icons8.com/ios/50/000000/trash.png" height={15} width={15}/>}
-                  >
-                    Delete
-                  </Button>
-                </Box>
+                <Button
+                  className="Editar"
+                  variant="outlined"
+                  onClick={() => handleEdit(index)}
+                  color='success'
+                  sx={{
+                    mr: 1,
+                    fontFamily: 'Arial, sans-serif',
+                    fontWeight: 'bold' 
+                  }}
+                  startIcon={<img src="https://img.icons8.com/ios/50/000000/edit.png" height={15} width={15} />}
+                >
+                  Editar
+                </Button>
+                <Button
+                  className="Deletar"
+                  variant="outlined"
+                  onClick={() => handleDelete(index)}
+                  color='error'
+                  sx={{
+                    mr: 1,
+                    fontFamily: '"Poppins", sans-serif',
+                    fontWeight: 'bold', 
+                  }}
+                  startIcon={<img src="https://img.icons8.com/ios/50/000000/trash.png" height={15} width={15}/>}
+                >
+                  Delete
+                </Button>
+              </Box>
               )}
             </Box>
           ))}
         </Card>
       </Box>
 
-      <Dialog open={editDialogOpen} onClose={() => setEditDialogOpen(false)}>
-        <DialogTitle>Editar Usuário</DialogTitle>
+      <Dialog className='cardado' open={editDialogOpen} onClose={() => setEditDialogOpen(false)}>
+        <DialogTitle >Editar Usuário</DialogTitle>
         <DialogContent>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
+          <Grid container spacing={2} >
+            <Grid mt={2} item xs={12}>
               <TextField
                 label="Nome"
                 fullWidth
@@ -153,10 +180,10 @@ const Dashboard: React.FC = () => {
           </Grid>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setEditDialogOpen(false)} color="primary">
+          <Button className='cancelar' variant="outlined" onClick={() => setEditDialogOpen(false)} color='error'>
             Cancelar
           </Button>
-          <Button onClick={handleSaveEdit} color="primary">
+          <Button className='salvar' variant="outlined" onClick={handleSaveEdit} color='success' >
             Salvar
           </Button>
         </DialogActions>
