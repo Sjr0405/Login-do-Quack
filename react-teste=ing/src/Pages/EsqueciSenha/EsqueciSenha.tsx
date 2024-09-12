@@ -33,18 +33,23 @@ export default function EsqueciSenhaData() {
     console.log(data);
     Swal.fire({
       icon: 'success',
-      title: 'Email Enviado!',
-      text: 'Um link de redefinição de senha foi enviado para o seu email.',
+      title: 'Sucesso!',
+      text: 'Login realizado com sucesso.',
+    }).then(() => {
+      // Use o hook useNavigate para redirecionar
+      navigate('/');
     });
+    
     reset();
   };
+  
 
   const navigate = useNavigate();
 
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5 }}>
-      <Box sx={{ width: 400 , backgroundColor: '#eb832e'}}>
-        <Card sx={{ padding: 4 }}>
+      <Box sx={{ width: 400 }}>
+        <Card sx={{ padding: 4 , backgroundColor: '#eb832e'}}>
           <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
             {/* Lugar para a logo */}
             <img src="src/assets/Quack-logo.svg" alt="Logo" style={{ width: '100px' }} />

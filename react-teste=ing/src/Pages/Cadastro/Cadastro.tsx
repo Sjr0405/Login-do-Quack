@@ -64,9 +64,14 @@ export default function CadastroData() {
       icon: 'success',
       title: 'Sucesso!',
       text: 'Login realizado com sucesso.',
+    }).then(() => {
+      // Use o hook useNavigate para redirecionar
+      navigate('/');
     });
+    
     reset();
   };
+  
 
   const handleDelete = (index: number) => {
     const newDataList = dataList.filter((_, i) => i !== index);
@@ -91,14 +96,14 @@ export default function CadastroData() {
             <img src="src/assets/Quack-logo.svg" alt="Logo" style={{ width: '100px' }} />
           </Box>
           {/* Texto */}
-          <Typography variant="h5" align="center" gutterBottom>
+          <Typography className='title' variant="h5" align="center" gutterBottom>
             Bem-vindo ao Quack()
           </Typography>
           {/* Subtexto */}
-          <Typography variant="body1" align="center" >
+          <Typography className='subtitle' variant="body1" align="center" >
             Complete o Cadastro ao lado para começar.
             </Typography>
-          <Typography variant="body1" align="center" >
+          <Typography className='subtitle' variant="body1" align="center" >
           sua jornada de programacão
             </Typography>
         </Card>
@@ -134,7 +139,7 @@ export default function CadastroData() {
                   control={control}
                   render={({ field }) => (
                     <InputMask mask="(99) 99999-9999" value={field.value} onChange={field.onChange}>
-                      {(inputProps) => (
+                      {(inputProps) =>  (
                         <TextField
                           {...inputProps}
                           label="Telefone"
