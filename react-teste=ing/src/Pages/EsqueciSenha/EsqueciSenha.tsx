@@ -37,12 +37,11 @@ export default function EsqueciSenhaData() {
       text: 'Login realizado com sucesso.',
     }).then(() => {
       // Use o hook useNavigate para redirecionar
-      navigate('/');
+      navigate('/Login');
     });
     
     reset();
   };
-  
 
   const navigate = useNavigate();
 
@@ -52,7 +51,7 @@ export default function EsqueciSenhaData() {
         <Card sx={{ padding: 4 , backgroundColor: '#eb832e'}}>
           <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
             {/* Lugar para a logo */}
-            <img src="src/assets/Quack-logo.svg" alt="Logo" style={{ width: '100px' }} />
+            <img src="src/assets/LogoReverse.svg" alt="Logo" style={{ width: '100px' }} />
           </Box>
           <Typography variant="h5" align="center" gutterBottom>
             Esqueci Minha Senha
@@ -80,12 +79,20 @@ export default function EsqueciSenhaData() {
                 />
               </Grid>
 
-              {/* Botão de Enviar */}
+              {/* Bot o de Enviar */}
               <Grid item xs={12}>
-                <Button type="submit" variant="contained" color="primary" fullWidth>
+                <Button sx={{ mt: 2 ,  color: 'ffffff', backgroundColor: '#eb832e', '&:hover': { backgroundColor: '#eb832e' } }}
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  fullWidth
+                  onClick={handleSubmit(onSubmit)}
+                >
                   Enviar Link
                 </Button>
               </Grid>
+
+              
 
               {/* Link para voltar ao Login */}
               <Grid item xs={12}>
@@ -95,7 +102,7 @@ export default function EsqueciSenhaData() {
                     href="/react-teste=ing/src/Login.tsx"
                     onClick={(e) => {
                       e.preventDefault();
-                      navigate('/'); // Use the navigate function from useNavigate
+                      navigate('/Login'); // Use the navigate function from useNavigate
                     }}
                     style={{ color: '#eb832e', textDecoration: 'none', marginLeft: '8px' }}
                   >

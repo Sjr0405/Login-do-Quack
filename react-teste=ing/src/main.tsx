@@ -1,4 +1,3 @@
-// react-teste=ing\src\main.tsx
 import { createRoot } from 'react-dom/client'
 import { MainRoutes } from './Routes';
 import { BrowserRouter } from 'react-router-dom';

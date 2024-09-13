@@ -63,7 +63,8 @@ export default function Login() {
           `,
         });
       }
-    } catch (error) {
+    } catch (error){
+      console.error(error);
       Swal.fire('Erro', 'Houve um problema ao tentar fazer login. Por favor, tente novamente.', 'error');
     }
 
@@ -71,13 +72,13 @@ export default function Login() {
   };
 
   return (
-    <Box sx={{  display: 'flex', justifyContent: 'center', mt: 5 }}>
+    <Box sx={{  display: 'flex', justifyContent: 'center', mt: 5 , alignItems: 'center'}}>
 
       {/* Card de apresentação */}
-      <Box sx={{ width: 600, height: `${parseInt(formCardHeight) * 1.27}px` , display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-        <Card sx={{ mr: -5, padding: 4, backgroundColor: '#eb832e', color: 'white', height: '100%' }}>
-          <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3, mt: 10 }}>
-            <img src="src/assets/Quack-logo.svg" alt="Logo" style={{ width: '80px' }} />
+      <Box sx={{ width: 600, height:formCardHeight, display: 'flex', alignItems: 'center', flexDirection: 'column', justifyContent: 'center' }}>
+        <Card sx={{ mr: -5, padding: 4, backgroundColor: '#eb832e', color: 'white', height: '100%', width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+          <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
+            <img src="src/assets/LogoReverse.svg" alt="Logo" style={{ width: '80px' }} />
           </Box>
           <Typography variant="h5" align="center" gutterBottom>
             Bem-vindo ao Quack()
@@ -89,9 +90,9 @@ export default function Login() {
       </Box>
 
       {/* Formulário de Login */}
-      <Box sx={{ width: 500 }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', backgroundColor: '#f8f8f8', }} ref={formCardRef}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Card sx={{ padding: 4, mb: 4 }} ref={formCardRef}>
+          <Card sx={{ padding: 4, mb: 4 }} >
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <Controller
@@ -127,7 +128,7 @@ export default function Login() {
               </Grid>
 
               <Grid item xs={12}>
-                <Button type="submit" variant="contained" color="primary" fullWidth>
+                <Button sx ={{ color: '#ffffff', backgroundColor: '#eb832e'}} type="submit" variant="contained" fullWidth>
                   Entrar
                 </Button>
               </Grid>

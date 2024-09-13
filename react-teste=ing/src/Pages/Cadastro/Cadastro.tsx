@@ -86,14 +86,14 @@ export default function CadastroData() {
   const navigate = useNavigate();
 
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5 }}>
+    <Box sx={{ width: '100%',display: 'flex', justifyContent: 'center', alignContent: 'center' , backgroundColor: 'transparent', mt: 10, }}>
 
       {/* Card de apresentação */}
-      <Box sx={{ width: 700, mr: -20  , height: formCardHeight , display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-        <Card sx={{ padding: 4, backgroundColor: '#eb832e', color: 'white', height: '100%' }}>
-          <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 ,  mt: 30 }}>
+      <Box sx={{ width: 700, height: formCardHeight , display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+        <Card sx={{ backgroundColor: '#eb832e', color: 'white', height: '100%', width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center'  }}>
+          <Box sx={{ display: 'flex', justifyContent: 'center', alignContent: 'center'}}>
             {/* Lugar para a logo */}
-            <img src="src/assets/Quack-logo.svg" alt="Logo" style={{ width: '100px' }} />
+            <img className='logo' src="src/assets/LogoReverse.svg" alt="Logo" style={{ width: '100px' }} />
           </Box>
           {/* Texto */}
           <Typography className='title' variant="h5" align="center" gutterBottom>
@@ -110,7 +110,7 @@ export default function CadastroData() {
       </Box>
 
       {/* Formulário */}
-      <Box sx={{ flexGrow: 2 }}>
+      <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center', backgroundColor: '#f8f8f8', }}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Card sx={{ padding: 4, mb: 4 }}>
             <Grid container spacing={2}>
@@ -246,7 +246,7 @@ export default function CadastroData() {
 
               {/* Botão de Enviar */}
               <Grid item xs={12}>
-                <Button type="submit" variant="contained" color="primary" fullWidth>
+                <Button sx={{ backgroundColor : '#eb832e'}}  type="submit" variant="contained"  fullWidth>
                   Enviar
                 </Button>
               </Grid>
@@ -259,7 +259,7 @@ export default function CadastroData() {
                     href="/react-teste=ing/src/Login.tsx"
                     onClick={(e) => {
                       e.preventDefault();
-                      navigate('/'); // Use the navigate function from useNavigate
+                      navigate('/Login'); // Use the navigate function from useNavigate
                     }}
                     style={{ color: '#eb832e', textDecoration: 'none', marginLeft: '8px' }}
                   >
@@ -268,10 +268,10 @@ export default function CadastroData() {
                 </Typography>
               </Grid>
 
-              {/* Link de-esqueci minha senha */}
+              {/* Link de esqueci minha senha */}
               <Grid item xs={12}>
                 <Typography variant="body1" align="center">
-                  Lembrou a senha?{' '}
+                  {' '}
                   <a
                     href="/react-teste=ing/src/Login.tsx"
                     onClick={(e) => {
@@ -280,7 +280,7 @@ export default function CadastroData() {
                     }}
                     style={{ color: '#eb832e', textDecoration: 'none', marginLeft: '8px' }}
                   >
-                    Clique aqui para Esqueci a Senha
+                    Esqueceu a senha?
                   </a>
                 </Typography>
               </Grid>

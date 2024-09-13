@@ -85,50 +85,62 @@ const Dashboard: React.FC = () => {
           {/* Adiciona um botão para voltar à página inicial */}
           <Button
             variant="contained"
-            color="black"
-            onClick={() => navigate('/')} // Navega para a página inicial
-            sx={{ mb: 2, display: 'flex', alignItems: 'center' }}
+          
+            onClick={() => navigate('/Login')} // Navega para a página inicial
+            sx={{ mb: 2, display: 'flex', alignItems: 'center', color: 'black', backgroundColor: '#eb832e', '&:hover': { backgroundColor: '#eb832e' } }}
             startIcon={<img src="https://img.icons8.com/ios/50/000000/left.png" height={20} width={20} />} // Adiciona um ícone de seta
           >
             Voltar
           </Button>
 
           {dataList.map((data, index) => (
-            <Box key={index} sx={{ mb: 2, padding: 2, borderRadius: 1 }}>
-              <Card sx={{ padding: 2, backgroundColor: '#b9b9b9', marginBottom: 2}}>
-                <Card sx={{ padding: 2, backgroundColor: '#e0e0e0', marginLeft: 32, width:350}}>
+            <Box key={index} sx={{mb: 2, padding: 2 , display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 1 }}>
+              <Card sx={{ width: 500 , padding: 2, backgroundColor: '#b9b9b9', alignItems: 'center', justifyContent: 'center', marginBottom: 2}}>
+                <Card sx={{ ml : 8,padding: 2, backgroundColor: '#e0e0e0', alignItems: 'center', justifyContent: 'center', width:350}}>
                   <Typography className='dados'> Nome: {data.name}</Typography>
                   <Typography className='dados'> Email: {data.email}</Typography>
                   <Typography className='dados'> CPF: {data.cpf}</Typography>
                   <Typography className='dados'> Telefone: {data.phone}</Typography>
                 </Card>
-              </Card>
-
-              {isAdmin && (
+                {isAdmin && (
                 <Box sx={{ mt: 1 }}>
                 <Button
-                  className="Editar"
                   variant="outlined"
+                  color="success"
                   onClick={() => handleEdit(index)}
-                  color='success'
                   sx={{
+                    class: "Editar",
+                    color: "#004921",
+                    backgroundColor: "#eb832e",
                     mr: 1,
-                    fontFamily: 'Arial, sans-serif',
-                    fontWeight: 'bold' 
+                    fontFamily: "Montserrat, sans-serif",
+                    fontWeight: "bold",
+                    transform: 'trasition: all 0.3s ease',
+                    "&:hover": {
+                      color: "#002b13",
+                      backgroundColor: "#eb832e",
+                    },
                   }}
                   startIcon={<img src="https://img.icons8.com/ios/50/000000/edit.png" height={15} width={15} />}
                 >
                   Editar
                 </Button>
                 <Button
-                  className="Deletar"
+                  color='error'
                   variant="outlined"
                   onClick={() => handleDelete(index)}
-                  color='error'
                   sx={{
+                    class:"Deletar",
+                    color: '#860b00',
+                    backgroundColor: '#eb832e',
                     mr: 1,
-                    fontFamily: '"Poppins", sans-serif',
-                    fontWeight: 'bold', 
+                    fontFamily: 'Montserrat, sans-serif',
+                    fontWeight: 'bold',
+                    transform: 'trasition: all 0.3s ease',
+                    "&:hover": {
+                      color: "#460600",
+                      backgroundColor: "#eb832e",
+                    }, 
                   }}
                   startIcon={<img src="https://img.icons8.com/ios/50/000000/trash.png" height={15} width={15}/>}
                 >
@@ -136,6 +148,9 @@ const Dashboard: React.FC = () => {
                 </Button>
               </Box>
               )}
+              </Card>
+
+              
             </Box>
           ))}
         </Card>
@@ -180,10 +195,28 @@ const Dashboard: React.FC = () => {
           </Grid>
         </DialogContent>
         <DialogActions>
-          <Button className='cancelar' variant="outlined" onClick={() => setEditDialogOpen(false)} color='error'>
+          <Button sx={{ color: '#860b00',
+                backgroundColor: '#eb832e' ,
+                fontFamily: 'Montserrat, sans-serif',
+                transform: 'trasition: all 0.3s ease',
+                "&:hover": {
+                  color: "#460600",
+                  backgroundColor: "#eb832e",}, }} 
+                variant="outlined" 
+                onClick={() => setEditDialogOpen(false)} 
+                color='error'>
             Cancelar
           </Button>
-          <Button className='salvar' variant="outlined" onClick={handleSaveEdit} color='success' >
+          <Button sx={{ color: '#004921',
+                backgroundColor: '#eb832e' ,
+                fontFamily: 'Montserrat, sans-serif',
+                transform: 'trasition: all 0.3s ease',
+                "&:hover": {
+                  color: "#002b13",
+                  backgroundColor: "#eb832e",}, }} 
+                variant="outlined" 
+                onClick={handleSaveEdit} 
+                color='success' >
             Salvar
           </Button>
         </DialogActions>
