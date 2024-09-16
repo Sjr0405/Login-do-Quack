@@ -15,7 +15,7 @@ import Home from "./Pages/Home/home/Home.tsx"
 import About from "./Pages/Home/home/About.tsx"
 import Roadmap from "./Pages/Home/home/Roadmap.tsx"
 import Showcase from "./Pages/Home/home/Showcase.tsx"
-import Team from "./Pages/Home/home/Team.tsx"
+// import Team from "./Pages/Home/home/Team.tsx"
 import Faq from "./Pages/Home/home/Faq.tsx"
 import Footer from "./Pages/Home/Footer.tsx"
 //Landpage imports// 
@@ -34,7 +34,7 @@ function MainRoutes() {
           <About /> 
           <Roadmap /> 
           <Showcase /> 
-          <Team /> 
+          {/* <Team />  */}
           <Faq /> 
           <Footer /> 
           </div>} />

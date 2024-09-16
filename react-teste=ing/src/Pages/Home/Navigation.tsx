@@ -1,13 +1,16 @@
-import styled from 'styled-components'
-import { Link } from 'react-router-dom'
-import "./HomeStyle.css"
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 // Ajustando a seção para cobrir a largura da tela
 const Section = styled.section`
   width: 100%;
-  background-color: ${props => props.theme.body};
+  background-color: ${(props) => props.theme.body};
   padding: 10px 20px;
-  position: relative; /* Removi o z-index negativo */
+  position: relative;
+
+  @media (max-width: 768px) {
+    padding: 10px 10px;
+  }
 `;
 
 // Estilizando a barra de navegação
@@ -15,29 +18,47 @@ const NavBar = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: transparent; /* Navbar transparente */
-  height: 70px;
+  background-color: transparent;
+  height: 80px;
   padding: 0 20px;
-  position: relative; /* Para garantir que o z-index funcione */
-  z-index: 2; /* Garante que o conteúdo da navbar fique acima dos SVGs */
+  position: relative;
+  z-index: 2;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    height: auto;
+  }
 `;
 
 // Logo do lado esquerdo
 const Logo = styled.div`
   display: flex;
   align-items: center;
-  padding-left: 70px;
-  z-index: 2; /* Garante que o logo e os links fiquem acima dos SVGs */
+  padding-left: 50px;
+  z-index: 2;
 
   img {
-    height: 50px;
-    margin-right: 10px;
+    height: 60px;
+    margin-right: 15px;
   }
 
   span {
-    font-size: 24px;
+    font-size: 28px;
     font-weight: bold;
-    color: #FF914D; /* Cor da marca */
+    color: #FF914D;
+  }
+
+  @media (max-width: 768px) {
+    padding-left: 0;
+    margin-bottom: 10px;
+
+    img {
+      height: 50px;
+    }
+
+    span {
+      font-size: 24px;
+    }
   }
 `;
 
@@ -49,49 +70,65 @@ const Menu = styled.ul`
   padding: 0;
   justify-content: space-between;
   align-items: center;
-  z-index: 2; /* Garante que o menu fique acima dos SVGs */
+  z-index: 2;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    width: 100%;
+  }
 `;
 
 // Estilizando os itens da navbar
 const NavItem = styled.li`
   color: #fff;
-  margin: 0 2rem;
+  margin: 0 1.5rem;
+  font-size: 16px;
   cursor: pointer;
-  z-index: 2; /* Garante que os links fiquem acima dos SVGs */
+  z-index: 2;
+  text-transform: uppercase;
 
   &:after {
     text-decoration: none;
-    content: "";
-    color: ${props => props.theme.text};
-    display: block; 
+    content: '';
+    display: block;
     width: 0%;
     height: 2px;
-    background-color: ${props => props.theme.text};
+    background-color: ${(props) => props.theme.text};
     transition: width 0.4s ease;
   }
 
   &:hover::after {
     width: 100%;
   }
+
+  @media (max-width: 768px) {
+    margin: 10px 0;
+    font-size: 14px;
+  }
 `;
 
 // Estilizando o botão de "Entrar"
 const Button = styled.button`
-  color: #333; /* Cor preta para o botão */
-  background-color: white;
+  color: #fff;
+  background-color: #FF914D;
   font-size: 14px;
   padding: 12px 30px;
   margin-left: 20px;
   border-radius: 20px;
-  border: 1px solid #333;
+  border: none;
   cursor: pointer;
   font-weight: bold;
-  transition: background-color 0.3s, color 0.3s;
-  z-index: 2; /* Garante que o botão fique acima dos SVGs */
+  transition: background-color 0.3s;
+  z-index: 2;
 
   &:hover {
-    background-color: #333;
-    color: white;
+    background-color: #e57e35;
+  }
+
+  @media (max-width: 768px) {
+    padding: 10px 20px;
+    font-size: 13px;
+    margin-left: 0;
   }
 `;
 
@@ -101,7 +138,7 @@ const Vector = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: auto;
   z-index: 1; /* SVGs ficam abaixo da navbar */
 
   img {
@@ -112,70 +149,67 @@ const Vector = styled.div`
   /* Posicionando os SVGs individualmente */
   .svg1 {
     top: 0%;
-    left: 18%;
+    left: 17%;
   }
 
   .svg2 {
     top: 0%;
-    left: 25%;
+    left: 24.2%;
   }
 
   .svg3 {
     top: 0%;
-    left: 25%;
+    left: 41.6%;
   }
 
   .svg4 {
     top: 0%;
-    left: 43%;
+    left: 24.1%;
   }
 `;
 
-// Componente de navegação
 const Navigation = () => {
   return (
     <Section>
       <NavBar>
         <Logo>
-          <Link to={"/Navigation"}>
-            <img  src="/src/assets/Logo.svg" alt="Logo Quack()" />
+          <Link to="/Navigation">
+            <img src="/src/assets/Logo.svg" alt="Logo Quack()" />
           </Link>
-          <Link to={"/Navigation"}>
+          <Link to="/Navigation">
             <span>Quack()</span>
           </Link>
         </Logo>
         <Menu>
-          {/* Links de navegação */}
           <NavItem>
-            <Link to="/Home">O QUE É QUACK()</Link>
+            <Link to="/Home">O que é Quack()</Link>
           </NavItem>
           <NavItem>
-            <Link to="/Roadmap">TRILHAS</Link>
+            <Link to="/Roadmap">Trilhas</Link>
           </NavItem>
           <NavItem>
-            <Link to="/About">SOBRE</Link>
+            <Link to="/About">Sobre</Link>
           </NavItem>
           <NavItem>
-            <Link to="/Faq">CONTATO</Link>
+            <Link to="/Faq">Contato</Link>
           </NavItem>
           <NavItem>
-            <Link to="/Cadastro">CRIAR CONTA GRATUITA</Link>
+            <Link to="/Cadastro">Criar Conta</Link>
           </NavItem>
-          {/* Botão "Entrar" */}
           <Link to="/Login">
-            <Button type="button">ENTRAR</Button>
+            <Button>Entrar</Button>
           </Link>
         </Menu>
       </NavBar>
-      {/* Vetores SVG */}
       <Vector>
         <img className="svg1" src="/src/svgs/4.svg" alt="SVG 1" />
         <img className="svg2" src="/src/svgs/2.svg" alt="SVG 2" />
-        <img className="svg3" src="/src/svgs/1.svg" alt="SVG 3" />
-        <img className="svg4" src="/src/svgs/3.svg" alt="SVG 4" />
+        <img className="svg4" src="/src/svgs/1.svg" alt="SVG 4" />
+        <img className="svg3" src="/src/svgs/3.svg" alt="SVG 3" />
+        
       </Vector>
     </Section>
   );
-}
+};
 
 export default Navigation;
