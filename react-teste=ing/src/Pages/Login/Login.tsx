@@ -6,9 +6,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../AuthContext';  // Contexto de autenticação
+import styled from 'styled-components';
 import './Login.css';
 
-// Esquema de validação
+// Validação com Yup
 const schema = yup.object().shape({
   email: yup.string().email("Email inválido").required("Email é obrigatório"),
   password: yup.string().min(8, "A senha deve ter no mínimo 8 caracteres").required("Senha é obrigatória"),
@@ -23,21 +24,63 @@ const fetchUserData = async () => {
   ];
 };
 
+// Estilos com styled-components
+const LoginContainer = styled(Box)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+`;
+
+const PresentationCard = styled(Card)`
+  padding: 32px;
+  background-color: #eb832e;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+`;
+
+const FormCard = styled(Card)`
+  padding: 32px;
+  background-color: #f8f8f8;
+  margin-left: 16px;
+`;
+
+const StyledButton = styled(Button)`
+  color: white;
+  background-color: #eb832e;
+  &:hover {
+    background-color: #d8732a;
+  }
+`;
+
+const LoginLink = styled.a`
+  color: #eb832e;
+  text-decoration: none;
+  margin-left: 8px;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
 export default function Login() {
   const { handleSubmit, control, formState: { errors }, reset } = useForm({
     resolver: yupResolver(schema),
   });
-  
+
   const { login } = useAuth();  // Hook para gerenciar login via contexto
   const navigate = useNavigate();
+  const formCardRef = useRef<HTMLDivElement>(null);
   const [formCardHeight, setFormCardHeight] = useState('auto');
-  const formCardRef = useRef(null);
 
-  // Atualiza a altura do card do formulário para ser igual ao card de apresentação
+  // Sincroniza a altura dos cards de apresentação e do formulário
   useEffect(() => {
     if (formCardRef.current) {
-      const current = formCardRef.current as HTMLElement;
-      setFormCardHeight(`${current.offsetHeight}px`);
+      setFormCardHeight(`${formCardRef.current.offsetHeight}px`);
     }
   }, [formCardRef]);
 
@@ -57,42 +100,40 @@ export default function Login() {
           title: 'Falha no Login',
           text: 'E-mail ou senha incorretos.',
           footer: `
-            <a class="Clique-aqui" href="/Cadastro" onclick="event.preventDefault(); window.location.href='/Cadastro';" style="text-decoration: none; color: #eb832e;">Clique aqui para se cadastrar</a>
+            <a class="Clique-aqui" href="/Cadastro" style="text-decoration: none; color: #eb832e;">Clique aqui para se cadastrar</a>
             <br />
-            <a class="Tente-novamente" href="#" onclick="event.preventDefault(); window.location.reload();" style="text-decoration: none; color: #eb832e; margin-left: 25px;">Tentar novamente</a>
+            <a class="Tente-novamente" href="#" style="text-decoration: none; color: #eb832e; margin-left: 25px;">Tentar novamente</a>
           `,
         });
       }
-    } catch (error){
+    } catch (error) {
       console.error(error);
       Swal.fire('Erro', 'Houve um problema ao tentar fazer login. Por favor, tente novamente.', 'error');
     }
-
     reset();
   };
 
   return (
-    <Box sx={{  display: 'flex', justifyContent: 'center', mt: 5 , alignItems: 'center'}}>
-
+    <LoginContainer>
       {/* Card de apresentação */}
-      <Box sx={{ width: 600, height:formCardHeight, display: 'flex', alignItems: 'center', flexDirection: 'column', justifyContent: 'center' }}>
-        <Card sx={{ mr: -5, padding: 4, backgroundColor: '#eb832e', color: 'white', height: '100%', width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+      <Box sx={{ width: 600, height: formCardHeight }}>
+        <PresentationCard>
           <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
             <img src="src/assets/LogoReverse.svg" alt="Logo" style={{ width: '80px' }} />
           </Box>
-          <Typography variant="h5" align="center" gutterBottom>
+          <Typography variant="h5" gutterBottom>
             Bem-vindo ao Quack()
           </Typography>
-          <Typography variant="body1" align="center">
+          <Typography variant="body1">
             Faça login para continuar.
           </Typography>
-        </Card>
+        </PresentationCard>
       </Box>
 
       {/* Formulário de Login */}
-      <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', backgroundColor: '#f8f8f8', }} ref={formCardRef}>
+      <Box sx={{ width: 400 }} ref={formCardRef}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Card sx={{ padding: 4, mb: 4 }} >
+          <FormCard>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <Controller
@@ -109,7 +150,6 @@ export default function Login() {
                   )}
                 />
               </Grid>
-
               <Grid item xs={12}>
                 <Controller
                   name="password"
@@ -126,47 +166,32 @@ export default function Login() {
                   )}
                 />
               </Grid>
-
               <Grid item xs={12}>
-                <Button sx ={{ color: '#ffffff', backgroundColor: '#eb832e'}} type="submit" variant="contained" fullWidth>
+                <StyledButton type="submit" variant="contained" fullWidth>
                   Entrar
-                </Button>
+                </StyledButton>
               </Grid>
-
               <Grid item xs={12}>
-                <Typography variant="body1" align="center">
+                <Typography align="center">
                   Ainda não possui uma conta?
-                  <a
-                    href="/Cadastro"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      navigate('/Cadastro');
-                    }}
-                    style={{ color: '#eb832e', textDecoration: 'none', marginLeft: '8px' }}
+                  <LoginLink
+                    onClick={() => navigate('/Cadastro')}
                   >
                     Clique aqui para Cadastrar-se
-                  </a>
+                  </LoginLink>
                 </Typography>
               </Grid>
-
               <Grid item xs={12}>
                 <Typography align="center" variant="body2">
-                  <a
-                    href="/EsqueciSenha"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      navigate('/EsqueciSenha');
-                    }}
-                    style={{ color: '#eb832e', textDecoration: 'none', marginLeft: '8px' }}
-                  >
+                  <LoginLink onClick={() => navigate('/EsqueciSenha')}>
                     Esqueci minha senha
-                  </a>
+                  </LoginLink>
                 </Typography>
               </Grid>
             </Grid>
-          </Card>
+          </FormCard>
         </form>
       </Box>
-    </Box>
+    </LoginContainer>
   );
 }
