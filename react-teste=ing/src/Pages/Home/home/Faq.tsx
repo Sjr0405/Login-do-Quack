@@ -37,6 +37,9 @@ const P = styled.p`
 // Seção da imagem à direita (patinho)
 const ImageRight = styled.div`
   img {
+    bottom: -2%;
+    right: 5%;
+    position: absolute;
     max-width: auto;
     height: auto;
     z-index: 3;
