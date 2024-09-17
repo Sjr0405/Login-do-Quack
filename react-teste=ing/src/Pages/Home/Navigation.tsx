@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+
 // Ajustando a seção para cobrir a largura da tela
 const Section = styled.section`
-  width: 100%;
+  grid-template-columns: repeat(12, 1fr); // Define a grid com 12 colunas
   background-color: ${(props) => props.theme.body};
   padding: 10px 20px;
   position: relative;
@@ -46,7 +47,13 @@ const Logo = styled.div`
     font-size: 28px;
     font-weight: bold;
     color: #FF914D;
+    transition: color 0.3s;
+    cursor: pointer;
+  
+    &:hover {
+    color: #4834d4;
   }
+}
 
   @media (max-width: 768px) {
     padding-left: 0;
@@ -85,20 +92,11 @@ const NavItem = styled.li`
   font-size: 16px;
   cursor: pointer;
   z-index: 2;
+  transition: color 0.3s;
   text-transform: uppercase;
 
-  &:after {
-    text-decoration: none;
-    content: '';
-    display: block;
-    width: 0%;
-    height: 2px;
-    background-color: ${(props) => props.theme.text};
-    transition: width 0.4s ease;
-  }
-
-  &:hover::after {
-    width: 100%;
+  &:hover {
+    color: #4834d4;
   }
 
   @media (max-width: 768px) {
@@ -109,10 +107,10 @@ const NavItem = styled.li`
 
 // Estilizando o botão de "Entrar"
 const Button = styled.button`
-  color: #fff;
-  background-color: #FF914D;
+  color: #333;
+  background-color: #fff;
   font-size: 14px;
-  padding: 12px 30px;
+  padding: 12px 35px;
   margin-left: 20px;
   border-radius: 20px;
   border: none;
@@ -122,7 +120,7 @@ const Button = styled.button`
   z-index: 2;
 
   &:hover {
-    background-color: #e57e35;
+    background-color: #D3D3D3;
   }
 
   @media (max-width: 768px) {
@@ -149,22 +147,22 @@ const Vector = styled.div`
   /* Posicionando os SVGs individualmente */
   .svg1 {
     top: 0%;
-    left: 17%;
+    left: 17.3%;
   }
 
   .svg2 {
     top: 0%;
-    left: 24.2%;
+    left: 24.8%;
   }
 
   .svg3 {
     top: 0%;
-    left: 41.6%;
+    left: 42.7%;
   }
 
   .svg4 {
     top: 0%;
-    left: 24.1%;
+    left: 24.7%;
   }
 `;
 
@@ -173,12 +171,8 @@ const Navigation = () => {
     <Section>
       <NavBar>
         <Logo>
-          <Link to="/Navigation">
             <img src="/src/assets/Logo.svg" alt="Logo Quack()" />
-          </Link>
-          <Link to="/Navigation">
             <span>Quack()</span>
-          </Link>
         </Logo>
         <Menu>
           <NavItem>
@@ -206,7 +200,6 @@ const Navigation = () => {
         <img className="svg2" src="/src/svgs/2.svg" alt="SVG 2" />
         <img className="svg4" src="/src/svgs/1.svg" alt="SVG 4" />
         <img className="svg3" src="/src/svgs/3.svg" alt="SVG 3" />
-        
       </Vector>
     </Section>
   );

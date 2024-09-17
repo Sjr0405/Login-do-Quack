@@ -2,7 +2,7 @@ import styled from "styled-components";
 import "../HomeStyle.css";
 
 const Section = styled.section`
-  min-height: calc(100vh - ${(props) => props.theme.navHeight}px);
+  height: 80vh;
   width: 100%;
   position: relative;
   background-color: #F7F5F9; /* Cor corrigida */
@@ -22,22 +22,24 @@ const Titulo = styled.h1`
   color: ${(props) => props.theme.text};
   font-size: 42px;
   top: 18%;
-  right: 19%;
+  right: -10%;
   font-weight: 500;
   position: relative;
   font-family: 'lilita one', sans-serif;
   z-index: 2; /* Mantém o título acima dos SVGs */
+  text-align: left;
 `;
 
 const Subtitulo = styled.h3`
   color: ${(props) => props.theme.text};
   font-size: ${(props) => props.theme.fontlg};
   top: 22%;
-  right: 19%;
+  right: -10%;
   font-weight: 400;
   font-family: 'montserrat', sans-serif;
   position: relative;
   z-index: 2; /* Mantém o subtítulo acima dos SVGs */
+  text-align: left;
 `;
 
 // Estilizando o botão de "Entrar"
@@ -56,7 +58,7 @@ const Button = styled.button`
   z-index: 2; /* Mantém o botão acima dos SVGs */
 
   &:hover {
-    background-color: #337447;
+    background-color: #255233;
     color: white;
   }
 `;
@@ -69,7 +71,7 @@ const Vector = styled.div`
     right: 50%;
     width: 80%;
     height: 80%;
-    z-index: 0; /* SVGs ficam atrás de tudo */
+    z-index: 1; /* SVGs ficam atrás de tudo */
     position: absolute;
   }
 `;

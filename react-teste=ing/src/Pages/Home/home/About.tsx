@@ -3,12 +3,17 @@ import styled from 'styled-components';
 // Grupo de SVGs com posicionamento específico
 const Vector = styled.div`
   position: absolute;
-  top: -25%;
-  left: 0%;
-  width: 100%;
+  top: -20%;  // Ajuste para começar no topo
+  left: 0;
+  width: 100%; // Cobrir toda a largura do container
   height: auto;
   z-index: 1;
-  `;
+  overflow: hidden; // Garante que os itens que saem da área do Vector sejam cortados
+  img {
+    width: 100%; // O SVG ocupará toda a largura do Vector
+    height: auto;
+  }
+`;
 
 // Estilizando a seção principal
 const Section = styled.section`
@@ -21,9 +26,10 @@ const Section = styled.section`
 
 // Container que organiza os cards e o título
 const Container = styled.div`
+  max-width: 1000px;
   display: grid;
-  grid-template-columns: repeat(12, 1fr); // Define a grid com 12 colunas
-  gap: 20px; // Espaçamento entre os cards
+  grid-template-columns: repeat(12, 1fr);
+  gap: 20px;
   padding: 40px;
   width: 85%;
   margin: 0 auto;
@@ -32,20 +38,19 @@ const Container = styled.div`
 
 // Estilizando o título
 const Titulo = styled.h1`
-  grid-column: 1 / -1; // Faz o título ocupar todas as colunas
+  grid-column: 1 / -1;
   color: #333;
   font-size: 42px;
   text-align: center;
   font-weight: bold;
-  margin-top: 5%;
+  margin-top: 0%;
   padding: 20px 0;
   z-index: 2;
 `;
 
-
-// Estilizando cada card para ocupar 4 colunas
+// Estilizando cada card
 const Card = styled.div`
-  grid-column: span 4; // Cada card ocupa 4 das 12 colunas
+  grid-column: span 4;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -63,21 +68,21 @@ const Card = styled.div`
   }
 
   img {
-    width: 350px;
-    height: 250px;
+    width: 100%; // Ajusta a imagem para se adequar ao tamanho do card
+    max-width: 350px; // Define um limite para a largura da imagem
+    height: auto;
   }
 
   h3, p {
     text-align: center;
   }
 
-  // Responsividade para telas menores
   @media (max-width: 768px) {
-    grid-column: span 6; // Em tablets, cada card ocupa metade da largura
+    grid-column: span 6;
   }
 
   @media (max-width: 576px) {
-    grid-column: span 12; // Em telas pequenas, cada card ocupa toda a largura
+    grid-column: span 12;
   }
 `;
 
@@ -89,9 +94,8 @@ const About = () => {
       </Vector>
       <Container>
         <Titulo>
-          O Quack() oferece recursos desenvolvidos para<br/> todos os estágios do aprendizado de<br/> programação
+          O Quack() oferece recursos desenvolvidos para todos os estágios do aprendizado<br/> de programação
         </Titulo>
-        {/* Cards com informações */}
         <Card>
           <img src="/src/Assets/Placeholders/placeholder1.svg" alt="Trilhas de aprendizado" />
           <h3>Trilhas de aprendizado detalhadas</h3>
@@ -128,6 +132,3 @@ const About = () => {
 };
 
 export default About;
-
-
-
