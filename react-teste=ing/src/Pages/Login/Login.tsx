@@ -1,88 +1,148 @@
-import { useRef, useEffect, useState } from 'react';
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import { TextField, Button, Grid, Box, Card, Typography } from "@mui/material";
+import styled from 'styled-components';
+import { TextField, Grid, Box, Typography } from "@mui/material";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../AuthContext';  // Contexto de autenticação
-import styled from 'styled-components';
-import './Login.css';
+import { useAuth } from '../../AuthContext';
 
-// Validação com Yup
-const schema = yup.object().shape({
-  email: yup.string().email("Email inválido").required("Email é obrigatório"),
-  password: yup.string().min(8, "A senha deve ter no mínimo 8 caracteres").required("Senha é obrigatória"),
-});
+// Estilos
+const StyledTypography = styled(Typography)`
+  font-family: "Lilita One", sans-serif;
+  font-size: 24px;
+  
+  margin-bottom: 20px;
 
-// Função simulada para buscar dados de usuários
-const fetchUserData = async () => {
-  return [
-    { email: 'Admin@gmail.com', password: 'Administrator1' },
-    { email: 'user1@example.com', password: '12345678' },
-    { email: 'user2@example.com', password: '87654321' },
-  ];
-};
+  h3 {
+    text-decoration: none;
+    font-size: 24px;
+    font-family: "Lilita One", sans-serif;
+    margin-top: 30%;
+  }
 
-// Estilos com styled-components
-const LoginContainer = styled(Box)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 40px;
+  a {
+    color: #7A5FF5;
+    text-decoration: none;
+    font-weight: bold;
+    font-family: "Montserrat Alternates", sans-serif;
+  }
+
+  p {
+    color: #7A5FF5;
+    text-decoration: none;
+    font-weight: bold;
+    font-family: "Montserrat Alternates", sans-serif;
+  }
 `;
 
-const PresentationCard = styled(Card)`
-  padding: 32px;
-  background-color: #eb832e;
-  color: white;
+const LoginContainer = styled(Box)`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: #f8f9fa;
+`;
+
+const FormSection = styled(Box)`
+  width: 45%;
+  padding: 40px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  text-align: center;
+  align-items: center;
 `;
 
-const FormCard = styled(Card)`
-  padding: 32px;
-  background-color: #f8f8f8;
-  margin-left: 16px;
-`;
-
-const StyledButton = styled(Button)`
+const ImageSection = styled(Box)`
+  background-image: url("/src/svgs/Login-svgs/1.svg");
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   color: white;
-  background-color: #eb832e;
+  font-family: "Lilita One", sans-serif;
+`;
+
+const Form = styled.form`
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+`;
+
+const StyledButton = styled.button`
+  color: white;
+  background-color: #7A5FF5;
+  border-radius: 8px;
+  height: 50px;
+  font-size: 16px;
+  width: 100%;
+  margin-top: 20px;
+  border: none;
+  cursor: pointer;
+  font-family: "Montserrat Alternates", sans-serif;
+
   &:hover {
-    background-color: #d8732a;
+    background-color: #3700b3;
+  }
+`;
+
+const GoogleButton = styled.button`
+  background-color: white;
+  color: #000;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  height: 50px;
+  font-size: 16px;
+  width: 100%;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #f8f8f8;
   }
 `;
 
 const LoginLink = styled.a`
   color: #eb832e;
-  text-decoration: none;
-  margin-left: 8px;
   cursor: pointer;
-
+  font-family: "Montserrat Alternates", sans-serif;
   &:hover {
     text-decoration: underline;
   }
 `;
 
-export default function Login() {
+const DuckImage = styled.img`
+  width: 500px;
+  margin-top: 46%;
+  margin-right: 25%;
+`;
+
+const schema = yup.object().shape({
+  email: yup.string().email("Email inválido").required("Email é obrigatório"),
+  password: yup.string().min(8, "A senha deve ter no mínimo 8 caracteres").required("Senha é obrigatória"),
+});
+
+const fetchUserData = async () => [
+  { email: 'Admin@gmail.com', password: 'Administrator1' },
+  { email: 'user1@example.com', password: '12345678' },
+  { email: 'user2@example.com', password: '87654321' },
+];
+
+const Login = () => {
   const { handleSubmit, control, formState: { errors }, reset } = useForm({
     resolver: yupResolver(schema),
   });
 
-  const { login } = useAuth();  // Hook para gerenciar login via contexto
+  const { login } = useAuth();
   const navigate = useNavigate();
-  const formCardRef = useRef<HTMLDivElement>(null);
-  const [formCardHeight, setFormCardHeight] = useState('auto');
-
-  // Sincroniza a altura dos cards de apresentação e do formulário
-  useEffect(() => {
-    if (formCardRef.current) {
-      setFormCardHeight(`${formCardRef.current.offsetHeight}px`);
-    }
-  }, [formCardRef]);
 
   const onSubmit: SubmitHandler<{ email: string; password: string }> = async (data) => {
     try {
@@ -90,108 +150,112 @@ export default function Login() {
       const user = users.find(user => user.email === data.email && user.password === data.password);
 
       if (user) {
-        login(data.email, data.password);  // Armazena no contexto
+        login(data.email, data.password);
         Swal.fire('Sucesso!', 'Login realizado com sucesso.', 'success').then(() => {
-          navigate('/dashboard');  // Redireciona para o dashboard após o login
+          navigate('/dashboard');
         });
       } else {
         Swal.fire({
           icon: 'error',
           title: 'Falha no Login',
           text: 'E-mail ou senha incorretos.',
-          footer: `
-            <a class="Clique-aqui" href="/Cadastro" style="text-decoration: none; color: #eb832e;">Clique aqui para se cadastrar</a>
-            <br />
-            <a class="Tente-novamente" href="#" style="text-decoration: none; color: #eb832e; margin-left: 25px;">Tentar novamente</a>
-          `,
+          footer: `<a href="/Cadastro" style="color: #eb832e;">Clique aqui para se cadastrar</a>`
         });
       }
-    } catch (error) {
-      console.error(error);
-      Swal.fire('Erro', 'Houve um problema ao tentar fazer login. Por favor, tente novamente.', 'error');
+    } catch {
+      Swal.fire('Erro', 'Houve um problema ao tentar fazer login.', 'error');
     }
     reset();
   };
 
   return (
     <LoginContainer>
-      {/* Card de apresentação */}
-      <Box sx={{ width: 600, height: formCardHeight }}>
-        <PresentationCard>
-          <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
-            <img src="src/assets/LogoReverse.svg" alt="Logo" style={{ width: '80px' }} />
-          </Box>
-          <Typography variant="h5" gutterBottom>
-            Bem-vindo ao Quack()
+      {/* Seção do formulário */}
+      <FormSection>
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <Typography variant="h5" style={{textAlign: 'left', fontFamily: 'Lilita One',fontSize: '80px', marginBottom: '20px', color: '#ff7f00' }}>
+            Quack()
           </Typography>
-          <Typography variant="body1">
-            Faça login para continuar.
+          <Typography variant="h6" style={{textAlign: 'left', fontFamily: 'Montserrat Alternates', fontSize: '30px',marginBottom: '10px', fontWeight: 'bold' }}>
+            Bem Vindo Dev! <br />
+            Jefte o mestre supremo
           </Typography>
-        </PresentationCard>
-      </Box>
+          <Typography variant="body2" style={{textAlign: 'left', fontFamily: 'Montserrat Alternates',  marginBottom: '30px', color: '#777' }}>
+            Bem vindo de volta dev! Por favor, informe seu Usuário e Senha para entrar na plataforma
+          </Typography>
 
-      {/* Formulário de Login */}
-      <Box sx={{ width: 400 }} ref={formCardRef}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <FormCard>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <Controller
-                  name="email"
-                  control={control}
-                  render={({ field }) => (
-                    <TextField
-                      {...field}
-                      label="Email"
-                      fullWidth
-                      error={!!errors.email}
-                      helperText={errors.email ? errors.email.message : ""}
-                    />
-                  )}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Controller
-                  name="password"
-                  control={control}
-                  render={({ field }) => (
-                    <TextField
-                      {...field}
-                      label="Senha"
-                      type="password"
-                      fullWidth
-                      error={!!errors.password}
-                      helperText={errors.password ? errors.password.message : ""}
-                    />
-                  )}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <StyledButton type="submit" variant="contained" fullWidth>
-                  Entrar
-                </StyledButton>
-              </Grid>
-              <Grid item xs={12}>
-                <Typography align="center">
-                  Ainda não possui uma conta?
-                  <LoginLink
-                    onClick={() => navigate('/Cadastro')}
-                  >
-                    Clique aqui para Cadastrar-se
-                  </LoginLink>
-                </Typography>
-              </Grid>
-              <Grid item xs={12}>
-                <Typography align="center" variant="body2">
-                  <LoginLink onClick={() => navigate('/EsqueciSenha')}>
-                    Esqueci minha senha
-                  </LoginLink>
-                </Typography>
-              </Grid>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <Controller
+                name="email"
+                control={control}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    label="Nome de usuário"
+                    fullWidth
+                    error={!!errors.email}
+                    helperText={errors.email ? errors.email.message : ""}
+                  />
+                )}
+              />
             </Grid>
-          </FormCard>
-        </form>
-      </Box>
+            <Grid item xs={12}>
+              <Controller
+                name="password"
+                control={control}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    label="Digite sua senha"
+                    type="password"
+                    fullWidth
+                    error={!!errors.password}
+                    helperText={errors.password ? errors.password.message : ""}
+                  />
+                )}
+              />
+            </Grid>
+            <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <div>
+                <label>
+                  <input type="checkbox" style={{fontFamily: 'Montserrat Alternates',color: '#eb832e',  marginRight: '5px' }} />
+                  Lembrar senha
+                </label>
+              </div>
+              <LoginLink onClick={() => navigate('/EsqueciSenha')}>
+                Esqueci minha senha
+              </LoginLink>
+            </Grid>
+            <Grid item xs={12}>
+              <StyledButton type="submit">Iniciar sessão</StyledButton>
+            </Grid>
+            <Grid item xs={12}>
+              <GoogleButton>
+                <img src="/src/Icons/Google.svg" alt="Google" style={{height: '20px',fontFamily: 'Montserrat Alternates', marginRight: '10px' }} />
+                Iniciar sessão com o Google
+              </GoogleButton>
+            </Grid>
+          </Grid>
+
+          <Typography style={{ marginTop: '20px' }}>
+            Não tem uma conta? <LoginLink onClick={() => navigate('/Cadastro')}>Clique aqui e se inscreva!</LoginLink>
+          </Typography>
+        </Form>
+      </FormSection>
+
+      {/* Seção de Apresentação */}
+      <ImageSection>
+        
+        <StyledTypography variant="body1" style={{ marginTop: '20px' }}>
+          <h3>Seja Bem Vindo a Quack()</h3>
+          A plataforma que tem como missão,<br/> ajudar você a aprender e compreender a
+          <a href="https://pt.wikipedia.org/wiki/Programação"> programação!</a>
+        </StyledTypography>
+        <DuckImage src="/src/Assets/LogoReverse.svg" alt="Mascote Quack" />
+      </ImageSection>
     </LoginContainer>
   );
 }
+
+export default Login;
