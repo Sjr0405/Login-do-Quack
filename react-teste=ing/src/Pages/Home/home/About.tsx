@@ -71,10 +71,23 @@ const Card = styled.div`
     width: 100%; // Ajusta a imagem para se adequar ao tamanho do card
     max-width: 350px; // Define um limite para a largura da imagem
     height: auto;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
-  h3, p {
+  p {
     text-align: center;
+  }
+
+  h3{
+    text-align: center;
+
+    &:hover {
+      cursor: pointer;
+      color: #4834d4;
+    }
   }
 
   @media (max-width: 768px) {

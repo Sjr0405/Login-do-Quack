@@ -69,13 +69,24 @@ const Card = styled.div`
     width: 100%;
     border-radius: 8px;
     margin-bottom: 15px;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   h3 {
     text-align: left; 
     font-size: 20px;
     color: #333;
-    margin-bottom: 10px;
+    margin-bottom: 10px;  
+    transition: color 0.3s ease;
+    
+
+  &:hover{
+    cursor: pointer;
+    color: #eb832e;
+    }
   }
 
   p {
