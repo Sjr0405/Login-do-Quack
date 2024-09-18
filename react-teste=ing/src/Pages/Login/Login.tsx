@@ -7,9 +7,44 @@ import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../AuthContext';
 
+const A = styled.a`
+  color: white;
+  text-decoration: none;
+  font-family: "Montserrat Alternates", sans-serif;
+`;
+
+const Label = styled.label`
+  display: block;
+  margin-bottom: 8px;
+  color: #eb832e;
+  font-family: "Montserrat Alternates", sans-serif;
+  cursor: pointer;
+
+  &:hover{
+    cursor: pointer;
+    text-decoration: underline;
+    }
+`;
+
+const Input = styled.input`
+  color: #eb832e;
+  font-family: "Montserrat Alternates", sans-serif;
+  border-radius: 8px;
+  border: 1px solid #eb832e;
+  padding: 0 16px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  cursor: pointer;
+
+  &:hover {
+    cursor: pointer;
+    border-color: #7A5FF5;
+  }
+`;
+
 // Estilos
 const StyledTypography = styled(Typography)`
-  font-family: "Lilita One", sans-serif;
+  font-family: "Montserrat Alternates", sans-serif;
   font-size: 24px;
   
   margin-bottom: 20px;
@@ -21,17 +56,9 @@ const StyledTypography = styled(Typography)`
     margin-top: 30%;
   }
 
-  a {
-    color: #7A5FF5;
-    text-decoration: none;
-    font-weight: bold;
-    font-family: "Montserrat Alternates", sans-serif;
-  }
-
   p {
-    color: #7A5FF5;
+    color: #ffffff;
     text-decoration: none;
-    font-weight: bold;
     font-family: "Montserrat Alternates", sans-serif;
   }
 `;
@@ -56,6 +83,7 @@ const FormSection = styled(Box)`
 
 const ImageSection = styled(Box)`
   background-image: url("/src/svgs/Login-svgs/1.svg");
+  background-repeat: no-repeat;
   display: flex;
   height: 100%;
   justify-content: center;
@@ -114,6 +142,7 @@ const LoginLink = styled.a`
   color: #eb832e;
   cursor: pointer;
   font-family: "Montserrat Alternates", sans-serif;
+  text-decoration: none;
   &:hover {
     text-decoration: underline;
   }
@@ -218,10 +247,10 @@ const Login = () => {
             </Grid>
             <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between' }}>
               <div>
-                <label>
-                  <input type="checkbox" style={{fontFamily: 'Montserrat Alternates',color: '#eb832e',  marginRight: '5px' }} />
+                <Label>
+                  <Input type="checkbox" style={{fontFamily: 'Montserrat Alternates',color: '#eb832e',  marginRight: '5px' }} />
                   Lembrar senha
-                </label>
+                </Label>
               </div>
               <LoginLink onClick={() => navigate('/EsqueciSenha')}>
                 Esqueci minha senha
@@ -249,8 +278,8 @@ const Login = () => {
         
         <StyledTypography variant="body1" style={{ marginTop: '20px' }}>
           <h3>Seja Bem Vindo a Quack()</h3>
-          A plataforma que tem como missão,<br/> ajudar você a aprender e compreender a
-          <a href="https://pt.wikipedia.org/wiki/Programação"> programação!</a>
+          <A>A plataforma que tem como missão,<br/> ajudar você a aprender e compreender <br/>a</A>
+          <A style={{ color: '#7A5FF5', fontWeight: 'bold' }}> programação!</A>
         </StyledTypography>
         <DuckImage src="/src/Assets/LogoReverse.svg" alt="Mascote Quack" />
       </ImageSection>
