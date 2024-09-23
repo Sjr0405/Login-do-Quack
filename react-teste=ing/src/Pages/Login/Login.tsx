@@ -56,6 +56,13 @@ const StyledTypography = styled(Typography)`
     margin-top: 30%;
   }
 
+  h4 {
+    text-decoration: none;
+    font-size: 24px;
+    font-family: "Montserrat Alternates", sans-serif;
+    margin-top: 30%;
+  }
+
   p {
     color: #ffffff;
     text-decoration: none;
