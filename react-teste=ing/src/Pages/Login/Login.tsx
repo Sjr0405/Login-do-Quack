@@ -9,6 +9,7 @@ import { useAuth } from '../../AuthContext';
 
 const A = styled.a`
   color: white;
+  font-size: 30px;
   text-decoration: none;
   font-family: "Montserrat Alternates", sans-serif;
 `;
@@ -51,7 +52,8 @@ const StyledTypography = styled(Typography)`
 
   h3 {
     text-decoration: none;
-    font-size: 24px;
+    font-weight:300;
+    font-size: 35px;
     font-family: "Lilita One", sans-serif;
     margin-top: 30%;
   }
