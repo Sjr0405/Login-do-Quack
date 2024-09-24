@@ -52,14 +52,13 @@ const GoogleButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    background-color: #f8f8f8;
+    background-color: #f8f9fa;
   }
 `;
 
 const ImageSection = styled(Box)`
   background-image: url("/src/svgs/Cadastro-svgs/1.svg");
   background-repeat: no-repeat;
-  display: flex;
   height: 100%;
   justify-content: center;
   align-items: center;
@@ -96,6 +95,15 @@ const StyledTypography = styled(Typography)`
   }
 `;
 
+const CadastroContainer = styled(Box)`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: #f8f9fa;
+`;
+
 export default function CadastroData() {
   const [dataList, setDataList] = useState<FormData[]>([]); // Armazena os usuários cadastrados
   const { handleSubmit, control, formState: { errors }, reset } = useForm({
@@ -130,7 +138,7 @@ export default function CadastroData() {
   };
 
   return (
-    <Box sx={{ display: 'flex',height: '100vh'}}>
+    <CadastroContainer sx={{ display: 'flex',height: '100vh'}}>
       {/* Seção Esquerda com Fundo Laranja e Imagem */}
       <ImageSection sx={{ flex: 2, display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
         <Box>
@@ -320,6 +328,6 @@ export default function CadastroData() {
           )}
         </Box>
       </Box>
-    </Box>
+    </CadastroContainer>
   );
 }

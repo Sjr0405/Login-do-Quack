@@ -11,6 +11,7 @@ const A = styled.a`
   color: white;
   text-decoration: none;
   font-family: "Montserrat Alternates", sans-serif;
+  font-size: 25px;
 `;
 
 const Label = styled.label`
@@ -51,9 +52,11 @@ const StyledTypography = styled(Typography)`
 
   h3 {
     text-decoration: none;
-    font-size: 24px;
+    font-size: 36px;
     font-family: "Lilita One", sans-serif;
-    margin-top: 30%;
+    font-weight: 300;
+    margin-top: 40%;
+    margin-bottom: 1%;
   }
 
   h4 {
@@ -67,6 +70,7 @@ const StyledTypography = styled(Typography)`
     color: #ffffff;
     text-decoration: none;
     font-family: "Montserrat Alternates", sans-serif;
+    font-size: 20px;
   }
 `;
 
@@ -98,6 +102,9 @@ const ImageSection = styled(Box)`
   flex-direction: column;
   color: white;
   font-family: "Lilita One", sans-serif;
+  width: 35%;
+  margin-top: -1%;
+  position: relative;
 `;
 
 const Form = styled.form`
@@ -105,7 +112,7 @@ const Form = styled.form`
   padding: 40px;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
+  max-width: 500px;
   width: 100%;
 `;
 
@@ -156,9 +163,9 @@ const LoginLink = styled.a`
 `;
 
 const DuckImage = styled.img`
-  width: 500px;
-  margin-top: 46%;
-  margin-right: 25%;
+  position: relative;
+  width: 600px;
+  margin-right: 35%;
 `;
 
 const schema = yup.object().shape({
@@ -282,7 +289,6 @@ const Login = () => {
 
       {/* Seção de Apresentação */}
       <ImageSection>
-        
         <StyledTypography variant="body1" style={{ marginTop: '20px' }}>
           <h3>Seja Bem Vindo a Quack()</h3>
           <A>A plataforma que tem como missão,<br/> ajudar você a aprender e compreender <br/>a</A>
