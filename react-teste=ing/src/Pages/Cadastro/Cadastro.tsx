@@ -112,7 +112,7 @@ export default function CadastroData() {
       title: 'Sucesso!',
       text: 'Cadastro realizado com sucesso.',
     }).then(() => {
-      navigate('/');
+      navigate('/Login');
     });
 
     reset();
