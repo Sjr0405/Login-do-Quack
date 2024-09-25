@@ -188,7 +188,7 @@ const Login = () => {
       if (user) {
         login(data.email, data.password);
         Swal.fire('Sucesso!', 'Login realizado com sucesso.', 'success').then(() => {
-          navigate('/dashboard');
+          navigate('/Home');
         });
       } else {
         Swal.fire({
