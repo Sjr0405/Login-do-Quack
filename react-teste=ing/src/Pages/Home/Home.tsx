@@ -1,4 +1,7 @@
 import styled from 'styled-components';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { useNavigate } from 'react-router-dom';
+import { IconButton, Input } from "@mui/material";
 
 // Styled Components
 const Container = styled.div`
@@ -11,6 +14,8 @@ const Sidebar = styled.div`
   background-color: #ffffff;
   border-right: 1px solid #ddd;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
 `;
 
 const SidebarItem = styled.div`
@@ -31,6 +36,41 @@ const SidebarItem = styled.div`
   }
 `;
 
+// Logo do lado esquerdo
+const Logo = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 50px;
+
+  img {
+    height: 60px;
+    margin-right: 15px;
+  }
+
+  span {
+    font-size: 28px;
+    font-weight: bold;
+    color: #FF914D;
+    transition: color 0.3s;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+  
+    &:hover {
+      color: #4834d4;
+    }
+  }
+
+  @media (max-width: 768px) {
+    img {
+      height: 50px;
+    }
+
+    span {
+      font-size: 24px;
+    }
+  }
+`;
+
 const MainContent = styled.div`
   flex: 1;
   padding: 20px;
@@ -45,12 +85,17 @@ const Header = styled.div`
 `;
 
 const InvestidaBox = styled.div`
-  background-color: #fceba6;
-  padding: 10px;
+  background-color: #fff;
+  padding: 10px 20px;
   border-radius: 8px;
+  border: 1px solid linear-gradient(90deg, #ff9800 0%, #fceba6 100%);
   font-family: 'Montserrat', sans-serif;
   color: #ff9800;
   font-weight: bold;
+
+  img {
+    margin-right: 15px;
+  }
 `;
 
 const SearchBar = styled.div`
@@ -70,7 +115,17 @@ const SearchBar = styled.div`
   }
 `;
 
+const Titulo = styled.h1`
+  color: #000;
+  font-size: 30px;
+  font-weight: 500;
+  font-family: 'Lilita One', sans-serif;
+  text-align: left;
+  margin-top: 20px;
+`;
+
 const ModuloCard = styled.div<{ bgColor: string }>`
+  width: 60%;
   background-color: ${({ bgColor }) => bgColor || '#fff'};
   padding: 20px;
   margin: 15px 0;
@@ -78,24 +133,52 @@ const ModuloCard = styled.div<{ bgColor: string }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: #000;
+
+  div {
+    width: 100%;
+  }
+
+  p {
+    font-family: 'Montserrat', sans-serif;
+    text-align: left;
+    font-size: 12px;
+    font-weight: bold;
+    margin: 0;
+  }
 
   h3 {
     margin: 0;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Lilita One', sans-serif;
+    text-align: left;
+    font-size: 24px;
+    font-weight: 300;
+  }
+
+  a {
+    text-decoration: none;
+    font-family: 'Lilita One', sans-serif;
+    text-align: right;
+    color: #888;
+    font-size: 14px;
+    cursor: pointer;
+
+    &:hover {
+      color: #000;
+    }
   }
 
   span {
+    font-family: 'Montserrat', sans-serif;
     font-size: 14px;
     color: #888;
   }
 
   button {
-    background-color: #ffffff;
-    border: 1px solid #ddd;
-    padding: 10px;
-    border-radius: 50%;
+    background-color: white;
+    border: none;
     cursor: pointer;
+    padding: 10px;
+    margin-left: 20px;
   }
 `;
 
@@ -106,11 +189,11 @@ interface ProgressBarProps {
 
 const ProgressBar = styled.div<ProgressBarProps>`
   width: 100%;
-  height: 10px;
+  height: 15px;
   background-color: #ddd;
   border-radius: 5px;
   margin-top: 10px;
-  
+
   div {
     width: ${({ progress }) => progress || '0%'};
     height: 100%;
@@ -124,6 +207,7 @@ const EmblemasBox = styled.div`
   padding: 20px;
   background-color: #ffffff;
   border-radius: 12px;
+  width: 300px;
 `;
 
 const EmblemaItem = styled.div`
@@ -145,14 +229,16 @@ const EmblemaItem = styled.div`
 
 // React Component
 const Home = () => {
+  const navigate = useNavigate();
+
   return (
     <Container>
       {/* Sidebar */}
       <Sidebar>
-        <SidebarItem>
-          <img src="logo.svg" alt="Quack logo" />
-          Quack
-        </SidebarItem>
+        <Logo>
+          <img src="/src/assets/Logo.svg" alt="Logo Quack()" />
+          <span>Quack()</span>
+        </Logo>
         <SidebarItem>
           <img src="icon-aprender.svg" alt="Aprender icon" />
           Aprender
@@ -187,81 +273,105 @@ const Home = () => {
       <MainContent>
         {/* Header */}
         <Header>
-          <InvestidaBox>Investida de 3 dias!</InvestidaBox>
+          <InvestidaBox>
+            Investida de 3 dias!
+            <div>
+            <img src="/src/Icons/fire.svg" alt="Estrela icon" />
+            <img src="/src/Icons/fire.svg" alt="Estrela icon" />
+            <img src="/src/Icons/fire.svg" alt="Estrela icon" />
+            <img src="/src/Icons/no-fire.svg" alt="Void icon" />
+            <img src="/src/Icons/no-fire.svg" alt="Void icon" />
+            <img src="/src/Icons/no-fire.svg" alt="Void icon" />
+            <img src="/src/Icons/no-fire.svg" alt="Void icon" />
+            </div>
+          </InvestidaBox>
 
           <SearchBar>
-            <input type="text" placeholder="Pesquisar por nome..." />
+            <Input type="search" placeholder="Pesquisar por nome..." />
+            <img src="icon-search.svg" alt="Search icon" />
             <img src="icon-microphone.svg" alt="Mic icon" />
           </SearchBar>
         </Header>
 
         {/* Módulos */}
-        <h2>Módulos</h2>
-        <ModuloCard bgColor="#ffeb99">
+        <Titulo>Módulos</Titulo>
+        <ModuloCard bgColor="#FFEB99">
           <div>
-            <h3>Lógica de Pr00gramação</h3>
-            <span>Módulo Completo!</span>
+            <p>Roadmap 1</p>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <h3>Lógica de Programação</h3>
+            <a>Módulo Completo!</a>
+            </div>
             <ProgressBar progress="100%" color="#FFD700">
               <div></div>
             </ProgressBar>
           </div>
-          <button>→</button>
+          <IconButton onClick={() => navigate("/Logica_Roadmap")} aria-label="voltar">
+            <ArrowForwardIcon />
+          </IconButton>
         </ModuloCard>
 
-        <ModuloCard bgColor="#d9b3ff">
+        <ModuloCard bgColor="#D9B3FF">
           <div>
+            <p>Roadmap 2</p>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
             <h3>Frontend</h3>
-            <span>Módulo Completo!</span>
+            <a>Módulo Completo!</a>
+            </div>
             <ProgressBar progress="100%" color="#8000FF">
               <div></div>
             </ProgressBar>
           </div>
-          <button>→</button>
+          <IconButton onClick={() => navigate("/Frontend_Roadmap")} aria-label="voltar">
+            <ArrowForwardIcon />
+          </IconButton>
         </ModuloCard>
 
-        <ModuloCard bgColor="#cce0ff">
+        <ModuloCard bgColor="#CCE0FF">
           <div>
+            <p>Roadmap 3</p>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
             <h3>DevOps</h3>
-            <span>3/18 Aulas Completas</span>
+            <a>3/18 Aulas Completas</a>
+            </div>
             <ProgressBar progress="20%" color="#1E90FF">
               <div></div>
             </ProgressBar>
           </div>
-          <button>→</button>
+          <IconButton onClick={() => navigate("/DevOps_Roadmap")} aria-label="voltar">
+            <ArrowForwardIcon />
+          </IconButton>
         </ModuloCard>
 
-        <ModuloCard bgColor="#ccffcc">
+        <ModuloCard bgColor="#CCFFCC">
           <div>
+            <p>Roadmap 4</p>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
             <h3>Backend</h3>
-            <span>0/18 Aulas Completas</span>
+            <a>0/18 Aulas Completas</a>
+            </div>
             <ProgressBar progress="0%" color="#32CD32">
               <div></div>
             </ProgressBar>
           </div>
-          <button>→</button>
+          <IconButton onClick={() => navigate("/Backend_Roadmap")} aria-label="voltar">
+            <ArrowForwardIcon />
+          </IconButton>
         </ModuloCard>
 
         {/* Emblemas */}
         <EmblemasBox>
           <h3>Emblemas em destaque</h3>
           <EmblemaItem>
-            <img src="icon-fullstack.svg" alt="Fullstack Junior" />
-            <span>Fullstack Junior</span>
+            <img src="icon-fullstack.svg" alt="Fullstack icon" />
+            <span>FullStack</span>
           </EmblemaItem>
           <EmblemaItem>
-            <img src="icon-algoritmos.svg" alt="Algoritmos" />
-            <span>Algoritmos</span>
-          </EmblemaItem>
-          <EmblemaItem>
-            <img src="icon-devops.svg" alt="DevOps" />
-            <span>DevOps</span>
-          </EmblemaItem>
-          <EmblemaItem>
-            <img src="icon-frontend.svg" alt="Frontend" />
+            <img src="icon-frontend.svg" alt="Frontend icon" />
             <span>Frontend</span>
           </EmblemaItem>
           <EmblemaItem>
-            <img src="icon-backend.svg" alt="Backend" />
+            <img src="icon-backend.svg" alt="Backend icon" />
             <span>Backend</span>
           </EmblemaItem>
         </EmblemasBox>
