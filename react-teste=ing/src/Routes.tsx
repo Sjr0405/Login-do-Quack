@@ -20,6 +20,9 @@ import Faq from "./Pages/Home/home/Faq.tsx"
 import Footer from "./Pages/Home/Footer.tsx"
 //Landpage imports// 
 
+//Trilhas Imports //
+import Trilha from  "./Pages/Trilhas/index.tsx" 
+
 
 function MainRoutes() {
   return (
@@ -42,6 +45,7 @@ function MainRoutes() {
         <Route path="/Login" element={<Login />} />
         <Route path="/EsqueciSenha" element={<EsqueciSenha />} />
         <Route path="/Dashboard" element={<Dashboard />} />
+        <Route path="/Trilhas" element={<Trilha />} />
       </Routes>
     </AuthProvider>
 
