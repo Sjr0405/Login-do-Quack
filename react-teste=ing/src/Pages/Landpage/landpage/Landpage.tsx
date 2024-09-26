@@ -81,7 +81,7 @@ const Home = () => {
     <Section>
       <Vector>
         {/* Posicionando os SVGs em lugares estratégicos */}
-        <img className="svg1" src="/src/svgs/Home-svgs/5.svg" alt="svg" />
+        <img className="svg1" src="/src/svgs/Landpage-svgs/5.svg" alt="svg" />
       </Vector>
       <Container>
         <Titulo>

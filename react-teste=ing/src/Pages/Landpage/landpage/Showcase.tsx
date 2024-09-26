@@ -123,7 +123,7 @@ const Showcase = () => {
         </Card>
       </Container>
       <Vector>
-        <img className="svg7" src="/src/svgs/Home-svgs/7.svg" alt="svg" />
+        <img className="svg7" src="/src/svgs/Landpage-svgs/7.svg" alt="svg" />
       </Vector>
     </Section>
   );

@@ -103,7 +103,7 @@ const About = () => {
   return (
     <Section>
       <Vector>
-        <img className="svg1" src="/src/svgs/Home-svgs/6.svg" alt="svg" />
+        <img className="svg1" src="/src/svgs/Landpage-svgs/6.svg" alt="svg" />
       </Vector>
       <Container>
         <Titulo>

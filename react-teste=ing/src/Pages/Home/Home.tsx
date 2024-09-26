@@ -18,21 +18,75 @@ const Sidebar = styled.div`
   flex-direction: column;
 `;
 
+const SelectedSidebarItem = styled.div`
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  font-family: 'Montserrat Alternates', sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  border-radius: 8px;
+  background-color: rgba(251, 123, 5, 0.05);
+  padding: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  color: #FB7901;
+  border: 1px solid #FB7901;
+
+  img {
+    margin-right: px;
+    padding: 5px;
+  }
+`;
+
 const SidebarItem = styled.div`
   margin-bottom: 20px;
   display: flex;
   align-items: center;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Montserrat Alternates', sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 10px;
+  
   font-size: 18px;
   cursor: pointer;
   color: #000;
 
   img {
-    margin-right: 10px;
+    margin-right: px;
+    padding: 5px;
   }
 
   &:hover {
-    color: #ff4a4a;
+    color: #FB7901;
+    border: 1px solid #FB7901;
+    background-color: rgba(251, 123, 5, 0.05);
+  }
+`;
+
+const SairSidebarItem = styled.div`
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  font-family: 'Montserrat Alternates', sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  color: #ff4a4a;
+  
+
+  img {
+    margin-right: px;
+    padding: 5px;
+  }
+
+  &:hover {
+    border: 1px solid #ff4a4a;
+    background-color: rgba(255, 62, 65, 0.05);
   }
 `;
 
@@ -45,6 +99,7 @@ const Logo = styled.div`
   img {
     height: 60px;
     margin-right: 15px;
+    cursor: pointer;
   }
 
   span {
@@ -88,12 +143,13 @@ const InvestidaBox = styled.div`
   background-color: #fff;
   padding: 10px 20px;
   border-radius: 8px;
-  border: 1px solid linear-gradient(90deg, #ff9800 0%, #fceba6 100%);
+  border: 1px solid #FB7901;
   font-family: 'Montserrat', sans-serif;
   color: #ff9800;
   font-weight: bold;
 
   img {
+    margin-top: 10px;
     margin-right: 15px;
   }
 `;
@@ -103,11 +159,20 @@ const SearchBar = styled.div`
   align-items: center;
 
   input {
+    width: auto;
     padding: 10px;
     border-radius: 8px;
     border: 1px solid #ddd;
     outline: none;
     margin-right: 10px;
+  }
+
+  ::before {
+    content: url('/src/svgs/Home-svgs/Lupa.svg');
+    display: inline-block;
+    width: 20px; /* adjust the size of your SVG */
+    height: 20px;
+    margin-right: 5px; /* adjust the spacing as needed */
   }
 
   img {
@@ -133,6 +198,13 @@ const ModuloCard = styled.div<{ bgColor: string }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  img {
+    margin-right: 15px;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 50%;
+  }
 
   div {
     width: 100%;
@@ -227,6 +299,25 @@ const EmblemaItem = styled.div`
   }
 `;
 
+const Button = styled.button`
+  
+  font-family: 'Lilita One', sans-serif;
+  font-weight: 300;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+  background-color: #6c5ce7;
+  font-size: 18px;
+  position: relative;
+  transition: background-color 0.3s ease;
+  z-index: 2; /* Mantém o botão acima dos SVGs */
+
+  &:hover {
+    background-color: #4834d4;
+    color: white;
+  }
+`;
+
 // React Component
 const Home = () => {
   const navigate = useNavigate();
@@ -234,45 +325,50 @@ const Home = () => {
   return (
     <Container>
       {/* Sidebar */}
-      <Sidebar>
-        <Logo>
+      <Sidebar >
+        <Logo onClick={() => navigate('/Login')}>
           <img src="/src/assets/Logo.svg" alt="Logo Quack()" />
           <span>Quack()</span>
         </Logo>
-        <SidebarItem>
-          <img src="icon-aprender.svg" alt="Aprender icon" />
+        <SelectedSidebarItem onClick={() => navigate('/Login')}>
+          <img src="/src/svgs/Home-svgs/Books.svg" alt="Aprender" />
           Aprender
-        </SidebarItem>
-        <SidebarItem>
-          <img src="icon-ranking.svg" alt="Ranking icon" />
+        </SelectedSidebarItem>
+        <SidebarItem onClick={() => navigate('/Login')}>
+          <img src="/src/svgs/Home-svgs/Ranking.svg" alt="Ranking" />
           Rankings
         </SidebarItem>
-        <SidebarItem>
-          <img src="icon-perfil.svg" alt="Perfil icon" />
+        <SidebarItem onClick={() => navigate('/Login')}>
+          <img src="/src/svgs/Home-svgs/User.svg" alt="Perfil" />
           Perfil
         </SidebarItem>
-        <SidebarItem>
-          <img src="icon-missoes.svg" alt="Missões icon" />
+        <SidebarItem onClick={() => navigate('/Login')}>
+          <img src="/src/svgs/Home-svgs/Alvo.svg" alt="Missões" />
           Missões
         </SidebarItem>
-        <SidebarItem>
-          <img src="icon-loja.svg" alt="Loja icon" />
+        <SidebarItem onClick={() => navigate('/Login')}>
+          <img src="/src/svgs/Home-svgs/Loja.svg" alt="Loja" />
           Loja
         </SidebarItem>
-        <SidebarItem>
-          <img src="icon-opcoes.svg" alt="Opções icon" />
+        <SidebarItem onClick={() => navigate('/Login')}>
+          <img src="/src/svgs/Home-svgs/Configuracao.svg" alt="Opções" />
           Opções
         </SidebarItem>
-        <SidebarItem>
-          <img src="icon-sair.svg" alt="Sair icon" />
+        <SairSidebarItem onClick={() => navigate('/Login')}>
+          <img src="/src/svgs/Home-svgs/Logout.svg" alt="Sair" />
           Sair
-        </SidebarItem>
+        </SairSidebarItem>
       </Sidebar>
 
       {/* Main Content */}
       <MainContent>
         {/* Header */}
         <Header>
+
+          <Button onClick={() => (window.location.href = "/Puzzle")}>
+            <img src="/src/svgs/Home-svgs/Puzzle.svg" alt="Estrela icon" />Desafio diário!
+            </Button>
+
           <InvestidaBox>
             Investida de 3 dias!
             <div>
@@ -287,15 +383,15 @@ const Home = () => {
           </InvestidaBox>
 
           <SearchBar>
-            <Input type="search" placeholder="Pesquisar por nome..." />
-            <img src="icon-search.svg" alt="Search icon" />
-            <img src="icon-microphone.svg" alt="Mic icon" />
+            <Input type="search" placeholder="Pesquisar por nome..." ></Input>
+            <img src="/src/svgs/Home-svgs/Microfone.svg" alt="Microfone" />
           </SearchBar>
         </Header>
 
         {/* Módulos */}
         <Titulo>Módulos</Titulo>
         <ModuloCard bgColor="#FFEB99">
+          <img src="/src/svgs/Home-svgs/Programacao.svg"></img>
           <div>
             <p>Roadmap 1</p>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -312,6 +408,7 @@ const Home = () => {
         </ModuloCard>
 
         <ModuloCard bgColor="#D9B3FF">
+        <img src="/src/svgs/Home-svgs/Frontend.svg"></img>
           <div>
             <p>Roadmap 2</p>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -328,6 +425,7 @@ const Home = () => {
         </ModuloCard>
 
         <ModuloCard bgColor="#CCE0FF">
+        <img src="/src/svgs/Home-svgs/DevOps.svg"></img>
           <div>
             <p>Roadmap 3</p>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -344,6 +442,7 @@ const Home = () => {
         </ModuloCard>
 
         <ModuloCard bgColor="#CCFFCC">
+        <img src="/src/svgs/Home-svgs/Backend.svg"></img>
           <div>
             <p>Roadmap 4</p>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
