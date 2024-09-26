@@ -157,22 +157,13 @@ const InvestidaBox = styled.div`
 const SearchBar = styled.div`
   display: flex;
   align-items: center;
+  width: 20%;
 
-  input {
-    width: auto;
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    outline: none;
-    margin-right: 10px;
-  }
-
-  ::before {
-    content: url('/src/svgs/Home-svgs/Lupa.svg');
-    display: inline-block;
-    width: 20px; /* adjust the size of your SVG */
-    height: 20px;
-    margin-right: 5px; /* adjust the spacing as needed */
+  Input {
+    width: 100%;
+    height: 40px;
+    padding: 0 10px;
+    font-size: 18px;
   }
 
   img {
@@ -274,30 +265,30 @@ const ProgressBar = styled.div<ProgressBarProps>`
   }
 `;
 
-const EmblemasBox = styled.div`
-  margin-top: 20px;
-  padding: 20px;
-  background-color: #ffffff;
-  border-radius: 12px;
-  width: 300px;
-`;
+// const EmblemasBox = styled.div`
+//   margin-top: 20px;
+//   padding: 20px;
+//   background-color: #ffffff;
+//   border-radius: 12px;
+//   width: 300px;
+// `;
 
-const EmblemaItem = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
+// const EmblemaItem = styled.div`
+//   display: flex;
+//   align-items: center;
+//   margin-bottom: 10px;
 
-  img {
-    width: 40px;
-    height: 40px;
-    margin-right: 10px;
-  }
+//   img {
+//     width: 40px;
+//     height: 40px;
+//     margin-right: 10px;
+//   }
 
-  span {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 18px;
-  }
-`;
+//   span {
+//     font-family: 'Montserrat', sans-serif;
+//     font-size: 18px;
+//   }
+// `;
 
 const Button = styled.button`
   
@@ -316,6 +307,12 @@ const Button = styled.button`
     background-color: #4834d4;
     color: white;
   }
+`;
+
+const StyledImg = styled.img`
+  margin: 10px;
+  width: 20px;
+  height: 20px;
 `;
 
 // React Component
@@ -382,10 +379,12 @@ const Home = () => {
             </div>
           </InvestidaBox>
 
-          <SearchBar>
-            <Input type="search" placeholder="Pesquisar por nome..." ></Input>
-            <img src="/src/svgs/Home-svgs/Microfone.svg" alt="Microfone" />
-          </SearchBar>
+        <SearchBar style={{ border: '1px solid #ddd', borderRadius: '8px', display: 'flex', alignItems: 'center' , padding: '10px'}}>
+          <StyledImg src="/src/svgs/Home-svgs/Lupa.svg" alt="Microfone" />
+          <Input type="search" placeholder="Pesquisar por nome..." />
+          <StyledImg  src="/src/svgs/Home-svgs/Microfone.svg" alt="Microfone" />
+        </SearchBar>
+
         </Header>
 
         {/* Módulos */}
@@ -458,7 +457,7 @@ const Home = () => {
           </IconButton>
         </ModuloCard>
 
-        {/* Emblemas */}
+        {/* Emblemas 
         <EmblemasBox>
           <h3>Emblemas em destaque</h3>
           <EmblemaItem>
@@ -473,7 +472,7 @@ const Home = () => {
             <img src="icon-backend.svg" alt="Backend icon" />
             <span>Backend</span>
           </EmblemaItem>
-        </EmblemasBox>
+        </EmblemasBox> */}
       </MainContent>
     </Container>
   );
