@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useNavigate } from 'react-router-dom';
@@ -315,9 +316,46 @@ const StyledImg = styled.img`
   height: 20px;
 `;
 
-// React Component
+interface Modulo {
+  nome: string;
+  aulasCompletas: number;
+  totalAulas: number;
+  corBarra: string;
+  bgColor: string;
+  rota: string;
+  icon: string;
+}
+
 const Home = () => {
   const navigate = useNavigate();
+
+  // Estado para armazenar os módulos que virão do banco de dados
+  const [modulos, setModulos] = useState<Modulo[]>([]);
+
+  // Simulação da busca de dados do banco de dados
+  useEffect(() => {
+    // Aqui você integraria a chamada para o banco de dados real
+    const fetchModulos = async () => {
+      // Exemplo: chamada à API ou banco de dados
+      const dadosDoBanco = [
+        { nome: 'Lógica de Programação', aulasCompletas: 18, totalAulas: 300, corBarra: '#FFD700', bgColor: '#FFEB99', rota: '/Logica_Roadmap', icon: '/src/svgs/Home-svgs/Programacao.svg' },
+        { nome: 'Frontend', aulasCompletas: 18, totalAulas: 18, corBarra: '#8000FF', bgColor: '#D9B3FF', rota: '/Frontend_Roadmap', icon: '/src/svgs/Home-svgs/Frontend.svg' },
+        { nome: 'DevOps', aulasCompletas: 3, totalAulas: 18, corBarra: '#1E90FF', bgColor: '#CCE0FF', rota: '/DevOps_Roadmap', icon: '/src/svgs/Home-svgs/DevOps.svg' },
+        { nome: 'Backend', aulasCompletas: 0, totalAulas: 18, corBarra: '#32CD32', bgColor: '#CCFFCC', rota: '/Backend_Roadmap', icon: '/src/svgs/Home-svgs/Backend.svg' },
+      ];
+
+      setModulos(dadosDoBanco);
+    };
+
+    fetchModulos();
+  }, []);
+
+  // Função para calcular a porcentagem da barra de progresso
+  const calcularProgresso = (aulasCompletas: number, totalAulas: number) => {
+    if (totalAulas === 0) return '0%';
+    const progresso = (aulasCompletas / totalAulas) * 100;
+    return `${progresso}%`;
+  };
 
   return (
     <Container>
@@ -389,76 +427,26 @@ const Home = () => {
 
         {/* Módulos */}
         <Titulo>Módulos</Titulo>
-        <ModuloCard bgColor="#FFEB99">
-          <img src="/src/svgs/Home-svgs/Programacao.svg"></img>
-          <div>
-            <p>Roadmap 1</p>
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <h3>Lógica de Programação</h3>
-            <a>Módulo Completo!</a>
+        {modulos.map((modulo, index) => (
+          <ModuloCard key={index} bgColor={modulo.bgColor}>
+            <img src={modulo.icon} alt={modulo.nome} />
+            <div>
+              <p>{`Roadmap ${index + 1}`}</p>
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <h3>{modulo.nome}</h3>
+                <a>{`${modulo.aulasCompletas}/${modulo.totalAulas} Aulas Completas`}</a>
+              </div>
+              <ProgressBar progress={calcularProgresso(modulo.aulasCompletas, modulo.totalAulas)} color={modulo.corBarra}>
+                <div></div>
+              </ProgressBar>
             </div>
-            <ProgressBar progress="100%" color="#FFD700">
-              <div></div>
-            </ProgressBar>
-          </div>
-          <IconButton onClick={() => navigate("/Logica_Roadmap")} aria-label="voltar">
-            <ArrowForwardIcon />
-          </IconButton>
-        </ModuloCard>
-
-        <ModuloCard bgColor="#D9B3FF">
-        <img src="/src/svgs/Home-svgs/Frontend.svg"></img>
-          <div>
-            <p>Roadmap 2</p>
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <h3>Frontend</h3>
-            <a>Módulo Completo!</a>
-            </div>
-            <ProgressBar progress="100%" color="#8000FF">
-              <div></div>
-            </ProgressBar>
-          </div>
-          <IconButton onClick={() => navigate("/Frontend_Roadmap")} aria-label="voltar">
-            <ArrowForwardIcon />
-          </IconButton>
-        </ModuloCard>
-
-        <ModuloCard bgColor="#CCE0FF">
-        <img src="/src/svgs/Home-svgs/DevOps.svg"></img>
-          <div>
-            <p>Roadmap 3</p>
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <h3>DevOps</h3>
-            <a>3/18 Aulas Completas</a>
-            </div>
-            <ProgressBar progress="20%" color="#1E90FF">
-              <div></div>
-            </ProgressBar>
-          </div>
-          <IconButton onClick={() => navigate("/DevOps_Roadmap")} aria-label="voltar">
-            <ArrowForwardIcon />
-          </IconButton>
-        </ModuloCard>
-
-        <ModuloCard bgColor="#CCFFCC">
-        <img src="/src/svgs/Home-svgs/Backend.svg"></img>
-          <div>
-            <p>Roadmap 4</p>
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <h3>Backend</h3>
-            <a>0/18 Aulas Completas</a>
-            </div>
-            <ProgressBar progress="0%" color="#32CD32">
-              <div></div>
-            </ProgressBar>
-          </div>
-          <IconButton onClick={() => navigate("/Backend_Roadmap")} aria-label="voltar">
-            <ArrowForwardIcon />
-          </IconButton>
-        </ModuloCard>
-
-        {/* Emblemas 
-        <EmblemasBox>
+            <IconButton onClick={() => navigate(modulo.rota)} aria-label="voltar">
+              <ArrowForwardIcon />
+            </IconButton>
+          </ModuloCard>
+        ))}
+        
+        {/* <EmblemasBox>
           <h3>Emblemas em destaque</h3>
           <EmblemaItem>
             <img src="icon-fullstack.svg" alt="Fullstack icon" />
