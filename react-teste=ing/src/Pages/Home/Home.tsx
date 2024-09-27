@@ -331,9 +331,10 @@ interface Modulo {
 
 const Home = () => {
   const navigate = useNavigate();
-
-  // Estado para armazenar os módulos que virão do banco de dados
   const [modulos, setModulos] = useState<Modulo[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [exactMatches, setExactMatches] = useState<Modulo[]>([]);
+  const [similarMatches, setSimilarMatches] = useState<Modulo[]>([]);
 
   // Simulação da busca de dados do banco de dados
   useEffect(() => {
@@ -344,7 +345,7 @@ const Home = () => {
         { nome: 'Lógica de Programação', aulasCompletas: 18, totalAulas: 300, corBarra: '#FFD700', bgColor: '#FFEB99', rota: '/Logica_Roadmap', icon: '/src/svgs/Home-svgs/Programacao.svg' },
         { nome: 'Frontend', aulasCompletas: 18, totalAulas: 18, corBarra: '#8000FF', bgColor: '#D9B3FF', rota: '/Frontend_Roadmap', icon: '/src/svgs/Home-svgs/Frontend.svg' },
         { nome: 'DevOps', aulasCompletas: 3, totalAulas: 18, corBarra: '#1E90FF', bgColor: '#CCE0FF', rota: '/DevOps_Roadmap', icon: '/src/svgs/Home-svgs/DevOps.svg' },
-        { nome: 'Backend', aulasCompletas: 0, totalAulas: 18, corBarra: '#32CD32', bgColor: '#CCFFCC', rota: '/Backend_Roadmap', icon: '/src/svgs/Home-svgs/Backend.svg' },
+        { nome: 'Backend', aulasCompletas: 5, totalAulas: 18, corBarra: '#32CD32', bgColor: '#CCFFCC', rota: '/Backend_Roadmap', icon: '/src/svgs/Home-svgs/Backend.svg' },
       ];
 
       setModulos(dadosDoBanco);
@@ -352,6 +353,17 @@ const Home = () => {
 
     fetchModulos();
   }, []);
+
+  useEffect(() => {
+    const exact = modulos.filter(modulo => modulo.nome.toLowerCase() === searchTerm.toLowerCase());
+    const similar = modulos.filter(modulo => 
+      modulo.nome.toLowerCase().includes(searchTerm.toLowerCase()) && 
+      modulo.nome.toLowerCase() !== searchTerm.toLowerCase()
+    );
+
+    setExactMatches(exact);
+    setSimilarMatches(similar);
+  }, [searchTerm, modulos]);
 
   // Função para calcular a porcentagem da barra de progresso
   const calcularProgresso = (aulasCompletas: number, totalAulas: number) => {
@@ -400,60 +412,55 @@ const Home = () => {
 
       {/* Main Content */}
       <MainContent>
-        {/* Header */}
         <Header>
-
           <PuzzleButton onClick={() => (window.location.href = "/Puzzle")}>
             <img src="/src/svgs/Home-svgs/Puzzle.svg" alt="Estrela icon" />Desafio diário!
-            </PuzzleButton>
+          </PuzzleButton>
 
           <InvestidaBox>
-            Investida de 3 dias!
-            <div>
-            <img src="/src/Icons/fire.svg" alt="Estrela icon" />
-            <img src="/src/Icons/fire.svg" alt="Estrela icon" />
-            <img src="/src/Icons/fire.svg" alt="Estrela icon" />
-            <img src="/src/Icons/no-fire.svg" alt="Void icon" />
-            <img src="/src/Icons/no-fire.svg" alt="Void icon" />
-            <img src="/src/Icons/no-fire.svg" alt="Void icon" />
-            <img src="/src/Icons/no-fire.svg" alt="Void icon" />
-            </div>
-          </InvestidaBox>
+              Investida de 3 dias!
+              <div>
+              <img src="/src/Icons/fire.svg" alt="Estrela icon" />
+              <img src="/src/Icons/fire.svg" alt="Estrela icon" />
+              <img src="/src/Icons/fire.svg" alt="Estrela icon" />
+              <img src="/src/Icons/no-fire.svg" alt="Void icon" />
+              <img src="/src/Icons/no-fire.svg" alt="Void icon" />
+              <img src="/src/Icons/no-fire.svg" alt="Void icon" />
+              <img src="/src/Icons/no-fire.svg" alt="Void icon" />
+              </div>
+            </InvestidaBox>
 
-        <SearchBar style={{ border: '1px solid #ddd', borderRadius: '8px', display: 'flex', alignItems: 'center' , padding: '10px'}}>
-          <StyledImg src="/src/svgs/Home-svgs/Lupa.svg" alt="Microfone" />
-          <Input type="search" placeholder="Pesquisar por nome..." />
-          <StyledImg  src="/src/svgs/Home-svgs/Microfone.svg" alt="Microfone" />
-        </SearchBar>
-
+          <SearchBar>
+            <Input
+              type="search"
+              placeholder="Pesquisar por nome..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </SearchBar>
         </Header>
-
-        {/* Módulos */}
-<Titulo>Módulos</Titulo>
-{modulos.map((modulo, index) => (
-  <ModuloCard key={index} bgColor={modulo.bgColor}>
-    <img src={modulo.icon} alt={modulo.nome} />
-    <div>
-      <p>{`Roadmap ${index + 1}`}</p>
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <h3>{modulo.nome}</h3>
-        {modulo.aulasCompletas / modulo.totalAulas === 1 ? (
-          <a>Módulo Completo</a>
-        ) : (
-          <a>{`${modulo.aulasCompletas}/${modulo.totalAulas} Aulas Completas`}</a>
-        )}
-      </div>
-      <ProgressBar progress={calcularProgresso(modulo.aulasCompletas, modulo.totalAulas)} color={modulo.corBarra}>
-        <div></div>
-      </ProgressBar>
-    </div>
-    <IconButton onClick={() => navigate(modulo.rota)} aria-label="navegar">
-      <ArrowForwardIcon />
-    </IconButton>
-  </ModuloCard>
-))}
-
-        
+        <Titulo>Módulos Semelhantes</Titulo>
+        {similarMatches.map((modulo, index) => (
+          <ModuloCard key={index} bgColor={modulo.bgColor}>
+            <img src={modulo.icon} alt={modulo.nome} />
+            <div>
+              <h3>{modulo.nome}</h3>
+              {modulo.aulasCompletas / modulo.totalAulas === 1 ? (
+                  <a>Módulo Completo</a>
+                ) : (
+                  <a>{`${modulo.aulasCompletas}/${modulo.totalAulas} Aulas Completas`}</a>
+                )}
+                <ProgressBar progress={calcularProgresso(modulo.aulasCompletas, modulo.totalAulas)} color={modulo.corBarra}>
+                <div></div>
+              </ProgressBar>
+            </div>
+            
+            <IconButton onClick={() => navigate(modulo.rota)} aria-label="navegar">
+              <ArrowForwardIcon />
+            </IconButton>
+          </ModuloCard>
+        ))}
+             
         {/* <EmblemasBox>
           <h3>Emblemas em destaque</h3>
           <EmblemaItem>
