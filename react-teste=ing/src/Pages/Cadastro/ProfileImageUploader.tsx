@@ -26,8 +26,8 @@ const Box = styled.div`
 const ImageUpload = styled.div<{ hasImage: boolean }>`
   background-color: white;
   position: relative;
-  width: 200px;
-  height: 200px;
+  width: 100px;
+  height: 100px;
   border: 4px solid #eb832e;
   border-radius: 100%;
   box-shadow: 2px 3px 12px rgba(0, 0, 0, 0.6);
@@ -38,6 +38,7 @@ const ImageUpload = styled.div<{ hasImage: boolean }>`
   background-size: 50% 50%;
   cursor: pointer;
   color: white;
+  margin-bottom: 20px;
 
   &:hover {
     opacity: 0.7;
