@@ -125,6 +125,9 @@ export default function Cadastro() {
     formData.append("email", data.email);
     formData.append("username", data.username);
     formData.append("password", data.password);
+    formData.append("phone", data.phone);
+    formData.append("cpf", data.cpf);
+    formData.append("photo", data.photo[0], "profile-image.jpg");
 
     if (croppedImageUrl) {
       const croppedImageBlob = await fetch(croppedImageUrl)
@@ -136,7 +139,7 @@ export default function Cadastro() {
         formData.append("photo", croppedImageBlob, "cropped-image.jpg");
       }
     }
-
+  
     try {
       const response = await fetch("http://localhost:5000/register", { method: "POST", body: formData });
       if (response.ok) {

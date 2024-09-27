@@ -291,13 +291,16 @@ const ProgressBar = styled.div<ProgressBarProps>`
 //   }
 // `;
 
-const Button = styled.button`
-  
+const PuzzleButton = styled.button`
   font-family: 'Lilita One', sans-serif;
+  border-radius: 8px;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-weight: 300;
   justify-content: space-between;
   align-items: center;
-  color: #fff;
+  color: white;
+  padding: 10px 20px;
   background-color: #6c5ce7;
   font-size: 18px;
   position: relative;
@@ -400,9 +403,9 @@ const Home = () => {
         {/* Header */}
         <Header>
 
-          <Button onClick={() => (window.location.href = "/Puzzle")}>
+          <PuzzleButton onClick={() => (window.location.href = "/Puzzle")}>
             <img src="/src/svgs/Home-svgs/Puzzle.svg" alt="Estrela icon" />Desafio diário!
-            </Button>
+            </PuzzleButton>
 
           <InvestidaBox>
             Investida de 3 dias!
@@ -426,25 +429,30 @@ const Home = () => {
         </Header>
 
         {/* Módulos */}
-        <Titulo>Módulos</Titulo>
-        {modulos.map((modulo, index) => (
-          <ModuloCard key={index} bgColor={modulo.bgColor}>
-            <img src={modulo.icon} alt={modulo.nome} />
-            <div>
-              <p>{`Roadmap ${index + 1}`}</p>
-              <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <h3>{modulo.nome}</h3>
-                <a>{`${modulo.aulasCompletas}/${modulo.totalAulas} Aulas Completas`}</a>
-              </div>
-              <ProgressBar progress={calcularProgresso(modulo.aulasCompletas, modulo.totalAulas)} color={modulo.corBarra}>
-                <div></div>
-              </ProgressBar>
-            </div>
-            <IconButton onClick={() => navigate(modulo.rota)} aria-label="voltar">
-              <ArrowForwardIcon />
-            </IconButton>
-          </ModuloCard>
-        ))}
+<Titulo>Módulos</Titulo>
+{modulos.map((modulo, index) => (
+  <ModuloCard key={index} bgColor={modulo.bgColor}>
+    <img src={modulo.icon} alt={modulo.nome} />
+    <div>
+      <p>{`Roadmap ${index + 1}`}</p>
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <h3>{modulo.nome}</h3>
+        {modulo.aulasCompletas / modulo.totalAulas === 1 ? (
+          <a>Módulo Completo</a>
+        ) : (
+          <a>{`${modulo.aulasCompletas}/${modulo.totalAulas} Aulas Completas`}</a>
+        )}
+      </div>
+      <ProgressBar progress={calcularProgresso(modulo.aulasCompletas, modulo.totalAulas)} color={modulo.corBarra}>
+        <div></div>
+      </ProgressBar>
+    </div>
+    <IconButton onClick={() => navigate(modulo.rota)} aria-label="navegar">
+      <ArrowForwardIcon />
+    </IconButton>
+  </ModuloCard>
+))}
+
         
         {/* <EmblemasBox>
           <h3>Emblemas em destaque</h3>

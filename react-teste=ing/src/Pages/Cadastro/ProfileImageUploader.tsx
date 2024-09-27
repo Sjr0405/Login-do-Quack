@@ -23,7 +23,7 @@ const Box = styled.div`
   align-items: center;
 `;
 
-const ImageUpload = styled.div`
+const ImageUpload = styled.div<{ hasImage: boolean }>`
   background-color: white;
   position: relative;
   width: 200px;
@@ -32,6 +32,16 @@ const ImageUpload = styled.div`
   border-radius: 100%;
   box-shadow: 2px 3px 12px rgba(0, 0, 0, 0.6);
   overflow: hidden;
+  background-image: ${({ hasImage }) => (hasImage ? 'none' : 'url(/src/svgs/Cadastro-svgs/2.svg)')};
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: 50% 50%;
+  cursor: pointer;
+  color: white;
+
+  &:hover {
+    opacity: 0.7;
+  } 
 `;
 
 const ImagePreview = styled.img`
@@ -49,7 +59,6 @@ const UploadIcon = styled.i`
   position: absolute;
   margin: 0 auto;
   font-size: 50px;
-  color: purple;
 `;
 
 const HiddenInput = styled.input`
@@ -69,6 +78,7 @@ const ProfileImageUploader: React.FC = () => {
   const [imageRef, setImageRef] = useState<HTMLImageElement | null>(null);
   const [scaleX] = useState(1);
   const [scaleY] = useState(1);
+  const [hasImage, setHasImage] = useState(false); // Estado para controlar se a imagem foi carregada
   const imagePreviewRef = useRef<HTMLImageElement | null>(null);
 
   const onCropComplete = (crop: Crop) => {
@@ -119,6 +129,7 @@ const ProfileImageUploader: React.FC = () => {
         if (imagePreviewRef.current) {
           imagePreviewRef.current.src = img.src;
         }
+        setHasImage(true); // Define hasImage como true quando a imagem é carregada
       };
       img.src = URL.createObjectURL(file);
     }
@@ -128,9 +139,9 @@ const ProfileImageUploader: React.FC = () => {
     <Main>
       <Box>
         <form id="form-form">
-          <ImageUpload>
+          <ImageUpload hasImage={hasImage}>
             <ImagePreview ref={imagePreviewRef} alt="Preview" />
-            <UploadIcon className="bi bi-cloud-arrow-up" />
+            <UploadIcon />
             <HiddenInput
               type="file"
               onChange={handleImageChange}

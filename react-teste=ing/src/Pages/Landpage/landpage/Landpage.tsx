@@ -43,16 +43,17 @@ const Subtitulo = styled.h3`
 `;
 
 // Estilizando o botão de "Entrar"
-const Button = styled.button`
+const CadButton = styled.button`
   color: #fff;
   background-color: #337447;
   font-size: 14px;
   top: 25%;
-  right: 32%;
+  left: 8%;
   padding: 22px;
   margin-left: 20px;
   border-radius: 8px;
-  border: 1px solid #fff;
+  border: none;
+  font family: 'Montserrat Alternates', sans-serif;
   position: relative;
   transition: background-color 0.3s, color 0.3s;
   z-index: 2; /* Mantém o botão acima dos SVGs */
@@ -105,9 +106,9 @@ const Home = () => {
           <br />
           estruturado para se tornar um programador eficiente.
         </Subtitulo>
-        <Button onClick={() => (window.location.href = "/Cadastro")}>
+        <CadButton onClick={() => (window.location.href = "/Cadastro")}>
           Criar uma conta gratuitamente
-        </Button>
+        </CadButton>
       </Container>
     </Section>
   );
