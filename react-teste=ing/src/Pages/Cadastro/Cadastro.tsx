@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import { TextField, Button, Grid, Box, Typography, IconButton, Card } from "@mui/material";
+import { TextField, Button, Grid, Box, Typography, IconButton, InputLabel } from "@mui/material";
 import InputMask from "react-input-mask";
 import { useNavigate } from 'react-router-dom'; 
 import * as yup from "yup";
@@ -8,9 +8,17 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Swal from 'sweetalert2';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'; 
 import styled from 'styled-components';
-import "./Cadastro.css";
+import 'react-image-crop/dist/ReactCrop.css';
+import ProfileImageUploader from './ProfileImageUploader.tsx'; // Import your ProfileImageUploader
+
 
 const schema = yup.object().shape({
+  photo: yup.mixed().test("fileSize", "Tamanho máximo da imagem é de 1GB", (value) => {
+    if (!value || (Array.isArray(value) && value.length === 0)) {
+      return true; // Campo opcional: se não houver arquivo, passa
+    }
+    return Array.isArray(value) && value[0].size <= 1000000000; // Verifica o tamanho do arquivo, se houver um
+  }),
   name: yup.string().required("Nome completo é obrigatório"),
   email: yup.string().email("Email inválido").required("Email é obrigatório"),
   username: yup.string().required("Nome de usuário é obrigatório"),
@@ -26,6 +34,7 @@ interface FormData {
   phone: string;
   cpf: string;
   password: string;
+  photo: FileList;
 }
 
 const Form = styled.form`
@@ -80,7 +89,7 @@ const StyledTypography = styled(Typography)`
     margin-top: 30%;
   }
 
-   h4 {
+  h4 {
     text-decoration: none;
     font-size: 35px;
     font-family: "Montserrat Alternates", sans-serif;
@@ -96,70 +105,97 @@ const StyledTypography = styled(Typography)`
   }
 `;
 
-export default function CadastroData() {
-  const [dataList, setDataList] = useState<FormData[]>([]); // Armazena os usuários cadastrados
-  const { handleSubmit, control, formState: { errors }, reset } = useForm({
+const Inputinho = styled(InputLabel)`
+  font-family: "Lilita One", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  color: lightgray;
+`;
+
+export default function Cadastro() {
+  const { handleSubmit, control, formState: { errors }, reset } = useForm<FormData>({
     resolver: yupResolver(schema),
   });
-
   const navigate = useNavigate();
+  const [croppedImageUrl, setCroppedImageUrl] = useState<string | null>(null);
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    setDataList([...dataList, data]);
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("email", data.email);
+    formData.append("username", data.username);
+    formData.append("password", data.password);
 
-    Swal.fire({
-      icon: 'success',
-      title: 'Sucesso!',
-      text: 'Cadastro realizado com sucesso.',
-    }).then(() => {
-      navigate('/Login');
-    });
+    if (croppedImageUrl) {
+      const croppedImageBlob = await fetch(croppedImageUrl)
+        .then((r) => r.blob())
+        .catch((error) => {
+          console.error("Erro ao obter blob da imagem cortada:", error);
+        });
+      if (croppedImageBlob) {
+        formData.append("photo", croppedImageBlob, "cropped-image.jpg");
+      }
+    }
 
-    reset();
-  };
-
-  const handleDelete = (index: number) => {
-    const newDataList = dataList.filter((_, i) => i !== index);
-    setDataList(newDataList);
-
-    Swal.fire({
-      icon: 'success',
-      title: 'Deletado!',
-      text: 'Registro deletado com sucesso.',
-    });
+    try {
+      const response = await fetch("http://localhost:5000/register", { method: "POST", body: formData });
+      if (response.ok) {
+        Swal.fire({
+          icon: "success",
+          title: "Sucesso!",
+          text: "Cadastro realizado com sucesso.",
+        }).then(() => navigate("/Login"));
+        reset();
+      } else {
+        console.error("Erro ao cadastrar o usuário");
+      }
+    } catch (error) {
+      console.error("Erro na requisição", error);
+    }
   };
 
   return (
-    <Box sx={{ display: 'flex',height: '100vh'}}>
-      {/* Seção Esquerda com Fundo Laranja e Imagem */}
-      <ImageSection sx={{ flex: 2, display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
+    <Box sx={{ display: 'flex', height: '100vh' }}>
+      <ImageSection sx={{ flex: 2 }}>
         <Box>
           <StyledTypography>
             <h4>
-              Faltam poucos passos<br/> para<br/> se tornar um Dev!
+              Faltam poucos passos<br /> para<br /> se tornar um Dev!
             </h4>
           </StyledTypography>
-          {/* Imagem */}
           <img src="src/assets/Personagem.svg" alt="Ilustração" style={{ width: '80%' }} />
         </Box>
       </ImageSection>
 
-      {/* Seção Direita com o Formulário */}
       <Box sx={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '0 5%' }}>
         <Box sx={{ width: '100%', maxWidth: 400 }}>
-
-          {/* Formulário */}
           <Form onSubmit={handleSubmit(onSubmit)}>
-            {/* Título */}
-          <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: 2 }}>
-            <IconButton onClick={() => navigate(-1)} aria-label="voltar">
-              <ArrowBackIcon />
-            </IconButton>
-            <Typography variant="h5" sx={{ marginLeft: 1 }}>
-              Olá Dev!
-            </Typography>
-          </Box>
+            <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: 2 }}>
+              <IconButton onClick={() => navigate(-1)} aria-label="voltar">
+                <ArrowBackIcon />
+              </IconButton>
+              <Typography variant="h5" sx={{ marginLeft: 1 }}>
+                Olá Dev!
+              </Typography>
+            </Box>
             <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <Controller
+                  name="photo"
+                  control={control}
+                  render={() => (
+                    <>
+                      <ProfileImageUploader setCroppedImageUrl={setCroppedImageUrl} />
+                      <Inputinho>Tamanho (máximo de 1GB)</Inputinho>
+                      {errors.photo && (
+                        <Typography color="error">{errors.photo.message}</Typography>
+                        
+                      )}
+                    </>
+                  )}
+                />
+              </Grid>
+
               <Grid item xs={12}>
                 <Controller
                   name="name"
@@ -167,26 +203,11 @@ export default function CadastroData() {
                   render={({ field }) => (
                     <TextField
                       {...field}
-                      label="Nome Completo"
+                      label="Nome completo"
+                      variant="outlined"
                       fullWidth
                       error={!!errors.name}
                       helperText={errors.name ? errors.name.message : ""}
-                    />
-                  )}
-                />
-              </Grid>
-
-              <Grid item xs={12}>
-                <Controller
-                  name="email"
-                  control={control}
-                  render={({ field }) => (
-                    <TextField
-                      {...field}
-                      label="Endereço de E-mail"
-                      fullWidth
-                      error={!!errors.email}
-                      helperText={errors.email ? errors.email.message : ""}
                     />
                   )}
                 />
@@ -199,7 +220,8 @@ export default function CadastroData() {
                   render={({ field }) => (
                     <TextField
                       {...field}
-                      label="Nome de Usuário"
+                      label="Nome de usuário"
+                      variant="outlined"
                       fullWidth
                       error={!!errors.username}
                       helperText={errors.username ? errors.username.message : ""}
@@ -210,14 +232,35 @@ export default function CadastroData() {
 
               <Grid item xs={12}>
                 <Controller
+                  name="email"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      label="E-mail"
+                      variant="outlined"
+                      fullWidth
+                      error={!!errors.email}
+                      helperText={errors.email ? errors.email.message : ""}
+                    />
+                  )}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <Controller
                   name="phone"
                   control={control}
                   render={({ field }) => (
-                    <InputMask mask="(99) 99999-9999" value={field.value} onChange={field.onChange}>
-                      {(inputProps) => (
+                    <InputMask
+                      mask="(99) 99999-9999"
+                      {...field}
+                      onChange={(e) => field.onChange(e.target.value)}
+                    >
+                      {() => (
                         <TextField
-                          {...inputProps}
                           label="Telefone"
+                          variant="outlined"
                           fullWidth
                           error={!!errors.phone}
                           helperText={errors.phone ? errors.phone.message : ""}
@@ -233,11 +276,15 @@ export default function CadastroData() {
                   name="cpf"
                   control={control}
                   render={({ field }) => (
-                    <InputMask mask="999.999.999-99" value={field.value} onChange={field.onChange}>
-                      {(inputProps) => (
+                    <InputMask
+                      mask="999.999.999-99"
+                      {...field}
+                      onChange={(e) => field.onChange(e.target.value)}
+                    >
+                      {() => (
                         <TextField
-                          {...inputProps}
                           label="CPF"
+                          variant="outlined"
                           fullWidth
                           error={!!errors.cpf}
                           helperText={errors.cpf ? errors.cpf.message : ""}
@@ -256,6 +303,7 @@ export default function CadastroData() {
                     <TextField
                       {...field}
                       label="Senha"
+                      variant="outlined"
                       type="password"
                       fullWidth
                       error={!!errors.password}
@@ -266,7 +314,7 @@ export default function CadastroData() {
               </Grid>
 
               <Grid item xs={12}>
-                <Button type="submit" variant="contained" fullWidth sx={{ backgroundColor: '#6C63FF', color: 'white',  }}>
+                <Button type="submit" variant="contained" fullWidth sx={{ backgroundColor: '#6C63FF', color: 'white', }}>
                   Registrar-se
                 </Button>
               </Grid>
@@ -277,47 +325,12 @@ export default function CadastroData() {
                 </Typography>
 
                 <GoogleButton>
-                <img src="/src/Icons/Google.svg" alt="Google" style={{height: '20px',fontFamily: 'Montserrat Alternates', marginRight: '10px' }} />
-                Iniciar sessão com o Google
-              </GoogleButton>
+                  <img src="/src/Icons/Google.svg" alt="Google" style={{ height: '20px', fontFamily: 'Montserrat Alternates', marginRight: '10px' }} />
+                  Iniciar sessão com o Google
+                </GoogleButton>
               </Grid>
             </Grid>
           </Form>
-
-          {/* Lista de usuários registrados */}
-          {dataList.length > 0 && (
-            <Box sx={{ marginTop: 4 }}>
-              <Card sx={{ padding: 2 }}>
-                <Typography variant="h6" gutterBottom>
-                  Usuários Registrados
-                </Typography>
-                {dataList.map((data, index) => (
-                  <Box key={index} sx={{ marginBottom: 2 }}>
-                    <Typography variant="body1">
-                      Nome: {data.name}
-                    </Typography>
-                    <Typography variant="body1">
-                      E-mail: {data.email}
-                    </Typography>
-                    <Typography variant="body1">
-                      CPF: {data.cpf}
-                    </Typography>
-                    <Typography variant="body1">
-                      Telefone: {data.phone}
-                    </Typography>
-                    <Button
-                      variant="outlined"
-                      color="secondary"
-                      onClick={() => handleDelete(index)}
-                      sx={{ marginTop: 1 }}
-                    >
-                      Deletar
-                    </Button>
-                  </Box>
-                ))}
-              </Card>
-            </Box>
-          )}
         </Box>
       </Box>
     </Box>

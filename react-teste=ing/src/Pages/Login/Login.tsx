@@ -53,13 +53,15 @@ const StyledTypography = styled(Typography)`
     text-decoration: none;
     font-size: 24px;
     font-family: "Lilita One", sans-serif;
-    margin-top: 30%;
+    font-weight: 300;
+    margin-top: 50%;
   }
 
   h4 {
     text-decoration: none;
     font-size: 24px;
     font-family: "Montserrat Alternates", sans-serif;
+    font-weight: 500;
     margin-top: 30%;
   }
 
@@ -157,7 +159,7 @@ const LoginLink = styled.a`
 
 const DuckImage = styled.img`
   width: 500px;
-  margin-top: 46%;
+  margin-top: 41%;
   margin-right: 25%;
 `;
 

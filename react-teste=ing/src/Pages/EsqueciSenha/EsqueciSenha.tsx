@@ -3,7 +3,6 @@ import { TextField, Button, Grid, Box, Card, Typography } from "@mui/material";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Swal from 'sweetalert2';
-import './EsqueciSenha.css';
 import { useNavigate } from "react-router-dom";
 export { EsqueciSenha }
 
