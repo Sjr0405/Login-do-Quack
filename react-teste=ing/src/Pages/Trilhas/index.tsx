@@ -1,10 +1,19 @@
 import React from "react";
+import GlobalStyles from "../../Styles/GlobalStyles";
+import { ThemeProvider }  from 'styled-components'; 
+import light from "../../Styles/themes/light";
+
+
+import Layout from "../../Components/Trilhas/Layout";
 
 const Trilhas: React.FC = () => {
     return (
-        <div>
-            <h1>Trilhas</h1>
-        </div>
+        <ThemeProvider theme={light}>
+
+                <GlobalStyles />
+                <Layout />
+    
+        </ThemeProvider>
     );
 }
 

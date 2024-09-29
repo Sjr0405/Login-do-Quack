@@ -1,13 +1,16 @@
 import React from "react";
-
 import { Container } from './style';
 
-const MainFooter: React.FC = () => {
-    return (
-            <Container>
-            <h1>MainFooter</h1>
-            </Container>     
-    );
+interface Props {
+  children: React.ReactNode;
+}
+
+const MainFooter: React.FC<Props> = ({ children }) => {
+  return (
+    <Container>
+      {children}
+    </Container>
+  );
 }
 
 export default MainFooter;
