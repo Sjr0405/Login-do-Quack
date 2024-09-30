@@ -1,16 +1,19 @@
 import React from "react";
 import { Container } from './style';
 
-interface Props {
-  children: React.ReactNode;
-}
 
-const MainHeader: React.FC<Props> = ({ children }) => {
+import Logo from '../../Logo/logo';
+import BackButton from '../../BackButton/BackButton';
+
+
+
+const MainHeader: React.FC = () => {
   return (
     <Container>
-      {children}
-    </Container>
+      <Logo />
+      <BackButton />
+    </Container> 
   );
 }
 
-export default MainHeader;
+export default MainHeader;''

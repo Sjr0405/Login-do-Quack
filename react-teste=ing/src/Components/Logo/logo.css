@@ -1,0 +1,15 @@
+.logo-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo-image {
+    margin-right: 10px; /* Espaçamento entre a imagem e o texto */
+  }
+  
+  .logo-text {
+    font-size: 24px; /* Tamanho da fonte */
+    font-weight: bold; /* Fonte em negrito */
+    color: #FFA500; /* Cor do texto em laranja, similar ao 'Quack' na imagem */
+  }
+  

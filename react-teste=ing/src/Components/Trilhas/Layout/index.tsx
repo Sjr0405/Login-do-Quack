@@ -3,20 +3,21 @@ import React from "react";
 import { Grid } from './style';
 
 import MainHeader from "../MainHeader";
-import MainContent from "../MainContent";
+import MainContent from "../MainContent"; // Ensure this path is correct
 import MainFooter from "../MainFooter";
+import Roadmap from "../RoadMap";
 
 
 const Layout: React.FC = () => {
   return (
     <Grid>
-      <MainHeader>
-        Backend Roadmap
-      </MainHeader>
+      <MainHeader></MainHeader>
       
-      <MainContent>
-        <p>Aqui vai o conteúdo do roadmap...</p>
-      </MainContent>
+      <MainContent></MainContent>
+
+      <Roadmap>
+        <p>Roadmapaqi</p>
+      </Roadmap>      
       
       <MainFooter>
         Continue praticando!

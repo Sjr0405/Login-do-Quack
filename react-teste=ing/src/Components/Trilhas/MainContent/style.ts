@@ -1,11 +1,18 @@
+// style.ts
 import styled from "styled-components";
 
-
 export const Container = styled.div`
- grid-area: MC; /* Definindo área para o conteúdo principal */
- background-color: ${(props) => props.theme.colors.tertiary};
- color: ${(props) => props.theme.colors.white};
+  grid-area: MC; /* Definindo área para o conteúdo principal */
+  color: ${(props) => props.theme.colors.white};
 
- padding: 20px;
-  overflow-y: auto; /* Permite rolagem se o conteúdo for longo */
+  width: 100%;
+  max-width: 900px; /* Define uma largura máxima para evitar que o conteúdo ocupe toda a tela */
+  margin: 0 auto; /* Centraliza o container horizontalmente */
+  padding: 40px 20px; /* Mais espaçamento para melhorar o layout */
+
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  gap: 5px; /* Espaçamento entre os componentes */
+
 `;
