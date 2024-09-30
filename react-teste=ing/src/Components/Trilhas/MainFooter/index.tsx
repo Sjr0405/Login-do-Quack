@@ -1,12 +1,11 @@
 import React from "react";
 import { Container } from './style';
-import Logo from '../../Logo/logo';
 
 
 const mainfooter: React.FC = () => {
   return (
     <Container>
-      <Logo></Logo>
+    <p>Copyright © 2024 Quack. Todos os direitos reservados.</p>
     </Container>
   );
 };
