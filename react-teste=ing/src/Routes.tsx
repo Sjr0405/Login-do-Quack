@@ -3,6 +3,9 @@ import Login from './Pages/Login/Login.tsx';
 import EsqueciSenha from './Pages/EsqueciSenha/EsqueciSenha'; 
 import Cadastro from './Pages/Cadastro/Cadastro';
 import Home from './Pages/Home/Home.tsx';
+import Aprender from './Pages/Home/Aprender.tsx';
+import Atividade from './Pages/Home/Atividade.tsx';
+import FazerAtividade from './Pages/Home/FazerAtividade.tsx';
 import { AuthProvider } from './AuthContext.tsx';
 import GlobalStyles from './Styles/GlobalStyles.tsx';
 import { ThemeProvider } from 'styled-components';
@@ -42,6 +45,9 @@ function MainRoutes() {
         <Route path="/Login" element={<Login />} />
         <Route path="/EsqueciSenha" element={<EsqueciSenha />} />
         <Route path="/Home" element={<Home />} />
+        <Route path="/FazerAtividade" element={<FazerAtividade />} />
+        <Route path="/Aprender" element={<Aprender />} />  
+        <Route path="/Atividade" element={<Atividade />} />  
       </Routes>
     </AuthProvider>
 
