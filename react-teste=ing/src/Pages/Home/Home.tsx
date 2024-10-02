@@ -110,13 +110,19 @@ const Home = () => {
   const navigate = useNavigate();
   const [section, setSection] = useState('Aprender');
   
-  const renderSection = () => {
+  const renderSectionAprender = () => {
     if (section === 'Aprender') {
       return <Aprender />;
-    } else if (section === 'Atividade') {
+    }
+  };
+  const renderSectionFazerAtividade = () => {
+    if (section === 'Fazer Atividade') {
+      return <FazerAtividade />;
+    }
+  };
+  const renderSectionAtividade = () => {
+    if (section === 'Atividade') {
       return <Atividade />;
-    } else if (section === 'FazerAtividade') {
-      return <FazerAtividade onNavigate={setSection} />;
     }
   };
 
@@ -160,7 +166,9 @@ const Home = () => {
 
       {/* Botões para alternar entre as seções */}
       <MainContent>
-        {renderSection()}
+        {renderSectionAprender()}
+        {renderSectionFazerAtividade()}
+        {renderSectionAtividade()}
       </MainContent>
           {/* <Routes>
             <Route path="/" element={<Aprender />} />
