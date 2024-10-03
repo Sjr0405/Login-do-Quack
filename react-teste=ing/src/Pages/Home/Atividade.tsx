@@ -1,86 +1,10 @@
-import { useEffect, useState } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 // Styled Components
 const Container = styled.div`
   display: flex;
   height: 100vh;
-`;
-
-const Sidebar = styled.div`
-  width: 250px;
-  background-color: #ffffff;
-  border-right: 1px solid #ddd;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-`;
-
-const SidebarItemBase = styled.div`
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  font-family: 'Montserrat Alternates', sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-  border-radius: 8px;
-  padding: 10px;
-  cursor: pointer;
-
-  img {
-    margin-right: 5px;
-    padding: 5px;
-  }
-`;
-
-const SelectedSidebarItem = styled(SidebarItemBase)`
-  background-color: rgba(251, 123, 5, 0.05);
-  color: #FB7901;
-  border: 1px solid #FB7901;
-`;
-
-const SidebarItem = styled(SidebarItemBase)`
-  color: #000;
-
-  &:hover {
-    color: #FB7901;
-    border: 1px solid #FB7901;
-    background-color: rgba(251, 123, 5, 0.05);
-  }
-`;
-
-const SairSidebarItem = styled(SidebarItemBase)`
-  color: #ff4a4a;
-
-  &:hover {
-    border: 1px solid #ff4a4a;
-    background-color: rgba(255, 62, 65, 0.05);
-  }
-`;
-
-const Logo = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 50px;
-  cursor: pointer;
-
-  img {
-    height: 60px;
-    margin-right: 15px;
-  }
-
-  span {
-    font-size: 28px;
-    font-weight: bold;
-    color: #FF914D;
-    transition: color 0.3s;
-    font-family: 'Montserrat', sans-serif;
-
-    &:hover {
-      color: #4834d4;
-    }
-  }
 `;
 
 const MainContent = styled.div`
@@ -205,29 +129,28 @@ const Function = styled.a`
   color: #000;
 `;
 
-const Atividade = () => {
+const Atividade = ({ changeSection }: { changeSection: (section: string) => void }) => {
   const navigate = useNavigate();
+
   return (
     <Container>
-
-  
       {/* Main Content */}
       <MainContent>
         <Header>
           <TopBar>
-            <SelectedTopBarItem onClick={() => navigate('/Atividade')}>
+            <SelectedTopBarItem onClick={() => changeSection('Atividade')}>
               <a>Visão Geral</a>
             </SelectedTopBarItem>
-            <TopBarItem onClick={() => navigate('/FazerAtividade')}>
+            <TopBarItem onClick={() => changeSection('FazerAtividade')}>
               <a>Fazer Atividade</a>
             </TopBarItem>
-            <TopBarItem onClick={() => navigate('/SolicitarAjuda')}>
+            <TopBarItem onClick={() => navigate('SolicitarAjuda')}>
               <a>Solicitar Quacksensei</a>
             </TopBarItem>
-            <TopBarItem onClick={() => navigate('/CodeReview')}>
+            <TopBarItem onClick={() => navigate('CodeReview')}>
               <a>Code Review</a>
             </TopBarItem>
-            <TopBarItem onClick={() => navigate('/Respostas')} style={{ border: 'none' }}>
+            <TopBarItem onClick={() => navigate('Respostas')} style={{ border: 'none' }}>
               <a>Respostas</a>
             </TopBarItem>
           </TopBar>
@@ -262,7 +185,7 @@ const Atividade = () => {
               </ListDescription>
               <CodeBlock>
                 <Constant>Lasagna lasagna</Constant>= <Rule>new</Rule> <Variable>Lasagna()</Variable>();<br />
-                <Function>lasagna.expectedMinutesInOven(30)</Function><br />
+                <Function>lasagna.remainingMinutesInOven(30)</Function><br />
                 <em>// = 10</em>
               </CodeBlock>
             </ListItem>
@@ -274,7 +197,7 @@ const Atividade = () => {
               </ListDescription>
               <CodeBlock>
                 <Constant>Lasagna lasagna</Constant>= <Rule>new</Rule> <Variable>Lasagna()</Variable>();<br />
-                <Function>lasagna.expectedMinutesInOven(2)</Function><br />
+                <Function>lasagna.preparationTimeInMinutes(2)</Function><br />
                 <em>// = 2 * 2 = 4</em>
               </CodeBlock>
             </ListItem>
@@ -286,7 +209,7 @@ const Atividade = () => {
               </ListDescription>
               <CodeBlock>
                 <Constant>Lasagna lasagna</Constant>= <Rule>new</Rule> <Variable>Lasagna()</Variable>();<br />
-                <Function>lasagna.expectedMinutesInOven(3, 20)</Function><br />
+                <Function>lasagna.totalTimeInMinutes(3, 20)</Function><br />
                 <em>// = 2 * 2 + 30 = 34</em>
               </CodeBlock>
             </ListItem>

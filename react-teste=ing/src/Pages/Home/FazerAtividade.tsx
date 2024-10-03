@@ -136,7 +136,7 @@ export class Lasagna {
 }
 
 
-const FazerAtividade = () => {
+const FazerAtividade = ( { changeSection }: { changeSection: (section: string) => void } ) => {
   const navigate = useNavigate();
   const rodarTeste = () => {
     try {
@@ -191,10 +191,10 @@ const FazerAtividade = () => {
       <MainContent>
         <Header>
           <TopBar>
-            <TopBarItem onClick={() => navigate('/Atividade')}>
+            <TopBarItem onClick={() => changeSection('Atividade')}>
               <a>Visão Geral</a>
             </TopBarItem>
-            <SelectedTopBarItem onClick={() => navigate('/FazerAtividade')}>
+            <SelectedTopBarItem onClick={() => changeSection('FazerAtividade')}>
               <a>Fazer Atividade</a>
             </SelectedTopBarItem>
             <TopBarItem onClick={() => navigate('/SolicitarAjuda')}>

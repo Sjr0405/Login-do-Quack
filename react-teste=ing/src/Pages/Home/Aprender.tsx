@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { Routes, Route, useNavigate } from 'react-router-dom';
 import { IconButton, Input } from "@mui/material";
 
 // Styled Components
@@ -207,8 +206,8 @@ interface Modulo {
   icon: string;
 }
 
-const Aprender = () => {
-  const navigate = useNavigate();
+const Aprender = ({ changeSection }: { changeSection: (section: string) => void }) => {
+
   const [modulos, setModulos] = useState<Modulo[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [exactMatches, setExactMatches] = useState<Modulo[]>([]);
@@ -220,7 +219,7 @@ const Aprender = () => {
     const fetchModulos = async () => {
       // Exemplo: chamada à API ou banco de dados
       const dadosDoBanco = [
-        { nome: 'Lógica de Programação', aulasCompletas: 18, totalAulas: 300, corBarra: '#FFD700', bgColor: '#FFEB99', rota: '/Atividade', icon: '/src/svgs/Home-svgs/Programacao.svg' },
+        { nome: 'Lógica de Programação', aulasCompletas: 18, totalAulas: 300, corBarra: '#FFD700', bgColor: '#FFEB99', rota: 'Atividade', icon: '/src/svgs/Home-svgs/Programacao.svg' },
         { nome: 'Frontend', aulasCompletas: 18, totalAulas: 18, corBarra: '#8000FF', bgColor: '#D9B3FF', rota: '/Frontend_Roadmap', icon: '/src/svgs/Home-svgs/Frontend.svg' },
         { nome: 'DevOps', aulasCompletas: 3, totalAulas: 18, corBarra: '#1E90FF', bgColor: '#CCE0FF', rota: '/DevOps_Roadmap', icon: '/src/svgs/Home-svgs/DevOps.svg' },
         { nome: 'Backend', aulasCompletas: 5, totalAulas: 18, corBarra: '#32CD32', bgColor: '#CCFFCC', rota: '/Backend_Roadmap', icon: '/src/svgs/Home-svgs/Backend.svg' },
@@ -297,7 +296,7 @@ const Aprender = () => {
               </ProgressBar>
             </div>
             
-            <IconButton onClick={() => navigate(modulo.rota)} aria-label="navegar">
+            <IconButton onClick={() => changeSection(modulo.rota)} aria-label="navegar">
               <ArrowForwardIcon />
             </IconButton>
           </ModuloCard>
