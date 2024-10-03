@@ -174,20 +174,27 @@ const ProgressBar = styled.div<ProgressBarProps>`
 // `;
 
 const PuzzleButton = styled.button`
-  font-family: 'Lilita One', sans-serif;
+  display: flex;
   border-radius: 8px;
   border: none;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  font-weight: 300;
   justify-content: space-between;
   align-items: center;
   color: white;
   padding: 10px 20px;
   background-color: #6c5ce7;
-  font-size: 18px;
+  
   position: relative;
   transition: background-color 0.3s ease;
   z-index: 2; /* Mantém o botão acima dos SVGs */
+
+  p {
+    margin: 0;
+    font-family: 'Lilita One', sans-serif;
+    font-weight: 300;
+    font-size: 20px;
+    padding: 10px 10px;
+  }
 
   &:hover {
     background-color: #4834d4;
@@ -255,7 +262,8 @@ const Aprender = ({ changeSection }: { changeSection: (section: string) => void 
       <MainContent>
         <Header>
           <PuzzleButton onClick={() => changeSection('Desafio')}>
-            <img src="/src/svgs/Home-svgs/Puzzle.svg" alt="Estrela icon" />Desafio diário!
+            <img src="/src/svgs/Home-svgs/Puzzle.svg" alt="Estrela icon" />
+            <p> Desafio diário! </p>
           </PuzzleButton>
 
           <InvestidaBox>
