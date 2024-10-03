@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import Desafio from './Desafio'; // O componente que você já criou
-import FazerAtividade from './FazerAtividade'; // O componente da nova atividade
-import Aprender from './Aprender';
-import SideBar from './SideBar';
+import Desafio from '../../Components/Desafio'; // O componente que você já criou
+import FazerAtividade from '../../Components/FazerAtividade'; // O componente da nova atividade
+import Aprender from '../../Components/Aprender';
+import SideBar from '../../Components/SideBar';
 
 // Styled Components
 const Container = styled.div`
