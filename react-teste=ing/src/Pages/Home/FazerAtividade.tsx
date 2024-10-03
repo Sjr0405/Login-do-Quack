@@ -122,15 +122,15 @@ export class Lasagna {
     return 40;
   }
 
-  remainingMinutesInOven(actualMinutesInOven) {
+  remainingMinutesInOven(actualMinutesInOven: number) {
     return 40 - actualMinutesInOven;
   }
 
-  preparationTimeInMinutes(layers) {
+  preparationTimeInMinutes(layers : number) {
     return layers * 2;
   }
 
-  totalTimeInMinutes(layers, actualMinutesInOven) {
+  totalTimeInMinutes(layers: number, actualMinutesInOven: number) {
     return this.preparationTimeInMinutes(layers) + actualMinutesInOven;
   }
 }
@@ -176,11 +176,11 @@ const FazerAtividade = ( { changeSection }: { changeSection: (section: string) =
       });
   
     } catch (error) {
-      // Mensagem específica do erro
+      const errorAsError = error as Error;
       Swal.fire({
         icon: 'error',
         title: 'Falha no Teste',
-        text: error.message,
+        text: errorAsError.message,
         footer: `<a href="/FazerAtividade" style="color: #eb832e;">Clique aqui ver o log</a>`
       });
     }
