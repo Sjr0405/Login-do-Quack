@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import Atividade from './Atividade'; // O componente que você já criou
+import Desafio from './Desafio'; // O componente que você já criou
 import FazerAtividade from './FazerAtividade'; // O componente da nova atividade
 import Aprender from './Aprender';
 import SideBar from './SideBar';
@@ -34,8 +34,8 @@ const Home = () => {
     }
   };
   const renderSectionAtividade = () => {
-    if (section === 'Atividade') {
-      return <Atividade changeSection={setSection} />;
+    if (section === 'Desafio') {
+      return <Desafio changeSection={setSection} />;
     }
   };
 

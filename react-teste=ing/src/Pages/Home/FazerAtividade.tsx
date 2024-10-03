@@ -164,7 +164,7 @@ const FazerAtividade = ( { changeSection }: { changeSection: (section: string) =
       }
   
       // Teste 4: totalTimeInMinutes
-      const Cond4 = 24;
+      const Cond4 = 23;
       const result4 = lasagna.totalTimeInMinutes(2, 20);
       if (result4 !== Cond4) {
         throw new Error(`Erro no teste totalTimeInMinutes: Esperado ${Cond4} minutos no total com 2 camadas e 20 minutos no forno, mas obteve ${result4}`);

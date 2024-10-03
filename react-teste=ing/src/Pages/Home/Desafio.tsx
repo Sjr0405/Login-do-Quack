@@ -129,7 +129,7 @@ const Function = styled.a`
   color: #000;
 `;
 
-const Atividade = ({ changeSection }: { changeSection: (section: string) => void }) => {
+const Desafio = ({ changeSection }: { changeSection: (section: string) => void }) => {
   const navigate = useNavigate();
 
   return (
@@ -220,4 +220,4 @@ const Atividade = ({ changeSection }: { changeSection: (section: string) => void
   );
 };
 
-export default Atividade;
+export default Desafio;

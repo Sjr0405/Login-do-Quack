@@ -4,7 +4,7 @@ import EsqueciSenha from './Pages/EsqueciSenha/EsqueciSenha';
 import Cadastro from './Pages/Cadastro/Cadastro';
 import Home from './Pages/Home/Home.tsx';
 import Aprender from './Pages/Home/Aprender.tsx';
-import Atividade from './Pages/Home/Atividade.tsx';
+import Atividade from './Pages/Home/Desafio.tsx';
 import FazerAtividade from './Pages/Home/FazerAtividade.tsx';
 import { AuthProvider } from './AuthContext.tsx';
 import GlobalStyles from './Styles/GlobalStyles.tsx';

@@ -219,10 +219,10 @@ const Aprender = ({ changeSection }: { changeSection: (section: string) => void 
     const fetchModulos = async () => {
       // Exemplo: chamada à API ou banco de dados
       const dadosDoBanco = [
-        { nome: 'Lógica de Programação', aulasCompletas: 18, totalAulas: 300, corBarra: '#FFD700', bgColor: '#FFEB99', rota: 'Atividade', icon: '/src/svgs/Home-svgs/Programacao.svg' },
-        { nome: 'Frontend', aulasCompletas: 18, totalAulas: 18, corBarra: '#8000FF', bgColor: '#D9B3FF', rota: '/Frontend_Roadmap', icon: '/src/svgs/Home-svgs/Frontend.svg' },
-        { nome: 'DevOps', aulasCompletas: 3, totalAulas: 18, corBarra: '#1E90FF', bgColor: '#CCE0FF', rota: '/DevOps_Roadmap', icon: '/src/svgs/Home-svgs/DevOps.svg' },
-        { nome: 'Backend', aulasCompletas: 5, totalAulas: 18, corBarra: '#32CD32', bgColor: '#CCFFCC', rota: '/Backend_Roadmap', icon: '/src/svgs/Home-svgs/Backend.svg' },
+        { nome: 'Lógica de Programação', aulasCompletas: 18, totalAulas: 300, corBarra: '#FFD700', bgColor: '#FFEB99', rota: 'Logica_Programacao', icon: '/src/svgs/Home-svgs/Programacao.svg' },
+        { nome: 'Frontend', aulasCompletas: 18, totalAulas: 18, corBarra: '#8000FF', bgColor: '#D9B3FF', rota: 'Frontend_Roadmap', icon: '/src/svgs/Home-svgs/Frontend.svg' },
+        { nome: 'DevOps', aulasCompletas: 3, totalAulas: 18, corBarra: '#1E90FF', bgColor: '#CCE0FF', rota: 'DevOps_Roadmap', icon: '/src/svgs/Home-svgs/DevOps.svg' },
+        { nome: 'Backend', aulasCompletas: 5, totalAulas: 18, corBarra: '#32CD32', bgColor: '#CCFFCC', rota: 'Backend_Roadmap', icon: '/src/svgs/Home-svgs/Backend.svg' },
       ];
 
       setModulos(dadosDoBanco);
@@ -254,7 +254,7 @@ const Aprender = ({ changeSection }: { changeSection: (section: string) => void 
       {/* Main Content */}
       <MainContent>
         <Header>
-          <PuzzleButton onClick={() => (window.location.href = "/Puzzle")}>
+          <PuzzleButton onClick={() => changeSection('Desafio')}>
             <img src="/src/svgs/Home-svgs/Puzzle.svg" alt="Estrela icon" />Desafio diário!
           </PuzzleButton>
 
