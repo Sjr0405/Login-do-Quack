@@ -105,7 +105,7 @@ const SideBar = ( { changeSection }: { changeSection: (section: string) => void 
         <img src="/src/svgs/Home-svgs/Books.svg" alt="Aprender" />
         Aprender
         </SelectedSidebarItem>
-        <SidebarItem onClick={() => navigate('/Login')}>
+        <SidebarItem onClick={() => changeSection('Rankings')}>
         <img src="/src/svgs/Home-svgs/Ranking.svg" alt="Ranking" />
         Rankings
         </SidebarItem>

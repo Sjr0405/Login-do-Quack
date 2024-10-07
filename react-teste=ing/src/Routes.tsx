@@ -5,6 +5,7 @@ import Cadastro from './Pages/Cadastro/Cadastro';
 import Home from './Pages/Home/Home.tsx';
 import Aprender from './Components/Aprender.tsx';
 import Atividade from './Components/Desafio.tsx';
+import Rankings from './Components/Rankings.tsx';
 import FazerAtividade from './Components/FazerAtividade.tsx';
 import { AuthProvider } from './AuthContext.tsx';
 import GlobalStyles from './Styles/GlobalStyles.tsx';
@@ -48,6 +49,7 @@ function MainRoutes() {
         <Route path="/FazerAtividade" element={<FazerAtividade />} />
         <Route path="/Aprender" element={<Aprender />} />  
         <Route path="/Atividade" element={<Atividade />} />  
+        <Route path="/Rankings" element={<Rankings />} />
       </Routes>
     </AuthProvider>
 

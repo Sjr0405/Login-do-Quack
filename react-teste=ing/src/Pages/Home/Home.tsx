@@ -6,6 +6,7 @@ import Desafio from '../../Components/Desafio'; // O componente que você já cr
 import FazerAtividade from '../../Components/FazerAtividade'; // O componente da nova atividade
 import Aprender from '../../Components/Aprender';
 import SideBar from '../../Components/SideBar';
+import Rankings from '../../Components/Rankings';
 
 // Styled Components
 const Container = styled.div`
@@ -38,6 +39,11 @@ const Home = () => {
       return <Desafio changeSection={setSection} />;
     }
   };
+  const renderSectionRankings = () => {
+    if (section === 'Rankings') {
+      return <Rankings changeSection={setSection} />;
+    }
+  };
 
   return (
       <Container>
@@ -49,6 +55,7 @@ const Home = () => {
         {renderSectionAprender()}
         {renderSectionFazerAtividade()}
         {renderSectionAtividade()}
+        {renderSectionRankings()}
       </MainContent>
     </Container>
   );
