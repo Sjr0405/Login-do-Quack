@@ -172,7 +172,7 @@ const FazerAtividade = ( { changeSection }: { changeSection: (section: string) =
   
       // Se todos os testes passarem
       Swal.fire('Sucesso!', 'Todos os testes passaram com sucesso.', 'success').then(() => {
-        navigate('/CodeReview');
+        changeSection('CodeReview');
       });
   
     } catch (error) {
@@ -191,19 +191,19 @@ const FazerAtividade = ( { changeSection }: { changeSection: (section: string) =
       <MainContent>
         <Header>
           <TopBar>
-            <TopBarItem onClick={() => changeSection('Atividade')}>
+            <TopBarItem onClick={() => changeSection('Desafio')}>
               <a>Visão Geral</a>
             </TopBarItem>
             <SelectedTopBarItem onClick={() => changeSection('FazerAtividade')}>
               <a>Fazer Atividade</a>
             </SelectedTopBarItem>
-            <TopBarItem onClick={() => navigate('/SolicitarAjuda')}>
+            <TopBarItem onClick={() => changeSection('SolicitarAjuda')}>
               <a>Solicitar Quacksensei</a>
             </TopBarItem>
-            <TopBarItem onClick={() => navigate('/CodeReview')}>
+            <TopBarItem onClick={() => changeSection('CodeReview')}>
               <a>Code Review</a>
             </TopBarItem>
-            <TopBarItem onClick={() => navigate('/Respostas')} style={{ border: 'none' }}>
+            <TopBarItem onClick={() => changeSection('Respostas')} style={{ border: 'none' }}>
               <a>Respostas</a>
             </TopBarItem>
           </TopBar>
@@ -235,7 +235,7 @@ const FazerAtividade = ( { changeSection }: { changeSection: (section: string) =
         <ActionButton onClick={rodarTeste}>Rodar teste</ActionButton>
           <ActionButton onClick={() => {
             Swal.fire('Sucesso!', 'Atividade enviada com sucesso.', 'success').then(() => {
-              navigate('/Respostas');
+              changeSection('Respostas');
             });
           }}>Enviar</ActionButton>
         </ActionButtonsContainer>
