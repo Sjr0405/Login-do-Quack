@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Desafio from '../../Components/Desafio'; // O componente que você já criou
 import FazerAtividade from '../../Components/FazerAtividade'; // O componente da nova atividade
