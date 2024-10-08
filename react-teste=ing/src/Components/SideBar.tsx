@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import Swal from 'sweetalert2';
 
 // Styled Components
 const Sidebar = styled.div`
@@ -41,6 +43,7 @@ const SidebarItem = styled(SidebarItemBase)`
     color: #FB7901;
     border: 1px solid #FB7901;
     background-color: rgba(251, 123, 5, 0.05);
+    content: 'react-teste=ing/src/svgs/Home-svgs/Selected-Colors/Laranja/Alvo.svg';
   }
 `;
 
@@ -89,48 +92,122 @@ const Logo = styled.div`
   }
 `;
 
-
-const SideBar = ( { changeSection }: { changeSection: (section: string) => void } ) => {
+const SideBar = ({ changeSection }: { changeSection: (section: string) => void }) => {
   const navigate = useNavigate();
+  const [selectedItem, setSelectedItem] = useState<string>('Aprender'); // Estado para rastrear o item selecionado
+
+  const handleItemClick = (section: string) => {
+    setSelectedItem(section); // Atualiza o item selecionado
+    changeSection(section);
+  };
+
+  const handleLogout = () => {
+    Swal.fire({
+      title: 'Tem certeza que deseja sair?',
+      text: 'Você será redirecionado para a página de login.',
+      icon: 'warning',
+      iconColor: '#d33',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#7A5FF5',
+      confirmButtonText: 'Sim, sair!',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate('/Login');
+      }
+    });
+  };
 
   return (
-
-
-<Sidebar>
-    <Logo onClick={() => changeSection('Aprender')}>
+    <Sidebar>
+      <Logo onClick={() => navigate('/Home')}>
         <img src="/src/assets/Logo.svg" alt="Logo Quack()" />
         <span>Quack()</span>
-    </Logo>
-        <SelectedSidebarItem onClick={() => changeSection('Aprender')}>
-        <img src="/src/svgs/Home-svgs/Books.svg" alt="Aprender" />
-        Aprender
+      </Logo>
+
+      {/* Verifica se o item selecionado é o 'Aprender' */}
+      {selectedItem === 'Aprender' ? (
+        <SelectedSidebarItem onClick={() => handleItemClick('Aprender')}>
+          <img src="/src/svgs/Home-svgs/Selected-Colors/Laranja/Books.svg" alt="Aprender" />
+          Aprender
         </SelectedSidebarItem>
-        <SidebarItem onClick={() => changeSection('Rankings')}>
-        <img src="/src/svgs/Home-svgs/Ranking.svg" alt="Ranking" />
-        Rankings
+      ) : (
+        <SidebarItem onClick={() => handleItemClick('Aprender')}>
+          <img src="/src/svgs/Home-svgs/Selected-Colors/Preto/Books.svg" alt="Aprender" />
+          Aprender
         </SidebarItem>
-        <SidebarItem onClick={() => navigate('/Login')}>
-        <img src="/src/svgs/Home-svgs/User.svg" alt="Perfil" />
-        Perfil
+      )}
+
+      {/* Verifica se o item selecionado é o 'Rankings' */}
+      {selectedItem === 'Rankings' ? (
+        <SelectedSidebarItem onClick={() => handleItemClick('Rankings')}>
+          <img src="/src/svgs/Home-svgs/Selected-Colors/Laranja/Ranking.svg" alt="Ranking" />
+          Rankings
+        </SelectedSidebarItem>
+      ) : (
+        <SidebarItem onClick={() => handleItemClick('Rankings')}>
+          <img src="/src/svgs/Home-svgs/Selected-Colors/Preto/Ranking.svg" alt="Ranking" />
+          Rankings
         </SidebarItem>
-        <SidebarItem onClick={() => navigate('/Login')}>
-        <img src="/src/svgs/Home-svgs/Alvo.svg" alt="Missões" />
-        Missões
+      )}
+
+      {/* Repetir lógica para outros itens */}
+      {selectedItem === 'Perfil' ? (
+        <SelectedSidebarItem onClick={() => handleItemClick('Perfil')}>
+          <img src="/src/svgs/Home-svgs/Selected-Colors/Laranja/User.svg" alt="Perfil" />
+          Perfil
+        </SelectedSidebarItem>
+      ) : (
+        <SidebarItem onClick={() => handleItemClick('Perfil')}>
+          <img src="/src/svgs/Home-svgs/Selected-Colors/Preto/User.svg" alt="Perfil" />
+          Perfil
         </SidebarItem>
-        <SidebarItem onClick={() => navigate('/Login')}>
-        <img src="/src/svgs/Home-svgs/Loja.svg" alt="Loja" />
-        Loja
+      )}
+
+      {/* Continue para os demais itens */}
+      {selectedItem === 'Missoes' ? (
+        <SelectedSidebarItem onClick={() => handleItemClick('Missoes')}>
+          <img src="/src/svgs/Home-svgs/Selected-Colors/Laranja/Alvo.svg" alt="Missões" />
+          Missões
+        </SelectedSidebarItem>
+      ) : (
+        <SidebarItem onClick={() => handleItemClick('Missoes')}>
+          <img src="/src/svgs/Home-svgs/Selected-Colors/Preto/Alvo.svg" alt="Missões" />
+          Missões
         </SidebarItem>
-        <SidebarItem onClick={() => navigate('/Login')}>
-        <img src="/src/svgs/Home-svgs/Configuracao.svg" alt="Opções" />
-        Opções
+      )}
+
+      {selectedItem === 'Loja' ? (
+        <SelectedSidebarItem onClick={() => handleItemClick('Loja')}>
+          <img src="/src/svgs/Home-svgs/Selected-Colors/Laranja/Loja.svg" alt="Loja" />
+          Loja
+        </SelectedSidebarItem>
+      ) : (
+        <SidebarItem onClick={() => handleItemClick('Loja')}>
+          <img src="/src/svgs/Home-svgs/Selected-Colors/Preto/Loja.svg" alt="Loja" />
+          Loja
         </SidebarItem>
-        <SairSidebarItem onClick={() => navigate('/Login')}>
-        <img src="/src/svgs/Home-svgs/Logout.svg" alt="Sair" />
+      )}
+
+      {selectedItem === 'Opcoes' ? (
+        <SelectedSidebarItem onClick={() => handleItemClick('Opcoes')}>
+          <img src="/src/svgs/Home-svgs/Selected-Colors/Laranja/Configuracao.svg" alt="Opções" />
+          Opções
+        </SelectedSidebarItem>
+      ) : (
+        <SidebarItem onClick={() => handleItemClick('Opcoes')}>
+          <img src="/src/svgs/Home-svgs/Selected-Colors/Preto/Configuracao.svg" alt="Opções" />
+          Opções
+        </SidebarItem>
+      )}
+
+      <SairSidebarItem onClick={handleLogout}>
+        <img src="/src/svgs/Home-svgs/Selected-Colors/Vermelho/Logout.svg" alt="Sair" />
         Sair
-        </SairSidebarItem>
+      </SairSidebarItem>
     </Sidebar>
-    );
-    };
+  );
+};
 
 export default SideBar;
