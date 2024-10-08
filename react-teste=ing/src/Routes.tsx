@@ -8,7 +8,7 @@ import Atividade from './Components/Desafio.tsx';
 import Rankings from './Components/Rankings.tsx';
 import FazerAtividade from './Components/FazerAtividade.tsx';
 import Perfil from './Components/Perfil.tsx';
-import EditarPerfil from './Pages/Home/EditarPerfil.tsx';
+import EditarPerfil from './Pages/EditarPerfil/EditarPerfil.tsx';
 import { AuthProvider } from './AuthContext.tsx';
 import GlobalStyles from './Styles/GlobalStyles.tsx';
 import { ThemeProvider } from 'styled-components';

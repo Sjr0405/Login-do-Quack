@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
 
@@ -137,7 +136,6 @@ export class Lasagna {
 
 
 const FazerAtividade = ( { changeSection }: { changeSection: (section: string) => void } ) => {
-  const navigate = useNavigate();
   const rodarTeste = () => {
     try {
       const lasagna = new Lasagna();

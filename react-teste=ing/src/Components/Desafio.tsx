@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 // Styled Components
@@ -130,7 +129,7 @@ const Function = styled.a`
 `;
 
 const Desafio = ({ changeSection }: { changeSection: (section: string) => void }) => {
-  const navigate = useNavigate();
+
 
   return (
     <Container>
