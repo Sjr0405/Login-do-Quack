@@ -109,15 +109,9 @@ const RemovePhotoButton = styled.button`
 `;
 
 const PasswordInput = styled(Input)`
+  
   position: relative;
   padding-right: 40px;
-`;
-
-const EyeIcon = styled.div`
-  position: absolute;
-  right: 10px;
-  top: 40px;
-  cursor: pointer;
 `;
 
 const Logo = styled.div`
@@ -209,13 +203,13 @@ const ProfileEdit = ({ changeSection }: { changeSection: (section: string) => vo
         <FormGroup>
           <Label>Senha Atual</Label>
           <PasswordInput type="password" placeholder="********" />
-          <EyeIcon>👁️</EyeIcon>
+          <img onClick={() => {}} style={{ cursor: 'pointer' , width: '20px', height: '20px'}} src="/src/svgs/Home-svgs/Perfil/Eye.svg" alt="Mostrar Senha" />
         </FormGroup>
 
         <FormGroup>
           <Label>Nova Senha</Label>
           <PasswordInput type="password" placeholder="********" />
-          <EyeIcon>👁️</EyeIcon>
+          <img onClick={() => {}} style={{ cursor: 'pointer' , width: '20px', height: '20px'}} src="/src/svgs/Home-svgs/Perfil/Eye.svg" alt="Mostrar Senha" />
         </FormGroup>
       </FormContainer>
     </ProfileEditContainer>
