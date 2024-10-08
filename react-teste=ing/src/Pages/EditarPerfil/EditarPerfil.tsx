@@ -19,12 +19,16 @@ const Header = styled.div`
 `;
 
 const BackButton = styled.button`
-  background-color: #f66;
+  background-color: #FF3E41;
   color: white;
   border: none;
   border-radius: 5px;
   padding: 10px;
   cursor: pointer;
+
+  &:hover {
+    background-color: #e62e33;
+  }
 `;
 
 const SaveButton = styled.button`
@@ -34,6 +38,10 @@ const SaveButton = styled.button`
   border-radius: 5px;
   padding: 10px;
   cursor: pointer;
+
+  &:hover {
+    background-color: #5841d8;
+  }
 `;
 
 const FormContainer = styled.div`
@@ -66,21 +74,37 @@ const PhotoSection = styled.div`
   align-items: flex-start;
 `;
 
-const PhotoButtons = styled.div`
+const PhotoButton = styled.button`
   display: flex;
-  gap: 10px;
-  margin-top: 10px;
+  align-items: center;
+  justify-content: center;
+  content: '/src/svgs/Home-svgs/Perfil/Image.svg';
+  background-color: #F6C761;
+  border: none;
+  border-radius: 5px;
+  padding: 20px;
+  cursor: pointer;
 
-  button {
-    background-color: #f6c761;
-    border: none;
-    border-radius: 5px;
-    padding: 10px;
-    cursor: pointer;
+  &:hover {
+    background-color: #e5b14c;
+  }
+`;
 
-    &:hover {
-      background-color: #e5b14c;
-    }
+const RemovePhotoButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  content: '/src/svgs/Home-svgs/Perfil/Trash.svg';
+  background-color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 20px;
+  cursor: pointer;
+  border: 1px solid #F6C761;
+
+  &:hover {
+    background-color: #f7f7f7;
+    border: 3px solid: #e5b14c;
   }
 `;
 
@@ -151,11 +175,15 @@ const ProfileEdit = ({ changeSection }: { changeSection: (section: string) => vo
       <FormContainer>
         <PhotoSection>
           <Label>Foto do Perfil</Label>
-          <img src="https://via.placeholder.com/150" alt="Foto do Perfil" />
-          <PhotoButtons>
-            <button>Adicionar Foto</button>
-            <button>Remover Foto</button>
-          </PhotoButtons>
+          <img style={{ width: '150px', height: '150px', borderRadius: '50%' }} src="https://via.placeholder.com/150" alt="Foto do Perfil" />
+          <div style={{ display: 'flex', gap: '20px', marginTop: '10px' }}>
+          <PhotoButton onClick={() => {}}>
+            <img src="/src/svgs/Home-svgs/Perfil/Image.svg" alt="Adicionar Foto" /> Adicionar Foto
+          </PhotoButton>
+          <RemovePhotoButton onClick={() => {}}>
+            <img src="/src/svgs/Home-svgs/Perfil/Trash.svg" alt="Remover Foto" /> Remover Foto
+          </RemovePhotoButton>
+          </div>
         </PhotoSection>
 
         <FormGroup>
