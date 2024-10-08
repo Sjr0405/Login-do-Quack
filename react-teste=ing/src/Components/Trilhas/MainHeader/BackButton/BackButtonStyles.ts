@@ -1,21 +1,21 @@
 import styled from "styled-components";
 
 export const BackButtonStyled = styled.button`
-  background-color: #007BFF; /* Azul */
-  color: #FFFFFF; /* Corrigido para branco */
+  background-color: #007BFF;
+  color: #FFFFFF;
   border: none;
   padding: 10px 20px;
   cursor: pointer;
-  font-size: 20px; /* Tamanho da fonte */
-  font-weight: bold; /* Fonte em negrito */
-  font-family: 'Montserrat Alternates', sans-serif; /* Fonte Montserrat Alternates */
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'Montserrat Alternates', sans-serif;
   border-radius: 20px;
   display: flex;
   align-items: center;
-  transition: background-color 0.3s ease; /* Adiciona uma transição suave */
+  transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #0056b3; /* Cor mais escura no hover */
+    background-color: #0056b3;
   }
 
   @media (max-width: 768px) {
@@ -26,7 +26,7 @@ export const BackButtonStyled = styled.button`
 
 export const ArrowIcon = styled.div`
   margin-right: 12px;
-  color: #FFFFFF; /* Deixa a seta branca */
-  width: 24px; /* Ajuste o tamanho conforme necessário */
-  height: 24px; /* Ajuste o tamanho conforme necessário */
+  color: #FFFFFF;
+  width: 24px;
+  height: 24px;
 `;

@@ -1,0 +1,30 @@
+{
+  "title": "Backend Roadmap",
+  "subtitle": "Se torne um desenvolvedor backend!",
+  "description": "Olá Aluno! Bem-vindo ao roadmap de backend do nosso aplicativo. Neste roadmap, você vai iniciar sua jornada para se tornar um desenvolvedor backend, aprendendo desde os conceitos fundamentais, como estrutura de dados e lógica de programação, até o uso de frameworks e ferramentas essenciais.",
+  "nodes": [
+    { "id": "1", "data": { "label": "Etapa 1" }, "position": { "x": 250, "y": 5 } },
+    { "id": "2", "data": { "label": "Etapa 2" }, "position": { "x": 100, "y": 100 } },
+    { "id": "3", "data": { "label": "Etapa 3" }, "position": { "x": 400, "y": 100 } }
+  ],
+  "edges": [
+    { "id": "e1-2", "source": "1", "target": "2", "type": "smoothstep" },
+    { "id": "e1-3", "source": "1", "target": "3", "type": "smoothstep" }
+  ],
+  "modals": {
+    "Etapa 1": {
+      "description": "Descrição da Etapa 1",
+      "links": [
+        { "label": "Link 1", "url": "https://example.com/1", "type": "vídeo" },
+        { "label": "Link 2", "url": "https://example.com/2", "type": "artigo" }
+      ]
+    },
+    "Etapa 2": {
+      "description": "Descrição da Etapa 2",
+      "links": [
+        { "label": "Link 3", "url": "https://example.com/3", "type": "livro" },
+        { "label": "Link 4", "url": "https://example.com/4", "type": "vídeo" }
+      ]
+    }
+  }
+}

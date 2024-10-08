@@ -1,26 +1,20 @@
 import React from "react";
-
 import { Grid } from './style';
-
 import MainHeader from "../MainHeader/MainHeader";
-import MainContent from "../MainContent"; // Ensure this path is correct
+import MainContent from "../MainContent/MainContent";
 import MainFooter from "../MainFooter/Footer";
 import Roadmap from "../RoadMap";
-
 
 const Layout: React.FC = () => {
   return (
     <Grid>
-      <MainHeader></MainHeader>
-      
-      <MainContent></MainContent>
-
+      <MainHeader />
+      <MainContent />
       <Roadmap>
-        <p>Roadmapaqi</p>
-      </Roadmap>      
-      
-      <MainFooter></MainFooter>  
-    </Grid>     
+        <p>Roadmap aqui</p>
+      </Roadmap>
+      <MainFooter />
+    </Grid>
   );
 }
 

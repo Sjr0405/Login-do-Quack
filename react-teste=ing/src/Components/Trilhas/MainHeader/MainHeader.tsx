@@ -1,6 +1,6 @@
 import React from "react";
 import { Container } from './MainHeaderStyles';
-import Logo from './Logo/logo';
+import Logo from './Logo/Logo';
 import BackButton from './BackButton/BackButton';
 
 const MainHeader: React.FC = () => {
