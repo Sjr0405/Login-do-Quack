@@ -167,25 +167,33 @@ const Vector = styled.div`
 `;
 
 const Navigation = () => {
+
+  const scrollToSection = (sectionId : string) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <Section>
       <NavBar>
         <Logo>
-            <img src="/src/assets/Logo.svg" alt="Logo Quack()" />
-            <span>Quack()</span>
+          <img src="/src/assets/Logo.svg" alt="Logo Quack()" />
+          <span>Quack()</span>
         </Logo>
         <Menu>
-          <NavItem>
-            <Link to="/Home">O que é Quack()</Link>
+          <NavItem onClick={() => scrollToSection('landpage')}>
+            O que é Quack()
           </NavItem>
-          <NavItem>
-            <Link to="/Roadmap">Trilhas</Link>
+          <NavItem onClick={() => scrollToSection('showcase')}>
+            Trilhas
           </NavItem>
-          <NavItem>
-            <Link to="/About">Sobre</Link>
+          <NavItem onClick={() => scrollToSection('about')}>
+            Sobre
           </NavItem>
-          <NavItem>
-            <Link to="/Faq">Contato</Link>
+          <NavItem onClick={() => scrollToSection('faq')}>
+            Contato
           </NavItem>
           <NavItem>
             <Link to="/Cadastro">Criar Conta</Link>

@@ -101,7 +101,7 @@ const Card = styled.div`
 
 const About = () => {
   return (
-    <Section>
+    <Section id="about">
       <Vector>
         <img className="svg1" src="/src/svgs/Landpage-svgs/6.svg" alt="svg" />
       </Vector>

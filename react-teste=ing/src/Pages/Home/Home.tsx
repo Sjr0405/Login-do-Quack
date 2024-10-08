@@ -6,6 +6,7 @@ import FazerAtividade from '../../Components/FazerAtividade'; // O componente da
 import Aprender from '../../Components/Aprender';
 import SideBar from '../../Components/SideBar';
 import Rankings from '../../Components/Rankings';
+import Perfil from '../../Components/Perfil';
 
 // Styled Components
 const Container = styled.div`
@@ -40,7 +41,12 @@ const Home = () => {
   };
   const renderSectionRankings = () => {
     if (section === 'Rankings') {
-      return <Rankings changeSection={setSection} />;
+      return <Rankings/>;
+    }
+  };
+  const renderSectionPerfil = () => {
+    if (section === 'Perfil') {
+      return <Perfil changeSection={setSection} />;
     }
   };
 
@@ -55,6 +61,7 @@ const Home = () => {
         {renderSectionFazerAtividade()}
         {renderSectionAtividade()}
         {renderSectionRankings()}
+        {renderSectionPerfil()}
       </MainContent>
     </Container>
   );

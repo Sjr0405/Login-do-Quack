@@ -69,7 +69,7 @@ const Button = styled.button`
 const Faq = () => {
   return (
     <>
-      <Section>
+      <Section id="faq">
         <Container>
           <H1>
             Junte-se à Revolução do<br/> Aprendizado em Programação!

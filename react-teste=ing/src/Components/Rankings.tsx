@@ -87,7 +87,7 @@ const LanguageImageContainer = styled.div`
   padding: 10px;
   width: fit-content;
   align-items: center;
-  margin-bottom: 20px;
+  margin-left: 25px;
   border-radius: 20%;
   border: 1px solid #f7f7f7;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
@@ -234,12 +234,18 @@ const Rankings = () => {
             isThird={index === 2}  // Terceiro colocado
           >
             <UserImage src={user.image_url} alt={`${user.name}'s avatar`} />
-            <RankingIcon src={getRankingIcon(user.ranking)?.toString()} alt={`Ranking ${user.ranking}`} />
+            <div style={{ display: 'flex', alignItems: 'center', marginLeft: '40%'}}>
+              <RankingIcon src={getRankingIcon(user.ranking)?.toString()} alt={`Ranking ${user.ranking}`} />
+              <LanguageImageContainer>
+                <img src={user.favorite_language_url} alt={user.favorite_language} />
+              </LanguageImageContainer>
+            </div>
+            
             <UserName>{user.name}</UserName>
-            <p>Ranking: {user.ranking}</p>
-            <LanguageImageContainer> 
-            <img src={user.favorite_language_url} alt={user.favorite_language} />
-            </LanguageImageContainer>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <p>#{user.ranking}</p>
+            
+            </div>
           </UserCard>
         ))}
       </MainSection>

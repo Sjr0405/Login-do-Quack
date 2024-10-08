@@ -79,7 +79,7 @@ const Vector = styled.div`
 
 const Home = () => {
   return (
-    <Section>
+    <Section id="landpage">
       <Vector>
         {/* Posicionando os SVGs em lugares estratégicos */}
         <img className="svg1" src="/src/svgs/Landpage-svgs/5.svg" alt="svg" />

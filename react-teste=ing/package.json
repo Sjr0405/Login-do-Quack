@@ -29,7 +29,7 @@
     "react-hook-form": "^7.53.0",
     "react-image-crop": "^11.0.7",
     "react-input-mask": "^2.0.4",
-    "react-router-dom": "^6.26.1",
+    "react-router-dom": "^6.26.2",
     "react-toastify": "^9.1.1",
     "react-use": "^17.3.2",
     "styled": "^1.0.0",

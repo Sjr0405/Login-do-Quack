@@ -7,6 +7,8 @@ import Aprender from './Components/Aprender.tsx';
 import Atividade from './Components/Desafio.tsx';
 import Rankings from './Components/Rankings.tsx';
 import FazerAtividade from './Components/FazerAtividade.tsx';
+import Perfil from './Components/Perfil.tsx';
+import EditarPerfil from './Pages/Home/EditarPerfil.tsx';
 import { AuthProvider } from './AuthContext.tsx';
 import GlobalStyles from './Styles/GlobalStyles.tsx';
 import { ThemeProvider } from 'styled-components';
@@ -46,10 +48,12 @@ function MainRoutes() {
         <Route path="/Login" element={<Login />} />
         <Route path="/EsqueciSenha" element={<EsqueciSenha />} />
         <Route path="/Home" element={<Home />} />
-        <Route path="/FazerAtividade" element={<FazerAtividade />} />
-        <Route path="/Aprender" element={<Aprender />} />  
-        <Route path="/Atividade" element={<Atividade />} />  
+        <Route path="/FazerAtividade" element={<FazerAtividade changeSection={(section: string) => console.log(section)} />} />
+        <Route path="/Aprender" element={<Aprender changeSection={(section: string) => console.log(section)} />} />  
+        <Route path="/Atividade" element={<Atividade changeSection={(section: string) => console.log(section)} />} />  
         <Route path="/Rankings" element={<Rankings />} />
+        <Route path="/Perfil" element={<Perfil changeSection={(section: string) => console.log(section)} />} />
+        <Route path="/EditarPerfil" element={<EditarPerfil changeSection={(section: string) => console.log(section)} />} />
       </Routes>
     </AuthProvider>
 

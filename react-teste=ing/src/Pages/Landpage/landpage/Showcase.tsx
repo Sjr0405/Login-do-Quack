@@ -98,7 +98,7 @@ const Card = styled.div`
 
 const Showcase = () => {
   return (
-    <Section>
+    <Section id="showcase">
       <Container>
         <Title>Trilhas mais populares</Title>
         {/* Card 1 */}
