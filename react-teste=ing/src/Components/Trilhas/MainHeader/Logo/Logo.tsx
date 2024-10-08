@@ -1,13 +1,13 @@
 import React from 'react';
-import './Logo.css';
 import LogoSvg from 'C:/Users/Nadson/Desktop/Login-do-Quack/react-teste=ing/src/Assets/Logo.svg';
+import { LogoContainer, LogoImage, LogoText } from './LogoStyles';
 
 const Logo: React.FC = () => {
   return (
-    <div className="logo-container">
-      <img src={LogoSvg} alt="Logo" className="logo-image" />
-      <span className="logo-text">quack ( )</span>
-    </div>
+    <LogoContainer>
+      <LogoImage src={LogoSvg} alt="Logo" />
+      <LogoText>quack ( )</LogoText>
+    </LogoContainer>
   );
 };
 

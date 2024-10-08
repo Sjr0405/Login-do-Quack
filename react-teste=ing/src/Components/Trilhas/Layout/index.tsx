@@ -2,7 +2,7 @@ import React from "react";
 
 import { Grid } from './style';
 
-import MainHeader from "../MainHeader";
+import MainHeader from "../MainHeader/MainHeader";
 import MainContent from "../MainContent"; // Ensure this path is correct
 import MainFooter from "../MainFooter";
 import Roadmap from "../RoadMap";
@@ -19,9 +19,7 @@ const Layout: React.FC = () => {
         <p>Roadmapaqi</p>
       </Roadmap>      
       
-      <MainFooter>
-        Continue praticando!
-      </MainFooter>  
+      <MainFooter></MainFooter>  
     </Grid>     
   );
 }

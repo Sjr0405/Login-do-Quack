@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@700&display=swap');
+import styled from "styled-components";
 
-.back-button {
+export const BackButtonStyled = styled.button`
   background-color: #007BFF; /* Azul */
   color: #FFFFFF; /* Corrigido para branco */
   border: none;
@@ -13,15 +13,20 @@
   display: flex;
   align-items: center;
   transition: background-color 0.3s ease; /* Adiciona uma transição suave */
-}
 
-.back-button:hover {
-  background-color: #0056b3; /* Cor mais escura no hover */
-}
+  &:hover {
+    background-color: #0056b3; /* Cor mais escura no hover */
+  }
 
-.arrow {
+  @media (max-width: 768px) {
+    width: 100%;
+    justify-content: center;
+  }
+`;
+
+export const ArrowIcon = styled.div`
   margin-right: 12px;
   color: #FFFFFF; /* Deixa a seta branca */
   width: 24px; /* Ajuste o tamanho conforme necessário */
   height: 24px; /* Ajuste o tamanho conforme necessário */
-}
+`;
