@@ -4,7 +4,7 @@ import { Grid } from './style';
 
 import MainHeader from "../MainHeader/MainHeader";
 import MainContent from "../MainContent"; // Ensure this path is correct
-import MainFooter from "../MainFooter";
+import MainFooter from "../MainFooter/Footer";
 import Roadmap from "../RoadMap";
 
 
