@@ -14,7 +14,7 @@ export const LogoImage = styled.img`
 `;
 
 export const LogoText = styled.span`
-  font-size: 24px; /* Tamanho da fonte */
-  font-weight: bold; /* Fonte em negrito */
-  color: #FFA500; /* Cor do texto em laranja, similar ao 'Quack' na imagem */
+  font-size: 24px;
+  font-weight: bold; 
+  color: #FFA500;
 `;

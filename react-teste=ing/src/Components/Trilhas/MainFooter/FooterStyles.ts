@@ -1,16 +1,16 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  grid-area: MF; /* Definindo área para o footer */
+  grid-area: MF; 
   color: ${(props) => props.theme.colors.white};
   display: flex;
-  justify-content: center; /* Centraliza horizontalmente */
-  align-items: center; /* Centraliza verticalmente */
+  justify-content: center; 
+  align-items: center; 
   font-size: 0.8em;
   padding: 10px;
-  text-align: center; /* Centraliza o texto */
-  background-color: ${(props) => props.theme.colors.primary}; /* Adiciona uma cor de fundo */
-  border-top: 1px solid ${(props) => props.theme.colors.gray}; /* Adiciona uma borda superior */
+  text-align: center; 
+  background-color: ${(props) => props.theme.colors.primary}; 
+  border-top: 1px solid ${(props) => props.theme.colors.gray}; 
 
   @media (max-width: 768px) {
     font-size: 0.7em;
