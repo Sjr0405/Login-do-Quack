@@ -1,9 +1,8 @@
 import React from "react";
 import { Container } from "./style";
-import Title from "../../Title/Title";
-import Subtitle from "../../SubtitleContainer/Subtitle";
-import WelcomeText from "../../WelcomeText/WelcomeText";
-import ProgressBar from "../../ProgressBar/ProgressBar"; 
+import Title from "./Title";
+import Subtitle from "./SubtitleContainer";
+import WelcomeText from "./WelcomeText/styles";
 
 const MainContent: React.FC = () => {
   return (
@@ -11,7 +10,6 @@ const MainContent: React.FC = () => {
       <Title />
       <Subtitle />
       <WelcomeText />
-      <ProgressBar />
     </Container>
   );
 };

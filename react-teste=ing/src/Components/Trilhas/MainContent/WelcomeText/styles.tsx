@@ -1,6 +1,6 @@
 // WelcomeText.tsx
 import React from "react";
-import { WelcomeTextContainer } from "./WelcomeText.styles";
+import { WelcomeTextContainer } from ".";
 
 const WelcomeText: React.FC = () => (
   <WelcomeTextContainer>

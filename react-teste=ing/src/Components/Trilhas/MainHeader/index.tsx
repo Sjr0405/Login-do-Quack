@@ -2,8 +2,8 @@ import React from "react";
 import { Container } from './style';
 
 
-import Logo from '../../Logo/logo';
-import BackButton from '../../BackButton/BackButton';
+import Logo from './Logo';
+import BackButton from './BackButton/intex';
 
 
 
