@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 const ProfileEditContainer = styled.div`
   padding: 20px;
@@ -109,7 +110,6 @@ const RemovePhotoButton = styled.button`
 `;
 
 const PasswordInput = styled(Input)`
-  
   position: relative;
   padding-right: 40px;
 `;
@@ -163,7 +163,7 @@ const ProfileEdit = ({ changeSection }: { changeSection: (section: string) => vo
       <BackButton onClick={() => {
         navigate('/Home');
         changeSection('EditarPerfil');
-      }}>← Voltar</BackButton>
+      }}> <ArrowForwardIcon />Voltar</BackButton>
         <SaveButton>Salvar Alterações</SaveButton>
         </Header>
       <FormContainer>

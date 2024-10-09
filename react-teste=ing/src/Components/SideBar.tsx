@@ -105,7 +105,7 @@ const SideBar = ({ changeSection }: { changeSection: (section: string) => void }
     Swal.fire({
       title: 'Tem certeza que deseja sair?',
       text: 'Você será redirecionado para a página de login.',
-      icon: 'warning',
+      icon: 'warning', 
       iconColor: '#d33',
       showCancelButton: true,
       confirmButtonColor: '#d33',

@@ -19,9 +19,7 @@ export { MainRoutes }
 import Navigation from "./Pages/Landpage/Navigation.tsx"
 import Landpage from "./Pages/Landpage/landpage/Landpage.tsx"
 import About from "./Pages/Landpage/landpage/About.tsx"
-import Roadmap from "./Pages/Landpage/landpage/Roadmap.tsx"
 import Showcase from "./Pages/Landpage/landpage/Showcase.tsx"
-// import Team from "./Pages/Landpage/landpage/Team.tsx"
 import Faq from "./Pages/Landpage/landpage/Faq.tsx"
 import Footer from "./Pages/Landpage/Footer.tsx"
 //Landpage imports// 
@@ -32,15 +30,13 @@ function MainRoutes() {
     <AuthProvider>
       <Routes>
         <Route path="/" element={
-          <div>
+          <div> 
           <GlobalStyles /> 
           <ThemeProvider theme={light|| dark}/> 
           <Navigation /> 
           <Landpage /> 
           <About /> 
-          <Roadmap /> 
           <Showcase /> 
-          {/* <Team />  */}
           <Faq /> 
           <Footer /> 
           </div>} />
