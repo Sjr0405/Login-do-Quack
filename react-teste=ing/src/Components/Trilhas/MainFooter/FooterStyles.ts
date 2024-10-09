@@ -21,4 +21,9 @@ export const Container = styled.div`
     font-size: 0.6em;
     padding: 15px;
   }
+
+  @media (max-width: 320px) {
+    font-size: 0.5em;
+    padding: 10px;
+  }
 `;

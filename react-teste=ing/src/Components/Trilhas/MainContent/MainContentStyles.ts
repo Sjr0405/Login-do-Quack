@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 export const MainContainer = styled.div`
+  grid-area: MC;
+
   padding: 20px;
   background-color: #fff;
   border-radius: 8px;

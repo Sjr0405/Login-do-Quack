@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useMemo } from "react";
-import { Container } from './RoadMapStyles';
-import ReactFlow, { Background, Controls, Edge, Node, EdgeTypes, NodeMouseHandler } from 'react-flow-renderer';
+import React, { useEffect, useState, useCallback } from "react";
+import { Container, GlobalStyle } from './RoadMapStyles';
+import ReactFlow, { Background, Edge, Node, ReactFlowProvider, NodeMouseHandler } from 'react-flow-renderer';
 import NodeModal from './NodeModal/NodeModal';
 
 const Roadmap: React.FC = () => {
@@ -19,8 +19,9 @@ const Roadmap: React.FC = () => {
           ...node,
           data: {
             ...node.data,
-            label: node.data.label, // Removido o fundo amarelo
+            label: node.data.label,
           },
+          position: { x: node.position.x, y: node.position.y }, // Garantir que a posição seja definida
         })));
         setEdges(data.edges.map((edge: Edge) => ({
           ...edge,
@@ -34,46 +35,37 @@ const Roadmap: React.FC = () => {
       });
   }, []);
 
-  const openModal: NodeMouseHandler = (_, node) => {
+  const openModal: NodeMouseHandler = useCallback((_: React.MouseEvent, node: Node) => {
     console.log("Node clicked:", node);
     setSelectedNode(node.data.label);
     setModalIsOpen(true);
-  };
+  }, []);
 
   const closeModal = () => {
     setModalIsOpen(false);
     setSelectedNode(null);
   };
 
-  const edgeTypes: EdgeTypes = useMemo(() => ({
-    default: ({ id, sourceX, sourceY, targetX, targetY, style }) => (
-      <path
-        id={id}
-        d={`M${sourceX},${sourceY} C${sourceX},${(sourceY + targetY) / 2} ${targetX},${(sourceY + targetY) / 2} ${targetX},${targetY}`}
-        style={{ ...style, stroke: 'blue', strokeWidth: 4 }}
-      />
-    ),
-    alternative: ({ id, sourceX, sourceY, targetX, targetY, style }) => (
-      <path
-        id={id}
-        d={`M${sourceX},${sourceY} C${sourceX},${(sourceY + targetY) / 2} ${targetX},${(sourceY + targetY) / 2} ${targetX},${targetY}`}
-        style={{ ...style, stroke: 'grey', strokeWidth: 1 }}
-      />
-    ),
-  }), []);
-
   return (
     <Container>
-      <ReactFlow
-        nodes={nodes}
-        edges={edges}
-        edgeTypes={edgeTypes}
-        onNodeClick={openModal}
-        style={{ height: '100%', width: '100%' }} 
-      >
-        <Background />
-        <Controls />
-      </ReactFlow>
+      <GlobalStyle />
+      <ReactFlowProvider>
+        <ReactFlow
+          nodes={nodes}
+          edges={edges}
+          onNodeClick={openModal}
+          style={{ height: '100%', width: '100%', backgroundColor: '#fff' }} // Garantir altura e largura de 100%
+          fitView
+          panOnScroll={false}
+          panOnDrag={false}
+          zoomOnScroll={false}
+          zoomOnPinch={false}
+          zoomOnDoubleClick={false}
+          elementsSelectable={false}
+        >
+          <Background color="#fff" />
+        </ReactFlow>
+      </ReactFlowProvider>
       {modalIsOpen && selectedNode && modalData && (
         <NodeModal
           isOpen={modalIsOpen}
