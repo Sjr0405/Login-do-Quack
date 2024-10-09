@@ -19,11 +19,15 @@ export const GlobalStyle = createGlobalStyle`
   }
 `;
 
-export const StyledNode = styled.div`
-  background-color: yellow;
+export const StyledNode = styled.div<{ completed: boolean }>`
+  background-color: ${({ completed }) => (completed ? '#A3E4A7' : '#F6C761')};
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: none;
+  font-family: 'Montserrat Alternates', sans-serif;
+  color: black;
 `;

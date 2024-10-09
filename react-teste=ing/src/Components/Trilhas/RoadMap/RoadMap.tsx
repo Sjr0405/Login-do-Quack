@@ -9,6 +9,7 @@ const Roadmap: React.FC = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedNode, setSelectedNode] = useState<string | null>(null);
   const [modalData, setModalData] = useState<any>(null);
+  const [completedNodes, setCompletedNodes] = useState<{ [key: string]: boolean }>({});
 
   useEffect(() => {
     fetch('/data/roadmapData.json')
@@ -46,12 +47,30 @@ const Roadmap: React.FC = () => {
     setSelectedNode(null);
   };
 
+  const handleNodeCompletion = (nodeLabel: string) => {
+    setCompletedNodes(prevState => ({
+      ...prevState,
+      [nodeLabel]: true,
+    }));
+  };
+
   return (
     <Container>
       <GlobalStyle />
       <ReactFlowProvider>
         <ReactFlow
-          nodes={nodes}
+          nodes={nodes.map((node, index) => ({
+            ...node,
+            style: {
+              backgroundColor: completedNodes[node.data.label] ? '#A3E4A7' : (index === 0 ? '#FC7A02' : '#F6C761'),
+              color: completedNodes[node.data.label] ? 'black' : (index === 0 ? '#FFFFFF' : 'black'),
+              boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+              border: 'none',
+              borderRadius: '10px',
+              fontFamily: 'Montserrat Alternates, sans-serif',
+              fontWeight: 'bold',
+            },
+          }))}
           edges={edges}
           onNodeClick={openModal}
           style={{ height: '100%', width: '100%', backgroundColor: '#fff' }} // Garantir altura e largura de 100%
@@ -61,7 +80,9 @@ const Roadmap: React.FC = () => {
           zoomOnScroll={false}
           zoomOnPinch={false}
           zoomOnDoubleClick={false}
-          elementsSelectable={false}
+          nodesDraggable={false} // Desativar arrastar nodes
+          nodesConnectable={false} // Desativar conectar nodes
+          elementsSelectable={false} // Desativar seleção de elementos
         >
           <Background color="#fff" />
         </ReactFlow>
@@ -72,6 +93,7 @@ const Roadmap: React.FC = () => {
           onRequestClose={closeModal}
           selectedNode={selectedNode}
           modalData={modalData[selectedNode]}
+          onNodeCompletion={handleNodeCompletion} // Passar a prop para notificar a conclusão do node
         />
       )}
     </Container>

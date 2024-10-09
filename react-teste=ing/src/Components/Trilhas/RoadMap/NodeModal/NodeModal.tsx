@@ -9,9 +9,10 @@ interface NodeModalProps {
   onRequestClose: () => void;
   selectedNode: string | null;
   modalData: any;
+  onNodeCompletion: (nodeLabel: string) => void; // Adicionar prop para notificar a conclusão do node
 }
 
-const NodeModal: React.FC<NodeModalProps> = ({ isOpen, onRequestClose, selectedNode, modalData }) => {
+const NodeModal: React.FC<NodeModalProps> = ({ isOpen, onRequestClose, selectedNode, modalData, onNodeCompletion }) => {
   const [isChecked, setIsChecked] = useState<boolean[]>([]);
   const [status, setStatus] = useState('pendente');
 
@@ -38,6 +39,7 @@ const NodeModal: React.FC<NodeModalProps> = ({ isOpen, onRequestClose, selectedN
   const handleStatusChange = (newStatus: string) => {
     if (isChecked.every((checked) => checked)) {
       setStatus(newStatus);
+      onNodeCompletion(selectedNode!); // Notificar a conclusão do node
       onRequestClose();
     }
   };
@@ -50,7 +52,7 @@ const NodeModal: React.FC<NodeModalProps> = ({ isOpen, onRequestClose, selectedN
 
   return (
     <ModalOverlay>
-      <ModalContent>
+      <ModalContent style={{ borderRadius: '16px', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)' }}>
         <NodeModalHeader selectedNode={selectedNode} status={status} progress={progress} onRequestClose={onRequestClose} />
         <NodeModalContent isChecked={isChecked} handleCheckboxChange={handleCheckboxChange} modalData={modalData} />
         <NodeModalFooter isChecked={isChecked} handleStatusChange={handleStatusChange} />
