@@ -9,37 +9,54 @@ interface NodeModalProps {
   onRequestClose: () => void;
   selectedNode: string | null;
   modalData: any;
-  onNodeCompletion: (nodeLabel: string) => void; // Adicionar prop para notificar a conclusão do node
+  onNodeCompletion: (nodeLabel: string) => void;
+  onNodePending: (nodeLabel: string) => void;
 }
 
-const NodeModal: React.FC<NodeModalProps> = ({ isOpen, onRequestClose, selectedNode, modalData, onNodeCompletion }) => {
+const NodeModal: React.FC<NodeModalProps> = ({ isOpen, onRequestClose, selectedNode, modalData, onNodeCompletion, onNodePending }) => {
   const [isChecked, setIsChecked] = useState<boolean[]>([]);
   const [status, setStatus] = useState('pendente');
 
   useEffect(() => {
     if (isOpen && modalData && modalData.links) {
       console.log("Modal aberto com dados:", modalData);
-      setIsChecked(new Array(modalData.links.length).fill(false));
-      setStatus('pendente');
+      const savedChecked = localStorage.getItem(`checked_${selectedNode}`);
+      const savedStatus = localStorage.getItem(`status_${selectedNode}`);
+      if (savedChecked) {
+        setIsChecked(JSON.parse(savedChecked));
+      } else {
+        setIsChecked(new Array(modalData.links.length).fill(false));
+      }
+      if (savedStatus) {
+        setStatus(savedStatus);
+      } else {
+        setStatus('pendente');
+      }
     }
-  }, [isOpen, modalData]);
+  }, [isOpen, modalData, selectedNode]);
 
   const handleCheckboxChange = (index: number) => {
     const newChecked = [...isChecked];
     newChecked[index] = !newChecked[index];
     setIsChecked(newChecked);
+    localStorage.setItem(`checked_${selectedNode}`, JSON.stringify(newChecked));
 
     if (newChecked.every((checked) => checked)) {
       setStatus('concluído');
+      localStorage.setItem(`status_${selectedNode}`, 'concluído');
+      onNodeCompletion(selectedNode!);
     } else {
       setStatus('pendente');
+      localStorage.setItem(`status_${selectedNode}`, 'pendente');
+      onNodePending(selectedNode!);
     }
   };
 
   const handleStatusChange = (newStatus: string) => {
     if (isChecked.every((checked) => checked)) {
       setStatus(newStatus);
-      onNodeCompletion(selectedNode!); // Notificar a conclusão do node
+      localStorage.setItem(`status_${selectedNode}`, newStatus);
+      onNodeCompletion(selectedNode!);
       onRequestClose();
     }
   };

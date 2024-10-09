@@ -11,7 +11,7 @@ interface NodeModalContentProps {
 const Description = styled.p`
   font-weight: normal;
   font-size: 1.2rem;
-  text-align: left; /* Justifica o texto à esquerda */
+  text-align: left;
 `;
 
 const Separator = styled.div`
@@ -35,9 +35,9 @@ const Separator = styled.div`
 `;
 
 const ContentContainer = styled.div`
-  max-height: 300px; /* Ajuste a altura conforme necessário */
+  max-height: 300px;
   overflow-y: auto;
-  padding-right: 16px; /* Para evitar que o conteúdo fique escondido atrás da barra de rolagem */
+  padding-right: 16px;
 `;
 
 const NodeModalContent: React.FC<NodeModalContentProps> = ({ isChecked, handleCheckboxChange, modalData }) => {

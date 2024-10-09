@@ -54,6 +54,13 @@ const Roadmap: React.FC = () => {
     }));
   };
 
+  const handleNodePending = (nodeLabel: string) => {
+    setCompletedNodes(prevState => ({
+      ...prevState,
+      [nodeLabel]: false,
+    }));
+  };
+
   return (
     <Container>
       <GlobalStyle />
@@ -94,6 +101,7 @@ const Roadmap: React.FC = () => {
           selectedNode={selectedNode}
           modalData={modalData[selectedNode]}
           onNodeCompletion={handleNodeCompletion} // Passar a prop para notificar a conclusão do node
+          onNodePending={handleNodePending} // Passar a prop para notificar que o node está pendente
         />
       )}
     </Container>
