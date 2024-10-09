@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import ArrowBackIcon from '@mui/icons-material/ArrowForward';
 
 const ProfileEditContainer = styled.div`
   padding: 20px;
@@ -20,11 +20,14 @@ const Header = styled.div`
 `;
 
 const BackButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: #FF3E41;
   color: white;
   border: none;
   border-radius: 5px;
-  padding: 10px;
+  padding: 15px;
   cursor: pointer;
 
   &:hover {
@@ -33,11 +36,14 @@ const BackButton = styled.button`
 `;
 
 const SaveButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: #785ef0;
   color: white;
   border: none;
   border-radius: 5px;
-  padding: 10px;
+  padding: 20px;
   cursor: pointer;
 
   &:hover {
@@ -162,8 +168,8 @@ const ProfileEdit = ({ changeSection }: { changeSection: (section: string) => vo
       <Header>
       <BackButton onClick={() => {
         navigate('/Home');
-        changeSection('EditarPerfil');
-      }}> <ArrowForwardIcon />Voltar</BackButton>
+        changeSection('Perfil');
+      }}> <ArrowBackIcon/>Voltar</BackButton>
         <SaveButton>Salvar Alterações</SaveButton>
         </Header>
       <FormContainer>

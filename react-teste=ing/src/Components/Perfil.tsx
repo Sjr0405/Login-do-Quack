@@ -131,6 +131,8 @@ const StatsTitle = styled.h3`
 `;
 
 const StatsGrid = styled.div`
+  align-items: left;
+  width: 40%;
   display: flex;
   flex-direction: column;
   gap: 15px;
