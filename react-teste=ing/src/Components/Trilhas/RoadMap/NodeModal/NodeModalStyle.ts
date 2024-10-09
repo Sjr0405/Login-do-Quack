@@ -20,6 +20,8 @@ export const ModalContent = styled.div`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 90%;
   max-width: 500px;
+  max-height: 90vh; /* Ajuste a altura máxima para 90% da altura da viewport */
+  overflow-y: auto; /* Adicione rolagem vertical se o conteúdo exceder a altura máxima */
   padding: 20px;
   position: relative;
 `;

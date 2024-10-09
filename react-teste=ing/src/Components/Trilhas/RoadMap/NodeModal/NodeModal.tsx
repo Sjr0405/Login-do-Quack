@@ -50,7 +50,7 @@ const NodeModal: React.FC<NodeModalProps> = ({ isOpen, onRequestClose, selectedN
 
   return (
     <ModalOverlay>
-      <ModalContent style={{ borderRadius: '16px', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)' }}>
+      <ModalContent>
         <NodeModalHeader selectedNode={selectedNode} status={status} progress={progress} onRequestClose={onRequestClose} />
         <NodeModalContent isChecked={isChecked} handleCheckboxChange={handleCheckboxChange} modalData={modalData} />
         <NodeModalFooter isChecked={isChecked} handleStatusChange={handleStatusChange} />

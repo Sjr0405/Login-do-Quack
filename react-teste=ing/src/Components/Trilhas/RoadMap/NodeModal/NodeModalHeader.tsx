@@ -9,6 +9,8 @@ const HeaderContainer = styled.div`
   align-items: flex-start;
   padding: 16px;
   border-bottom: 1px solid #ddd;
+  width: 100%; /* Garante que o cabeçalho ocupe toda a largura do modal */
+  box-sizing: border-box; /* Inclui padding e border no cálculo da largura */
 `;
 
 const TitleContainer = styled.div`
