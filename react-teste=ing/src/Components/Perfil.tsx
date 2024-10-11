@@ -1,7 +1,8 @@
+import { useEffect ,useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { Input } from "@mui/material";
 
-// Container principal
 const ProfileContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -13,13 +14,19 @@ const ProfileContainer = styled.div`
   height: auto;
 `;
 
-// Seção do perfil
 const ProfileSection = styled.div`
   display: flex;
   align-items: center;
   justify-content: left;
   width: 80%;
   margin: 20px 0;
+`;
+
+const MainContent = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f7f7f7;
 `;
 
 const ProfileImageContainer = styled.div`
@@ -81,16 +88,19 @@ const ProfileInfo = styled.div`
   }
 `;
 
-// Coleção de emblemas
-const BadgeCollection = styled.div`
-  width: 80%;
-  margin-top: 20px;
-`;
-
 const BadgeTitle = styled.h3`
   color: #ff6f00;
   font-size: 24px;
   margin-bottom: 10px;
+`;
+
+const BadgeCollection = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 20px;
 `;
 
 const BadgeGrid = styled.div`
@@ -132,7 +142,7 @@ const StatsTitle = styled.h3`
 
 const StatsGrid = styled.div`
   align-items: left;
-  width: 40%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -159,47 +169,151 @@ const StatValue = styled.p`
   color: #ff6f00;
 `;
 
-const ProgressBar = styled.div`
+interface ProgressBarProps {
+  progress: string;
+  color: string;
+}
+
+const ProgressBar = styled.div<ProgressBarProps>`
   width: 100%;
-  background-color: #eaeaea;
-  border-radius: 10px;
   height: 15px;
-  margin-left: 15px;
+  background-color: #ddd;
+  border-radius: 5px;
+  margin-top: 10px;
+
+  div {
+    width: ${({ progress }) => progress || '0%'};
+    height: 100%;
+    background-color:#ff6f00;
+    border-radius: 5px;
+  }
 `;
 
-const Progress = styled.div`
-  width: 60%; /* Aqui você pode ajustar o progresso */
-  background-color: #ff6f00;
-  height: 100%;
-  border-radius: 10px;
+const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5%;
+
+  h1 {
+    font-size: 36px;
+    font-family: 'Lilita One', sans-serif;
+    font-weight: 500;
+    position: absolute;
+    left: 25%;
+    top: 3%;
+  }
 `;
 
-// Botão "Acesse nossa loja!"
 const StoreButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 5%;
+  right: 2%;
   padding: 10px 20px;
-  background-color: #ff6f00;
+  gap: 10px;
+  background-color: #FF3E41;
   color: white;
   border: none;
   border-radius: 10px;
-  font-size: 16px;
+  font-size: 25px;
+  font-weight: 500;
+  font-family: 'Lilita One', sans-serif;
   cursor: pointer;
 
   &:hover {
-    background-color: #ff9a3e;
+    background-color: #e62e33;
   }
 `;
+
+const SearchBar = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 5%;
+
+  Input {
+    width: 100%;
+    height: 40px;
+    padding: 0 10px;
+    font-size: 18px;
+  }
+
+  img {
+    cursor: pointer;
+  }
+`;
+
+interface Modulo {
+  nome: string;
+  XpAtual: number;
+  XpTotal: number;
+  rota: string;
+  icon: string;
+}
 
 const Perfil = ({ changeSection }: { changeSection: (section: string) => void }) => {
 
   const navigate = useNavigate();
+  const [modulos, setModulos] = useState<Modulo[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [exactMatches, setExactMatches] = useState<Modulo[]>([]);
+  const [similarMatches, setSimilarMatches] = useState<Modulo[]>([]);
+
+  // Simulação da busca de dados do banco de dados
+  useEffect(() => {
+    // Aqui você integraria a chamada para o banco de dados real
+    const fetchModulos = async () => {
+      // Exemplo: chamada à API ou banco de dados
+      const dadosDoBanco = [
+        { nome: 'Thigas', XpAtual: 1000, XpTotal: 1500, rota: 'Logica_Programacao', icon: '/src/svgs/Home-svgs/Programacao.svg' },
+      ];
+
+      setModulos(dadosDoBanco);
+    };
+
+    fetchModulos();
+  }, []);
+
+  useEffect(() => {
+    const exact = modulos.filter(modulo => modulo.nome.toLowerCase() === searchTerm.toLowerCase());
+    const similar = modulos.filter(modulo => 
+      modulo.nome.toLowerCase().includes(searchTerm.toLowerCase()) && 
+      modulo.nome.toLowerCase() !== searchTerm.toLowerCase()
+    );
+
+    setExactMatches(exact);
+    setSimilarMatches(similar);
+  }, [searchTerm, modulos]);
+
+  const calcularProgressoXp = (XpAtual: number, XpTotal: number) => {
+    if (XpTotal === 0) return '0%';
+    const progresso = (XpAtual / XpTotal) * 100;
+    return `${progresso}%`;
+  };
 
   return (
     <ProfileContainer>
-      <StoreButton onClick={() => changeSection('Loja')}>Acesse nossa loja!</StoreButton>
 
+      <Header>
+
+      <h1>Seu Perfil</h1>
+
+      <SearchBar>
+            <Input
+              type="search"
+              placeholder="Pesquisar por nome..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </SearchBar>
+
+      <StoreButton onClick={() => changeSection('Loja')}> <img src="/src/svgs/Home-svgs/Perfil/Loja.svg" alt="Icône de loja" />Acesse nossa loja!</StoreButton>
+      </Header>
+      
       <ProfileSection>
         <ProfileImageContainer>
           <ProfileImage src="https://randomuser.me/api/portraits/men/1.jpg" alt="Foto do perfil" />
@@ -222,8 +336,12 @@ const Perfil = ({ changeSection }: { changeSection: (section: string) => void })
           </EditIcon>
       </ProfileSection>
 
+
+    <MainContent>
+
+    {similarMatches.map((modulo, index) => (
+    <BadgeCollection>
       <BadgeTitle>Coleção de emblemas:</BadgeTitle>
-      <BadgeCollection>
         <BadgeGrid>
           <BadgeItem>
             <img src="/path/to/badge1.svg" alt="Emblema 1" />
@@ -244,18 +362,20 @@ const Perfil = ({ changeSection }: { changeSection: (section: string) => void })
           {/* Outros emblemas */}
         </BadgeGrid>
       </BadgeCollection>
+    ))}
 
+    {similarMatches.map((modulo, index) => (
+      <StatsSection>  
       <StatsTitle>Estatísticas:</StatsTitle>
-      <StatsSection>
         <StatsGrid>
           <StatItem>
-            <StatLabel>Dias de investida</StatLabel>
+            <StatLabel key={index}>Dias de investida</StatLabel>
             <StatValue>24</StatValue>
           </StatItem>
           <StatItem>
             <StatLabel>Nível</StatLabel>
             <ProgressBar>
-              <Progress />
+              <div style={{ width: calcularProgressoXp(modulo.XpAtual, modulo.XpTotal), fontFamily: 'Lilia', color: 'white' }}> ({calcularProgressoXp(modulo.XpAtual, modulo.XpTotal)}) </div>
             </ProgressBar>
           </StatItem>
           <StatItem>
@@ -268,6 +388,9 @@ const Perfil = ({ changeSection }: { changeSection: (section: string) => void })
           </StatItem>
         </StatsGrid>
       </StatsSection>
+    ))}
+
+      </MainContent>
     </ProfileContainer>
   );
 };
