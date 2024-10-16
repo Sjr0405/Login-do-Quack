@@ -22,7 +22,7 @@ import About from "./Pages/Landpage/landpage/About.tsx"
 import Showcase from "./Pages/Landpage/landpage/Showcase.tsx"
 import Faq from "./Pages/Landpage/landpage/Faq.tsx"
 import Footer from "./Pages/Landpage/Footer.tsx"
-import Trilha from  "./Pages/Trilhas/index.tsx" 
+import Trilha from  "./Pages/Trilhas/Trilhas.tsx" 
 //Landpage imports// 
 
 
@@ -51,7 +51,7 @@ function MainRoutes() {
         <Route path="/Rankings" element={<Rankings />} />
         <Route path="/Perfil" element={<Perfil changeSection={(section: string) => console.log(section)} />} />
         <Route path="/EditarPerfil" element={<EditarPerfil changeSection={(section: string) => console.log(section)} />} />
-        <Route path="/Trilhas" element={<Trilha />} />
+        <Route path="/Backend_Roadmap" element={<Trilha />} />
 
       </Routes>
     </AuthProvider>

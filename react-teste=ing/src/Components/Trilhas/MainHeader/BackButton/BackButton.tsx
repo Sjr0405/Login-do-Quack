@@ -5,7 +5,7 @@ import { BackButtonStyled, ArrowIcon } from './BackButtonStyles';
 
 const BackButton: React.FC = () => {
   return (
-    <BackButtonStyled>
+    <BackButtonStyled onClick={() => window.history.back()}>
       <ArrowIcon>
         <FontAwesomeIcon icon={faArrowLeft} />
       </ArrowIcon>
