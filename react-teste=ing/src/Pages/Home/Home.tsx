@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import Desafio from '../../Components/Desafio'; // O componente que você já criou
-import FazerAtividade from '../../Components/FazerAtividade'; // O componente da nova atividade
+import Desafio from '../../Components/Desafio'; 
+import FazerAtividade from '../../Components/FazerAtividade'; 
 import Aprender from '../../Components/Aprender';
 import SideBar from '../../Components/SideBar';
 import Rankings from '../../Components/Rankings';
@@ -23,27 +23,39 @@ const MainContent = styled.div`
 
 const Home = () => {
   const [section, setSection] = useState('Aprender');
+  const location = useLocation(); // Hook para acessar o estado da navegação
+
+  // Verifica se o estado 'section' foi passado e ajusta a seção inicial
+  useEffect(() => {
+    if (location.state?.section) {
+      setSection(location.state.section);
+    }
+  }, [location]);
 
   const renderSectionAprender = () => {
     if (section === 'Aprender') {
       return <Aprender changeSection={setSection} />;
     }
   };
+
   const renderSectionFazerAtividade = () => {
     if (section === 'FazerAtividade') {
       return <FazerAtividade changeSection={setSection} />;
     }
   };
+
   const renderSectionAtividade = () => {
     if (section === 'Desafio') {
       return <Desafio changeSection={setSection} />;
     }
   };
+
   const renderSectionRankings = () => {
     if (section === 'Rankings') {
-      return <Rankings/>;
+      return <Rankings />;
     }
   };
+
   const renderSectionPerfil = () => {
     if (section === 'Perfil') {
       return <Perfil changeSection={setSection} />;
@@ -51,11 +63,11 @@ const Home = () => {
   };
 
   return (
-      <Container>
-        <Routes>
-          <Route path="/" element={<SideBar changeSection={setSection} />} />
-        </Routes>
-      {/* Botões para alternar entre as seções */}
+    <Container>
+      <Routes>
+        <Route path="/" element={<SideBar changeSection={setSection} />} />
+      </Routes>
+
       <MainContent>
         {renderSectionAprender()}
         {renderSectionFazerAtividade()}

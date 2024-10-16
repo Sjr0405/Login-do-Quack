@@ -1,6 +1,7 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import ArrowBackIcon from '@mui/icons-material/ArrowForward';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const ProfileEditContainer = styled.div`
   padding: 20px;
@@ -27,8 +28,9 @@ const BackButton = styled.button`
   color: white;
   border: none;
   border-radius: 5px;
-  padding: 15px;
+  padding: 12px;
   cursor: pointer;
+  font-size: 16px;
 
   &:hover {
     background-color: #e62e33;
@@ -43,8 +45,9 @@ const SaveButton = styled.button`
   color: white;
   border: none;
   border-radius: 5px;
-  padding: 20px;
+  padding: 15px 25px;
   cursor: pointer;
+  font-size: 16px;
 
   &:hover {
     background-color: #5841d8;
@@ -60,9 +63,13 @@ const FormContainer = styled.div`
 const FormGroup = styled.div`
   display: flex;
   flex-direction: column;
+  position: relative;
+  justify-content: center;
 `;
 
 const Label = styled.label`
+  font-weight: bold;
+  font-family: 'Monsterrat Alternates', sans-serif;
   margin-bottom: 5px;
   font-size: 14px;
 `;
@@ -74,23 +81,37 @@ const Input = styled.input`
   border-radius: 5px;
 `;
 
+const PasswordInput = styled(Input)`
+  padding-right: 40px;
+`;
+
+const EyeIcon = styled.img`
+  position: absolute;
+  right: 15px;
+  top: 40px;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+`;
+
 const PhotoSection = styled.div`
   grid-column: span 2;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  margin-bottom: 20px;
 `;
 
 const PhotoButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  content: '/src/svgs/Home-svgs/Perfil/Image.svg';
   background-color: #F6C761;
   border: none;
   border-radius: 5px;
-  padding: 20px;
+  padding: 12px 20px;
   cursor: pointer;
+  font-size: 14px;
 
   &:hover {
     background-color: #e5b14c;
@@ -101,23 +122,17 @@ const RemovePhotoButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  content: '/src/svgs/Home-svgs/Perfil/Trash.svg';
   background-color: #fff;
-  border: none;
-  border-radius: 5px;
-  padding: 20px;
-  cursor: pointer;
   border: 1px solid #F6C761;
+  border-radius: 5px;
+  padding: 12px 20px;
+  cursor: pointer;
+  font-size: 14px;
 
   &:hover {
     background-color: #f7f7f7;
-    border: 3px solid: #e5b14c;
+    border-color: #e5b14c;
   }
-`;
-
-const PasswordInput = styled(Input)`
-  position: relative;
-  padding-right: 40px;
 `;
 
 const Logo = styled.div`
@@ -135,60 +150,58 @@ const Logo = styled.div`
     font-size: 28px;
     font-weight: bold;
     color: #FF914D;
-    transition: color 0.3s;
-    cursor: pointer;
     font-family: 'Montserrat', sans-serif;
-  
+
     &:hover {
       color: #4834d4;
     }
   }
-
-  @media (max-width: 768px) {
-    img {
-      height: 50px;
-    }
-
-    span {
-      font-size: 24px;
-    }
-  }
 `;
 
-const ProfileEdit = ({ changeSection }: { changeSection: (section: string) => void }) => {
+const ProfileEdit = () => {
   const navigate = useNavigate();
+
+  // Estados para controle da visibilidade das senhas
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+
   return (
     <ProfileEditContainer>
       <Header style={{ borderBottom: '3px solid #ccc' }}>
-      <Logo onClick={() => navigate('/Home')}>
-        <img src="/src/assets/Logo.svg" alt="Logo Quack()" />
-        <span>Quack()</span>
-      </Logo>
+        <Logo onClick={() => navigate('/Home')}>
+          <img src="/src/assets/Logo.svg" alt="Logo Quack()" />
+          <span>Quack()</span>
+        </Logo>
       </Header>
       <Header>
-      <BackButton onClick={() => {
-        navigate('/Home');
-        changeSection('Perfil');
-      }}> <ArrowBackIcon/>Voltar</BackButton>
+        <BackButton onClick={() => navigate('/Home', { state: { section: 'Perfil' } })}>
+          <ArrowBackIcon style={{ marginRight: '10px' }} /> Voltar
+        </BackButton>
         <SaveButton>Salvar Alterações</SaveButton>
-        </Header>
+      </Header>
       <FormContainer>
         <PhotoSection>
-          <Label>Foto do Perfil</Label>
-          <img style={{ width: '150px', height: '150px', borderRadius: '50%' }} src="https://via.placeholder.com/150" alt="Foto do Perfil" />
+            <Label>Perfil</Label>
+            <h1 style={{ fontFamily: 'Monsterrat Alternates', fontWeight: 'bold', marginTop: '0px' } }>Edição de Perfil</h1>
+            <Label>Foto de Perfil</Label>
+          <img
+            style={{ width: '150px', height: '150px', borderRadius: '50%' }}
+            src="https://via.placeholder.com/150"
+            alt="Foto do Perfil"
+          />
           <div style={{ display: 'flex', gap: '20px', marginTop: '10px' }}>
-          <PhotoButton onClick={() => {}}>
-            <img src="/src/svgs/Home-svgs/Perfil/Image.svg" alt="Adicionar Foto" /> Adicionar Foto
-          </PhotoButton>
-          <RemovePhotoButton onClick={() => {}}>
-            <img src="/src/svgs/Home-svgs/Perfil/Trash.svg" alt="Remover Foto" /> Remover Foto
-          </RemovePhotoButton>
+            <PhotoButton>
+              <img src="/src/svgs/Home-svgs/Perfil/Image.svg" alt="Adicionar Foto" /> Adicionar Foto
+            </PhotoButton>
+            <RemovePhotoButton>
+              <img src="/src/svgs/Home-svgs/Perfil/Trash.svg" alt="Remover Foto" /> Remover Foto
+            </RemovePhotoButton>
           </div>
         </PhotoSection>
 
         <FormGroup>
           <Label>Nome</Label>
-          <Input type="text" placeholder="Nome" />
+          <Input type="text" placeholder="Nome" defaultValue="José Almeida" />
         </FormGroup>
 
         <FormGroup>
@@ -208,14 +221,28 @@ const ProfileEdit = ({ changeSection }: { changeSection: (section: string) => vo
 
         <FormGroup>
           <Label>Senha Atual</Label>
-          <PasswordInput type="password" placeholder="********" />
-          <img onClick={() => {}} style={{ cursor: 'pointer' , width: '20px', height: '20px'}} src="/src/svgs/Home-svgs/Perfil/Eye.svg" alt="Mostrar Senha" />
+          <PasswordInput
+            type={showCurrentPassword ? 'text' : 'password'}
+            placeholder="********"
+          />
+          <EyeIcon
+            onClick={() => setShowCurrentPassword(!showCurrentPassword)}
+            src="/src/svgs/Home-svgs/Perfil/Eye.svg"
+            alt={showCurrentPassword ? 'Ocultar Senha' : 'Mostrar Senha'}
+          />
         </FormGroup>
 
         <FormGroup>
           <Label>Nova Senha</Label>
-          <PasswordInput type="password" placeholder="********" />
-          <img onClick={() => {}} style={{ cursor: 'pointer' , width: '20px', height: '20px'}} src="/src/svgs/Home-svgs/Perfil/Eye.svg" alt="Mostrar Senha" />
+          <PasswordInput
+            type={showNewPassword ? 'text' : 'password'}
+            placeholder="********"
+          />
+          <EyeIcon
+            onClick={() => setShowNewPassword(!showNewPassword)}
+            src="/src/svgs/Home-svgs/Perfil/Eye.svg"
+            alt={showNewPassword ? 'Ocultar Senha' : 'Mostrar Senha'}
+          />
         </FormGroup>
       </FormContainer>
     </ProfileEditContainer>
