@@ -5,7 +5,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const ProfileEditContainer = styled.div`
   padding: 20px;
-  font-family: 'Arial', sans-serif;
+  font-family: 'Montserrat Alternates', sans-serif;
 `;
 
 const Header = styled.div`
@@ -21,6 +21,8 @@ const Header = styled.div`
 `;
 
 const BackButton = styled.button`
+  font-family: 'Montserrat Alternates';
+  font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -30,7 +32,7 @@ const BackButton = styled.button`
   border-radius: 5px;
   padding: 12px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 18px;
 
   &:hover {
     background-color: #e62e33;
@@ -38,6 +40,8 @@ const BackButton = styled.button`
 `;
 
 const SaveButton = styled.button`
+  font-family: 'Montserrat Alternates';
+  font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -47,7 +51,7 @@ const SaveButton = styled.button`
   border-radius: 5px;
   padding: 15px 25px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 18px;
 
   &:hover {
     background-color: #5841d8;
@@ -55,40 +59,48 @@ const SaveButton = styled.button`
 `;
 
 const FormContainer = styled.div`
+  margin-left: 5%;
+  width: 90%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
 `;
 
+
 const FormGroup = styled.div`
   display: flex;
   flex-direction: column;
+  height: fit-content;
   position: relative;
   justify-content: center;
 `;
 
 const Label = styled.label`
   font-weight: bold;
-  font-family: 'Monsterrat Alternates', sans-serif;
+  font-family: 'Montserrat Alternates';
   margin-bottom: 5px;
-  font-size: 14px;
+  font-size: 20px;
 `;
 
 const Input = styled.input`
-  padding: 10px;
+  font-family: 'Montserrat Alternates';
+  padding: 15px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 5px;
 `;
 
 const PasswordInput = styled(Input)`
+  font-family: 'Montserrat Alternates';
   padding-right: 40px;
 `;
 
 const EyeIcon = styled.img`
+  justify-self: center;
+  align-self: center;
   position: absolute;
-  right: 15px;
-  top: 40px;
+  right: 2%;
+  top: 55%;
   cursor: pointer;
   width: 20px;
   height: 20px;
@@ -112,6 +124,7 @@ const PhotoButton = styled.button`
   padding: 12px 20px;
   cursor: pointer;
   font-size: 14px;
+  font-family: 'Montserrat Alternates';
 
   &:hover {
     background-color: #e5b14c;
@@ -128,6 +141,7 @@ const RemovePhotoButton = styled.button`
   padding: 12px 20px;
   cursor: pointer;
   font-size: 14px;
+  font-family: 'Montserrat Alternates';
 
   &:hover {
     background-color: #f7f7f7;
@@ -135,27 +149,23 @@ const RemovePhotoButton = styled.button`
   }
 `;
 
-const Logo = styled.div`
+export const LogoContainer = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 50px;
 
-  img {
-    height: 60px;
-    margin-right: 15px;
-    cursor: pointer;
+  @media (max-width: 768px) {
+    margin-bottom: 10px;
   }
+`;
 
-  span {
-    font-size: 28px;
-    font-weight: bold;
-    color: #FF914D;
-    font-family: 'Montserrat', sans-serif;
+export const LogoImage = styled.img`
+  margin-right: 10px; /* Espaçamento entre a imagem e o texto */
+`;
 
-    &:hover {
-      color: #4834d4;
-    }
-  }
+export const LogoText = styled.span`
+  font-size: 24px;
+  font-weight: bold; 
+  color: #FC7A02;
 `;
 
 const ProfileEdit = () => {
@@ -168,10 +178,10 @@ const ProfileEdit = () => {
   return (
     <ProfileEditContainer>
       <Header style={{ borderBottom: '3px solid #ccc' }}>
-        <Logo onClick={() => navigate('/Home')}>
-          <img src="/src/assets/Logo.svg" alt="Logo Quack()" />
-          <span>Quack()</span>
-        </Logo>
+        <LogoContainer>
+          <LogoImage src="src/Assets/Logo.svg" alt="Logo" />
+          <LogoText>Quack()</LogoText>
+        </LogoContainer>
       </Header>
       <Header>
         <BackButton onClick={() => navigate('/Home', { state: { section: 'Perfil' } })}>
@@ -182,7 +192,7 @@ const ProfileEdit = () => {
       <FormContainer>
         <PhotoSection>
             <Label>Perfil</Label>
-            <h1 style={{ fontFamily: 'Monsterrat Alternates', fontWeight: 'bold', marginTop: '0px' } }>Edição de Perfil</h1>
+            <Label style={{ fontSize: '30px', fontWeight: 'bold', marginTop: '0px' } }>Edição de Perfil</Label>
             <Label>Foto de Perfil</Label>
           <img
             style={{ width: '150px', height: '150px', borderRadius: '50%' }}
@@ -237,7 +247,7 @@ const ProfileEdit = () => {
           <PasswordInput
             type={showNewPassword ? 'text' : 'password'}
             placeholder="********"
-          />
+          ></PasswordInput>
           <EyeIcon
             onClick={() => setShowNewPassword(!showNewPassword)}
             src="/src/svgs/Home-svgs/Perfil/Eye.svg"
