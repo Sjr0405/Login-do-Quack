@@ -121,7 +121,7 @@ const SideBar = ({ changeSection }: { changeSection: (section: string) => void }
 
   return (
     <Sidebar>
-      <Logo onClick={() => navigate('/Home')}>
+      <Logo onClick={() => navigate('/Home', { state: { section: 'Aprender' } })}>
         <img src="/src/assets/Logo.svg" alt="Logo Quack()" />
         <span>Quack()</span>
       </Logo>

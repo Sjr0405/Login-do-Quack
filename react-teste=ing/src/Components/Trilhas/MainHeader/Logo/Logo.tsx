@@ -6,7 +6,7 @@ const Logo: React.FC = () => {
   return (
     <LogoContainer>
       <LogoImage src={LogoSvg} alt="Logo" />
-      <LogoText>quack ( )</LogoText>
+      <LogoText>Quack()</LogoText>
     </LogoContainer>
   );
 };

@@ -33,7 +33,7 @@ const TopBarItem = styled.div`
   padding: 10px 50px;
   
   a {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat';
     font-size: 20px;
     font-weight: 700;
     cursor: pointer;
@@ -105,7 +105,7 @@ const ActionButton = styled.button`
   border: none;
   border-radius: 8px;
   padding: 15px 30px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Lilita One';
   font-size: 18px;
   margin: 0 15px;
   cursor: pointer;
@@ -190,19 +190,19 @@ const FazerAtividade = ( { changeSection }: { changeSection: (section: string) =
         <Header>
           <TopBar>
             <TopBarItem onClick={() => changeSection('Desafio')}>
-              <a>Visão Geral</a>
+              <a>Visão geral</a>
             </TopBarItem>
             <SelectedTopBarItem onClick={() => changeSection('FazerAtividade')}>
-              <a>Fazer Atividade</a>
+              <a>Fazer atividade</a>
             </SelectedTopBarItem>
             <TopBarItem onClick={() => changeSection('SolicitarAjuda')}>
               <a>Solicitar Quacksensei</a>
             </TopBarItem>
             <TopBarItem onClick={() => changeSection('CodeReview')}>
-              <a>Code Review</a>
+              <a>Code review</a>
             </TopBarItem>
             <TopBarItem onClick={() => changeSection('Respostas')} style={{ border: 'none' }}>
-              <a>Respostas</a>
+              <a>respostas</a>
             </TopBarItem>
           </TopBar>
         </Header>

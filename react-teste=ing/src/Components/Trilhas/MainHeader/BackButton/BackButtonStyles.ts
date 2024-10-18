@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const BackButtonStyled = styled.button`
-  background-color: #007BFF;
+  background-color: #FF3E41;
   color: #FFFFFF;
   border: none;
   padding: 10px 20px;
@@ -15,7 +15,7 @@ export const BackButtonStyled = styled.button`
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #0056b3;
+    background-color: #e62e33;
   }
 
   @media (max-width: 768px) {

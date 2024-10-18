@@ -16,5 +16,6 @@ export const LogoImage = styled.img`
 export const LogoText = styled.span`
   font-size: 24px;
   font-weight: bold; 
-  color: #FFA500;
+  color: #FB7901;
+  font-family: 'Montserrat Alternates', sans-serif;
 `;

@@ -138,19 +138,19 @@ const Desafio = ({ changeSection }: { changeSection: (section: string) => void }
         <Header>
           <TopBar>
             <SelectedTopBarItem onClick={() => changeSection('Atividade')}>
-              <a>Visão Geral</a>
+              <a>Visão geral</a>
             </SelectedTopBarItem>
             <TopBarItem onClick={() => changeSection('FazerAtividade')}>
-              <a>Fazer Atividade</a>
+              <a>Fazer atividade</a>
             </TopBarItem>
             <TopBarItem onClick={() => changeSection('SolicitarAjuda')}>
               <a>Solicitar Quacksensei</a>
             </TopBarItem>
             <TopBarItem onClick={() => changeSection('CodeReview')}>
-              <a>Code Review</a>
+              <a>Code review</a>
             </TopBarItem>
             <TopBarItem onClick={() => changeSection('Respostas')} style={{ border: 'none' }}>
-              <a>Respostas</a>
+              <a>respostas</a>
             </TopBarItem>
           </TopBar>
         </Header>
