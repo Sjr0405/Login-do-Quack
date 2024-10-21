@@ -50,7 +50,7 @@ function MainRoutes() {
         <Route path="/Atividade" element={<Atividade changeSection={(section: string) => console.log(section)} />} />  
         <Route path="/Rankings" element={<Rankings />} />
         <Route path="/Perfil" element={<Perfil changeSection={(section: string) => console.log(section)} />} />
-        <Route path="/EditarPerfil" element={<EditarPerfil changeSection={(section: string) => console.log(section)} />} />
+        <Route path="/EditarPerfil" element={<EditarPerfil />} />
         <Route path="/Backend_Roadmap" element={<Trilha />} />
 
       </Routes>
