@@ -1,12 +1,13 @@
-import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import Desafio from '../../Components/Desafio'; 
-import FazerAtividade from '../../Components/FazerAtividade'; 
-import Aprender from '../../Components/Aprender';
 import SideBar from '../../Components/SideBar';
+import Aprender from '../../Components/Aprender';
+import FazerAtividade from '../../Components/FazerAtividade';
+import Desafio from '../../Components/Desafio';
 import Rankings from '../../Components/Rankings';
 import Perfil from '../../Components/Perfil';
+import Missoes from '../../Components/Missão/MissoesPage';
 
 // Styled Components
 const Container = styled.div`
@@ -62,6 +63,12 @@ const Home = () => {
     }
   };
 
+  const renderSectionMissoes = () => {
+    if (section === 'Missoes') {
+      return <Missoes changeSection={setSection} />;
+    }
+  };
+
   return (
     <Container>
       <Routes>
@@ -74,6 +81,7 @@ const Home = () => {
         {renderSectionAtividade()}
         {renderSectionRankings()}
         {renderSectionPerfil()}
+        {renderSectionMissoes()}
       </MainContent>
     </Container>
   );

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
@@ -43,7 +43,6 @@ const SidebarItem = styled(SidebarItemBase)`
     color: #FB7901;
     border: 1px solid #FB7901;
     background-color: rgba(251, 123, 5, 0.05);
-    content: 'react-teste=ing/src/svgs/Home-svgs/Selected-Colors/Laranja/Alvo.svg';
   }
 `;
 
