@@ -1,5 +1,4 @@
-import { Container } from '@mui/material';
-import { Section, H1, P, ImageRight, Button } from './FaqStyles';
+import { Section, Container, H1, P, ImageRight, Button } from './FaqStyles';
 import fulbodyLogo from '../../../Assets/Fulbody-logo.svg';
 
 const Faq = () => {

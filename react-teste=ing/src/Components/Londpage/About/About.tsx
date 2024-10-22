@@ -1,5 +1,4 @@
-import { Section, Vector, Container, Titulo, Card } from './AboutStyles';
-import svg6 from '../../../svgs/Landpage-svgs/6.svg';
+import { Section, Container, Titulo, Card } from './AboutStyles';
 import placeholder1 from '../../../Assets/Placeholders/placeholder1.svg';
 import placeholder2 from '../../../Assets/Placeholders/placeholder2.svg';
 import placeholder3 from '../../../Assets/Placeholders/placeholder3.svg';
@@ -10,9 +9,6 @@ import placeholder6 from '../../../Assets/Placeholders/placeholder6.svg';
 const About = () => {
   return (
     <Section id="about">
-      <Vector>
-        <img className="svg1" src={svg6} alt="svg" />
-      </Vector>
       <Container>
         <Titulo>
           O Quack() oferece recursos desenvolvidos para todos os estágios do aprendizado<br/> de programação

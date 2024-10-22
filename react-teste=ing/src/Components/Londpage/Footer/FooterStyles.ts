@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 
-// Rodapé
 export const Section = styled.footer`
-  grid-template-columns: repeat(12, 1fr); // Define a grid com 12 colunas
+  grid-template-columns: repeat(12, 1fr);
   background-color: #f8f9fa;
   padding: 20px;
   display: flex;
@@ -10,9 +9,10 @@ export const Section = styled.footer`
   align-items: center;
   position: relative;
   bottom: 0;
+  width: 100%;
+  overflow-x: hidden; /* Evita a barra de rolagem horizontal */
 `;
 
-// Logo e redes sociais
 export const Logo = styled.div`
   display: flex;
   align-items: center;
@@ -31,6 +31,34 @@ export const Logo = styled.div`
 
     &:hover {
       color: #4834d4;
+    }
+  }
+`;
+
+export const SocialIcons = styled.div`
+  img {
+    margin: 0 10px;
+    width: 50px;
+    height: 50px;
+    color: #000;
+
+    &:hover {
+      color: #ff7300;
+    }
+  }
+`;
+
+export const NavMenu = styled.nav`
+  display: flex;
+  gap: 20px;
+
+  a {
+    font-size: 16px;
+    color: #333;
+    text-decoration: none;
+
+    &:hover {
+      color: #ff7300;
     }
   }
 `;
