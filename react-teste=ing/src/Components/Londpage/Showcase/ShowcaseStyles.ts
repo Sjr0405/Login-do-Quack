@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Vector = styled.div`
+export const Vector = styled.div`
   /* Posicionando os SVGs individualmente */
   .svg7 {
     position: absolute;
@@ -13,7 +13,7 @@ const Vector = styled.div`
 `;
 
 // Seção principal
-const Section = styled.section`
+export const Section = styled.section`
   grid-template-columns: repeat(12, 1fr); // Define a grid com 12 colunas
   align-items: center;
   position: relative;
@@ -24,7 +24,7 @@ const Section = styled.section`
 `;
 
 // Contêiner do conteúdo
-const Container = styled.div`
+export const Container = styled.div`
   align-items: center;
   position: relative;
   width: 90%;
@@ -39,7 +39,7 @@ const Container = styled.div`
 `;
 
 // Título centralizado
-const Title = styled.h2`
+export const Title = styled.h2`
   margin-top: 20%;
   justify-self: center;
   position: relative;
@@ -52,7 +52,7 @@ const Title = styled.h2`
 `;
 
 // Estilizando os cards
-const Card = styled.div`
+export const Card = styled.div`
   background-color: white;
   border-radius: 15px;
   padding: 20px;
@@ -82,10 +82,9 @@ const Card = styled.div`
     margin-bottom: 10px;  
     transition: color 0.3s ease;
     
-
-  &:hover{
-    cursor: pointer;
-    color: #eb832e;
+    &:hover {
+      cursor: pointer;
+      color: #eb832e;
     }
   }
 
@@ -95,38 +94,3 @@ const Card = styled.div`
     font-size: 16px;
   }
 `;
-
-const Showcase = () => {
-  return (
-    <Section id="showcase">
-      <Container>
-        <Title>Trilhas mais populares</Title>
-        {/* Card 1 */}
-        <Card>
-          <img src="/src/Assets/Placeholders/placeholder7.svg" alt="Lógica de Programação" />
-          <h3>Lógica de Programação</h3>
-          <p>Aprenda os fundamentos essenciais da programação, algoritmos e resolução de problemas. Ideal para iniciantes.</p>
-        </Card>
-
-        {/* Card 2 */}
-        <Card>
-          <img src="/src/Assets/Placeholders/placeholder8.svg" alt="Frontend" />
-          <h3>Frontend</h3>
-          <p>Domine HTML, CSS, JavaScript e frameworks como React. Crie interfaces de usuário atraentes e responsivas.</p>
-        </Card>
-
-        {/* Card 3 */}
-        <Card>
-          <img src="/src/Assets/Placeholders/placeholder9.svg" alt="DevOps" />
-          <h3>DevOps</h3>
-          <p>Aprenda CI/CD, automação, Docker, Kubernetes e práticas de DevOps. Obtenha certificações reconhecidas no setor.</p>
-        </Card>
-      </Container>
-      <Vector>
-        <img className="svg7" src="/src/svgs/Landpage-svgs/7.svg" alt="svg" />
-      </Vector>
-    </Section>
-  );
-}
-
-export default Showcase;
