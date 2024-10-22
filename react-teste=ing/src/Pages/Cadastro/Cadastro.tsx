@@ -28,13 +28,13 @@ const schema = yup.object().shape({
 });
 
 interface FormData {
+  photo: FileList;
   name: string;
   email: string;
   username: string;
   phone: string;
   cpf: string;
   password: string;
-  photo: FileList;
 }
 
 const Form = styled.form`

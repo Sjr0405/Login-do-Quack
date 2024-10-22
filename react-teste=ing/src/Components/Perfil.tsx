@@ -264,7 +264,6 @@ const StoreButton = styled.button`
 const TabContainer = styled.div`
   margin-left: 36%;
   width: 45%;
-  height: fit-content;
   border: 1px solid #ddd;
   border-radius: 15px;
   overflow: hidden;

@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const ProfileEditContainer = styled.div`
-  padding: 20px;
   font-family: 'Montserrat Alternates', sans-serif;
 `;
 
@@ -152,14 +151,11 @@ const RemovePhotoButton = styled.button`
 export const LogoContainer = styled.div`
   display: flex;
   align-items: center;
-
-  @media (max-width: 768px) {
-    margin-bottom: 10px;
-  }
+  padding: 15px;
 `;
 
 export const LogoImage = styled.img`
-  margin-right: 10px; /* Espaçamento entre a imagem e o texto */
+  margin-right: 10px;
 `;
 
 export const LogoText = styled.span`
@@ -177,7 +173,7 @@ const ProfileEdit = () => {
 
   return (
     <ProfileEditContainer>
-      <Header style={{ borderBottom: '3px solid #ccc' }}>
+      <Header style={{ boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}>
         <LogoContainer>
           <LogoImage src="src/Assets/Logo.svg" alt="Logo" />
           <LogoText>Quack()</LogoText>
