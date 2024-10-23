@@ -5,16 +5,27 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useEffect, useState } from "react";
 
 // Esquema de validação com Yup
 const schema = yup.object().shape({
   email: yup.string().email("Email inválido").required("Email é obrigatório"),
+  confirmEmail: yup.string()
+    .oneOf([yup.ref("email"), undefined], "Os emails devem ser iguais")
+    .required("Email é obrigatório"),
+  password: yup.string().min(8, "A senha deve ter no mínimo 8 caracteres").required("Senha é obrigatória"),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("password"), undefined], "As senhas devem ser iguais")
+    .required("Confirme sua senha"),
 });
 
-interface FormData {
+type FormData = {
   email: string;
-  conmfirmaremail: string;
-}
+  confirmEmail: string;
+  password: string;
+  confirmPassword: string;
+};
 
 // Container do layout para dividir a imagem e o formulário
 const Container = styled.div`
@@ -81,50 +92,41 @@ const FormWrapper = styled(Box)`
 `;
 
 export default function EsqueciSenhaData() {
+  const [activeSection, setActiveSection] = useState("email");
+  const [email, setEmail] = useState("");
   const { handleSubmit, control, formState: { errors }, reset } = useForm<FormData>({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
+  const navigate = useNavigate();
+
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
     console.log(data);
+    if (activeSection === "email") {
+      setActiveSection("senha");
+    } else {
+      navigate("/login");
+    }
+    await reset();
     Swal.fire({
       icon: "success",
       title: "Sucesso!",
       text: "Login realizado com sucesso.",
-    }).then(() => {
-      navigate("/Login");
     });
-
-    reset();
   };
 
-  const navigate = useNavigate();
-
-  return (
-    <Container style={{ display: 'flex', height: '100vh' }}>
-      <ImageSection sx={{ flex: 2 }}>
-        <Box>
-          <StyledTypography>
-            <h4>
-              Faltam poucos passos<br /> para<br /> se tornar um Dev!
-            </h4>
-          </StyledTypography>
-          <img src="src/assets/Personagem.svg" alt="Ilustração" style={{ width: '80%' }} />
-        </Box>
-      </ImageSection>
-
-      {/* Painel da Direita */}
-      <RightPanel>
-        <FormWrapper>
+  const renderRightPanelContent = () => {
+    if (activeSection === "email") {
+      return (
+        <>
           <Typography variant="h5" align="center" gutterBottom>
             Olá Dev!
           </Typography>
           <Typography variant="body1" align="center" sx={{ mb: 3 }}>
-            Insira seu email abaixo e enviaremos um link para redefinir sua senha.
+            Por favor, preencha os campos a seguir, para poder redefinir sua senha.
           </Typography>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Grid container spacing={2}>
-              {/* Email */}
               <Grid item xs={12}>
                 <Controller
                   name="email"
@@ -140,24 +142,21 @@ export default function EsqueciSenhaData() {
                   )}
                 />
               </Grid>
-
               <Grid item xs={12}>
                 <Controller
-                  name="conmfirmaremail"
+                  name="confirmEmail"
                   control={control}
                   render={({ field }) => (
                     <TextField
                       {...field}
                       label="Confirme Endereço de Email"
                       fullWidth
-                      error={!!errors.email}
-                      helperText={errors.email ? errors.email.message : ""}
+                      error={!!errors.confirmEmail}
+                      helperText={errors.confirmEmail ? errors.confirmEmail.message : ""}
                     />
                   )}
                 />
               </Grid>
-
-              {/* Botão de Enviar */}
               <Grid item xs={12}>
                 <Button
                   sx={{
@@ -172,18 +171,15 @@ export default function EsqueciSenhaData() {
                   Verificar seu Email
                 </Button>
               </Grid>
-
-              {/* Link para voltar ao Login */}
               <Grid item xs={12}>
                 <Typography variant="body1" align="center">
                   Lembrou a senha?{" "}
                   <a
-                    href="/Login"
                     onClick={(e) => {
                       e.preventDefault();
                       navigate("/Login");
                     }}
-                    style={{ color: "#eb832e", textDecoration: "none", marginLeft: "8px" }}
+                    style={{ color: "#eb832e", textDecoration: "none", marginLeft: "8px", cursor: "pointer" }}
                   >
                     Clique aqui para Entrar
                   </a>
@@ -191,6 +187,100 @@ export default function EsqueciSenhaData() {
               </Grid>
             </Grid>
           </form>
+        </>
+      );
+    }
+
+    return (
+      <>
+          <Typography variant="h5" align="center" gutterBottom>
+            Olá Dev!
+          </Typography>
+          <Typography variant="body1" align="center" sx={{ mb: 3 }}>
+            Seu E-mail é {email} certo? caso o contrário refaça o passo de verificação do E-mail.
+          </Typography>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <Controller
+                  name="password"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      label="Digite sua Senha"
+                      fullWidth
+                      error={!!errors.password}
+                      helperText={errors.password ? errors.password.message : ""}
+                    />
+                  )}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Controller
+                  name="confirmPassword"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      label="Confirme sua Senha"
+                      fullWidth
+                      error={!!errors.confirmPassword}
+                      helperText={errors.confirmPassword ? errors.confirmPassword.message : ""}
+                    />
+                  )}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Button
+                  sx={{
+                    mt: 2,
+                    backgroundColor: "#eb832e",
+                    "&:hover": { backgroundColor: "#d06b2a" },
+                  }}
+                  type="submit"
+                  variant="contained"
+                  fullWidth
+                >
+                  Registrar
+                </Button>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography variant="body1" align="center">
+                  Lembrou a senha?{" "}
+                  <a
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate("/Login");
+                    }}
+                    style={{ color: "#eb832e", textDecoration: "none", marginLeft: "8px", cursor: "pointer" }}
+                  >
+                    Clique aqui para Entrar
+                  </a>
+                </Typography>
+              </Grid>
+            </Grid>
+          </form>
+        </>
+    );
+  };
+
+  return (
+    <Container>
+      <ImageSection sx={{ flex: 2 }}>
+        <Box>
+          <StyledTypography>
+            <h4>
+              Faltam poucos passos<br /> para<br /> se tornar um Dev!
+            </h4>
+          </StyledTypography>
+          <img src="src/assets/Personagem.svg" alt="Ilustração" style={{ width: '80%' }} />
+        </Box>
+      </ImageSection>
+
+      <RightPanel>
+        <FormWrapper>
+          {renderRightPanelContent()}
         </FormWrapper>
       </RightPanel>
     </Container>
