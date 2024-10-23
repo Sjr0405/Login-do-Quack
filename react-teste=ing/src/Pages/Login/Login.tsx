@@ -6,6 +6,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../AuthContext';
+//
+import axios from 'axios'; 
 
 const A = styled.a`
   color: white;
@@ -165,14 +167,8 @@ const DuckImage = styled.img`
 
 const schema = yup.object().shape({
   email: yup.string().email("Email inválido").required("Email é obrigatório"),
-  password: yup.string().min(8, "A senha deve ter no mínimo 8 caracteres").required("Senha é obrigatória"),
+  password: yup.string().min(8, "A deve ter no mínimo 8 caracteres").required("Senha é obrigatória"),
 });
-
-const fetchUserData = async () => [
-  { email: 'Admin@gmail.com', password: 'Administrator1' },
-  { email: 'user1@example.com', password: '12345678' },
-  { email: 'user2@example.com', password: '87654321' },
-];
 
 const Login = () => {
   const { handleSubmit, control, formState: { errors }, reset } = useForm({
@@ -184,11 +180,11 @@ const Login = () => {
 
   const onSubmit: SubmitHandler<{ email: string; password: string }> = async (data) => {
     try {
-      const users = await fetchUserData();
-      const user = users.find(user => user.email === data.email && user.password === data.password);
+      const response = await axios.post('/auth/login', data);
+      const { token } = response.data;
 
-      if (user) {
-        login(data.email, data.password);
+      if (token) {
+        login(data.email, token);
         Swal.fire('Sucesso!', 'Login realizado com sucesso.', 'success').then(() => {
           navigate('/Home');
         });
@@ -200,7 +196,7 @@ const Login = () => {
           footer: `<a href="/Cadastro" style="color: #eb832e;">Clique aqui para se cadastrar</a>`
         });
       }
-    } catch {
+    } catch (error) {
       Swal.fire('Erro', 'Houve um problema ao tentar fazer login.', 'error');
     }
     reset();
