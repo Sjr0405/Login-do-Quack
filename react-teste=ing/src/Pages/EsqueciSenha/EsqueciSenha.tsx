@@ -27,7 +27,35 @@ type FormData = {
   confirmPassword: string;
 };
 
-// Container do layout para dividir a imagem e o formulário
+const Input = styled.input`
+  color: #eb832e;
+  font-family: "Montserrat Alternates", sans-serif;
+  border-radius: 8px;
+  border: 1px solid #eb832e;
+  padding: 0 16px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  cursor: pointer;
+
+  &:hover {
+    cursor: pointer;
+    border-color: #7A5FF5;
+  }
+`;
+
+const Label = styled.label`
+  display: block;
+  margin-bottom: 8px;
+  color: #eb832e;
+  font-family: "Montserrat Alternates", sans-serif;
+  cursor: pointer;
+
+  &:hover{
+    cursor: pointer;
+    text-decoration: underline;
+    }
+`;
+
 const Container = styled.div`
   display: flex;
   justify-content: center;
@@ -102,9 +130,12 @@ export default function EsqueciSenhaData() {
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     console.log(data);
-    if (activeSection === "email") {
+    console.log(errors); 
+  
+    if (activeSection === "email" && Object.keys(errors).length === 0) {
+      setEmail(data.email);
       setActiveSection("senha");
-    } else {
+    } else if (activeSection === "senha") {
       navigate("/login");
     }
     await reset();
@@ -114,6 +145,7 @@ export default function EsqueciSenhaData() {
       text: "Login realizado com sucesso.",
     });
   };
+  
 
   const renderRightPanelContent = () => {
     if (activeSection === "email") {
@@ -231,7 +263,15 @@ export default function EsqueciSenhaData() {
                   )}
                 />
               </Grid>
-              <Grid item xs={12}>
+                <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <div>
+                  <Label>
+                    <Input type="checkbox" style={{fontFamily: 'Montserrat Alternates',color: '#eb832e',  marginRight: '5px' }} />
+                    Lembrar senha
+                  </Label>
+                </div>
+              </Grid>
+              <Grid item xs={12} style={{ display: 'flex', justifyContent: 'center', marginTop: '-30px' }}>
                 <Button
                   sx={{
                     mt: 2,
@@ -244,20 +284,6 @@ export default function EsqueciSenhaData() {
                 >
                   Registrar
                 </Button>
-              </Grid>
-              <Grid item xs={12}>
-                <Typography variant="body1" align="center">
-                  Lembrou a senha?{" "}
-                  <a
-                    onClick={(e) => {
-                      e.preventDefault();
-                      navigate("/Login");
-                    }}
-                    style={{ color: "#eb832e", textDecoration: "none", marginLeft: "8px", cursor: "pointer" }}
-                  >
-                    Clique aqui para Entrar
-                  </a>
-                </Typography>
               </Grid>
             </Grid>
           </form>
