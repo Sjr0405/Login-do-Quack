@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import SideBar from '../../Components/SideBar';
@@ -9,7 +9,6 @@ import Rankings from '../../Components/Rankings';
 import Perfil from '../../Components/Perfil';
 import Missoes from '../../Components/Missão/MissoesPage';
 
-// Styled Components
 const Container = styled.div`
   display: flex;
   height: 100vh;
@@ -24,9 +23,9 @@ const MainContent = styled.div`
 
 const Home = () => {
   const [section, setSection] = useState('Aprender');
-  const location = useLocation(); // Hook para acessar o estado da navegação
+  const location = useLocation();
 
-  // Verifica se o estado 'section' foi passado e ajusta a seção inicial
+
   useEffect(() => {
     if (location.state?.section) {
       setSection(location.state.section);
@@ -65,7 +64,7 @@ const Home = () => {
 
   const renderSectionMissoes = () => {
     if (section === 'Missoes') {
-      return <Missoes changeSection={setSection} />;
+      return <Missoes />;
     }
   };
 

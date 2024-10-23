@@ -9,6 +9,7 @@ import Rankings from './Components/Rankings.tsx';
 import FazerAtividade from './Components/FazerAtividade.tsx';
 import Perfil from './Components/Perfil.tsx';
 import EditarPerfil from './Pages/EditarPerfil/EditarPerfil.tsx';
+import PrivateRoute from './Components/PrivateRoute.tsx';
 import { AuthProvider } from './AuthContext.tsx';
 import GlobalStyles from './Styles/GlobalStyles.tsx';
 import { ThemeProvider } from 'styled-components';
@@ -44,14 +45,55 @@ function MainRoutes() {
         <Route path="/Cadastro" element={<Cadastro />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/EsqueciSenha" element={<EsqueciSenha />} />
-        <Route path="/Home" element={<Home />} />
-        <Route path="/FazerAtividade" element={<FazerAtividade changeSection={(section: string) => console.log(section)} />} />
-        <Route path="/Aprender" element={<Aprender changeSection={(section: string) => console.log(section)} />} />  
-        <Route path="/Atividade" element={<Atividade changeSection={(section: string) => console.log(section)} />} />  
-        <Route path="/Rankings" element={<Rankings />} />
-        <Route path="/Perfil" element={<Perfil changeSection={(section: string) => console.log(section)} />} />
-        <Route path="/EditarPerfil" element={<EditarPerfil />} />
-        <Route path="/Backend_Roadmap" element={<Trilha />} />
+
+        <Route path="/Home" element={ 
+          <PrivateRoute>
+          <Home />
+        </PrivateRoute>
+          } 
+        />
+
+        <Route path="/FazerAtividade" element={
+          <PrivateRoute>
+            <FazerAtividade changeSection={(section: string) => console.log(section)} />
+          </PrivateRoute>
+        } />
+        
+        <Route path="/Aprender" element={
+          <PrivateRoute>
+            <Aprender changeSection={(section: string) => console.log(section)} />
+          </PrivateRoute>
+        } />
+
+        <Route path="/Atividade" element={
+          <PrivateRoute>
+            <Atividade changeSection={(section: string) => console.log(section)} />
+          </PrivateRoute>
+        } />
+
+        <Route path="/Rankings" element={
+          <PrivateRoute>
+            <Rankings />
+          </PrivateRoute>
+        } />
+
+        <Route path="/Perfil" element={
+          <PrivateRoute>
+            <Perfil changeSection={(section: string) => console.log(section)} />
+          </PrivateRoute>
+        } />
+
+        <Route path="/EditarPerfil" element={
+          <PrivateRoute>
+            <EditarPerfil />
+          </PrivateRoute>
+        } />
+
+        <Route path="/Backend_Roadmap" element={
+          <PrivateRoute> 
+            <Trilha />
+          </PrivateRoute>
+        } />
 
       </Routes>
     </AuthProvider>

@@ -6,8 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../AuthContext';
-//
-import axios from 'axios'; 
+import axios from "axios";
 
 const A = styled.a`
   color: white;
@@ -178,16 +177,18 @@ const Login = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const onSubmit: SubmitHandler<{ email: string; password: string }> = async (data) => {
+  const onSubmit: SubmitHandler<{
+    email: string; password: string }> = async (data) => {
     try {
       const response = await axios.post('/auth/login', data);
       const { token } = response.data;
-
+  
       if (token) {
         login(data.email, token);
         Swal.fire('Sucesso!', 'Login realizado com sucesso.', 'success').then(() => {
-          navigate('/Home');
+          navigate('/home');
         });
+
       } else {
         Swal.fire({
           icon: 'error',
@@ -196,7 +197,7 @@ const Login = () => {
           footer: `<a href="/Cadastro" style="color: #eb832e;">Clique aqui para se cadastrar</a>`
         });
       }
-    } catch (error) {
+    } catch {
       Swal.fire('Erro', 'Houve um problema ao tentar fazer login.', 'error');
     }
     reset();
@@ -204,7 +205,6 @@ const Login = () => {
 
   return (
     <LoginContainer>
-      {/* Seção do formulário */}
       <FormSection>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Typography variant="h5" style={{textAlign: 'left', fontFamily: 'Lilita One',fontSize: '80px', marginBottom: '20px', color: '#ff7f00' }}>

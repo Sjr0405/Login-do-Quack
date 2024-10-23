@@ -9,15 +9,15 @@ import Swal from 'sweetalert2';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'; 
 import styled from 'styled-components';
 import 'react-image-crop/dist/ReactCrop.css';
-import ProfileImageUploader from './ProfileImageUploader.tsx'; // Import your ProfileImageUploader
+import ProfileImageUploader from './ProfileImageUploader.tsx'; 
 
 
 const schema = yup.object().shape({
   photo: yup.mixed().test("fileSize", "Tamanho máximo da imagem é de 1GB", (value) => {
     if (!value || (Array.isArray(value) && value.length === 0)) {
-      return true; // Campo opcional: se não houver arquivo, passa
+      return true;
     }
-    return Array.isArray(value) && value[0].size <= 1000000000; // Verifica o tamanho do arquivo, se houver um
+    return Array.isArray(value) && value[0].size <= 1000000000;
   }),
   name: yup.string().required("Nome completo é obrigatório"),
   email: yup.string().email("Email inválido").required("Email é obrigatório"),
