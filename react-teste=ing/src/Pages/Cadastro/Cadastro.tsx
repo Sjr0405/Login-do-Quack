@@ -124,12 +124,9 @@ export default function Cadastro() {
     formData.append("phone", data.phone);
     formData.append("cpf", data.cpf);
     formData.append("bornAt", data.bornAt);
-
-    const registerAt = new Date().toISOString();
-    formData.append("registerAt", registerAt);
-
-    formData.append("points", "0");
     formData.append("imagePath", "");
+
+    
 
     if (croppedImageUrl) {
       const croppedImageBlob = await fetch(croppedImageUrl)
@@ -144,11 +141,11 @@ export default function Cadastro() {
       formData.append("photo", data.photo[0], "profile-image.jpg");
     }
 
-    try {
-      const response = await fetch("http://localhost:5000/auth/register", {
-        method: "POST",
-        body: formData,
-      });
+try {
+  const response = await fetch('/auth/register', {
+    method: 'POST',
+    body: (formData)
+  });
 
       if (response.ok) {
         Swal.fire({
