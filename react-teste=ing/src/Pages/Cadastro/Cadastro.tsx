@@ -1,49 +1,134 @@
-import { useState } from 'react';
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import { TextField, Button, Grid, Box, Typography, IconButton, InputLabel } from "@mui/material";
-import InputMask from "react-input-mask";
-import { useNavigate } from 'react-router-dom'; 
+import styled from 'styled-components';
+import { TextField, Grid, Box, Typography, IconButton, InputAdornment } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Swal from 'sweetalert2';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'; 
-import styled from 'styled-components';
-import 'react-image-crop/dist/ReactCrop.css';
-import ProfileImageUploader from './ProfileImageUploader.tsx'; // Import your ProfileImageUploader
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../AuthContext';
+import axios from 'axios'; 
+import { useState } from 'react';
 
+const A = styled.a`
+  color: white;
+  text-decoration: none;
+  font-family: "Montserrat Alternates", sans-serif;
+`;
 
-const schema = yup.object().shape({
-  photo: yup.mixed().test("fileSize", "Tamanho máximo da imagem é de 1GB", (value) => {
-    if (!value || (Array.isArray(value) && value.length === 0)) {
-      return true; // Campo opcional: se não houver arquivo, passa
+const Label = styled.label`
+  display: block;
+  margin-bottom: 8px;
+  color: #eb832e;
+  font-family: "Montserrat Alternates", sans-serif;
+  cursor: pointer;
+
+  &:hover{
+    cursor: pointer;
+    text-decoration: underline;
     }
-    return Array.isArray(value) && value[0].size <= 1000000000; // Verifica o tamanho do arquivo, se houver um
-  }),
-  name: yup.string().required("Nome completo é obrigatório"),
-  email: yup.string().email("Email inválido").required("Email é obrigatório"),
-  username: yup.string().required("Nome de usuário é obrigatório"),
-  phone: yup.string().required("Telefone é obrigatório").min(14, "Telefone inválido"),
-  cpf: yup.string().required("CPF é obrigatório").min(14, "CPF inválido"),
-  password: yup.string().min(8, "A senha deve ter no mínimo 8 caracteres").required("Senha é obrigatória"),
-});
+`;
 
-interface FormData {
-  name: string;
-  email: string;
-  username: string;
-  phone: string;
-  cpf: string;
-  password: string;
-  photo: FileList;
-}
+const Input = styled.input`
+  color: #eb832e;
+  font-family: "Montserrat Alternates", sans-serif;
+  border-radius: 8px;
+  border: 1px solid #eb832e;
+  padding: 0 16px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  cursor: pointer;
+
+  &:hover {
+    cursor: pointer;
+    border-color: #7A5FF5;
+  }
+`;
+
+// Estilos
+const StyledTypography = styled(Typography)`
+  font-family: "Montserrat Alternates", sans-serif;
+  font-size: 24px;
+  
+  margin-bottom: 20px;
+
+  h3 {
+    text-decoration: none;
+    font-size: 24px;
+    font-family: "Lilita One", sans-serif;
+    font-weight: 300;
+    margin-top: 50%;
+  }
+
+  h4 {
+    text-decoration: none;
+    font-size: 24px;
+    font-family: "Montserrat Alternates", sans-serif;
+    font-weight: 500;
+    margin-top: 30%;
+  }
+
+  p {
+    color: #ffffff;
+    text-decoration: none;
+    font-family: "Montserrat Alternates", sans-serif;
+  }
+`;
+
+const LoginContainer = styled(Box)`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: #f8f9fa;
+`;
+
+const FormSection = styled(Box)`
+  width: 45%;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ImageSection = styled(Box)`
+  background-image: url("/src/svgs/Login-svgs/1.svg");
+  background-repeat: no-repeat;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+  font-family: "Lilita One", sans-serif;
+`;
 
 const Form = styled.form`
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
   width: 100%;
-  margin: 0 auto;
-  background: #FFFFFFFF;
-  padding: 2rem;
-  box-shadow: 0px 10px 20px rgba(0.1, 0.1, 0.1, 0);
-  transition: box-shadow 300ms ease, transform 300ms ease;
+`;
+
+const StyledButton = styled.button`
+  color: white;
+  background-color: #7A5FF5;
+  border-radius: 8px;
+  height: 50px;
+  font-size: 16px;
+  width: 100%;
+  margin-top: 20px;
+  border: none;
+  cursor: pointer;
+  font-family: "Montserrat Alternates", sans-serif;
+
+  &:hover {
+    background-color: #3700b3;
+  }
 `;
 
 const GoogleButton = styled.button`
@@ -65,277 +150,179 @@ const GoogleButton = styled.button`
   }
 `;
 
-const ImageSection = styled(Box)`
-  background-image: url("/src/svgs/Cadastro-svgs/1.svg");
-  background-repeat: no-repeat;
-  display: flex;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  color: white;
-  font-family: "Lilita One", sans-serif;
-  position: relative;
-`;
-
-const StyledTypography = styled(Typography)`
+const LoginLink = styled.a`
+  color: #eb832e;
+  cursor: pointer;
   font-family: "Montserrat Alternates", sans-serif;
-  font-size: 24px;
-
-  h3 {
-    text-decoration: none;
-    font-size: 24px;
-    font-family: "Lilita One", sans-serif;
-    margin-top: 30%;
-  }
-
-  h4 {
-    text-decoration: none;
-    font-size: 35px;
-    font-family: "Montserrat Alternates", sans-serif;
-    text-align: left;
-    font-weight: 500;
-    margin-top: -20%;
-  }
-
-  p {
-    color: #ffffff;
-    text-decoration: none;
-    font-family: "Montserrat Alternates", sans-serif;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
   }
 `;
 
-const Inputinho = styled(InputLabel)`
-  font-family: "Lilita One", sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  color: lightgray;
+const DuckImage = styled.img`
+  width: 500px;
+  margin-top: 41%;
+  margin-right: 25%;
 `;
 
-export default function Cadastro() {
-  const { handleSubmit, control, formState: { errors }, reset } = useForm<FormData>({
+const schema = yup.object().shape({
+  email: yup.string().email("Email inválido").required("Email é obrigatório"),
+  password: yup.string().min(8, "A deve ter no mínimo 8 caracteres").required("Senha é obrigatória"),
+});
+
+const Login = () => {
+  const { handleSubmit, control, formState: { errors }, reset } = useForm({
     resolver: yupResolver(schema),
   });
+
+  const { login } = useAuth();
   const navigate = useNavigate();
-  const [croppedImageUrl, setCroppedImageUrl] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
 
-  const onSubmit: SubmitHandler<FormData> = async (data) => {
-    const formData = new FormData();
-    formData.append("name", data.name);
-    formData.append("email", data.email);
-    formData.append("username", data.username);
-    formData.append("password", data.password);
-    formData.append("phone", data.phone);
-    formData.append("cpf", data.cpf);
-    formData.append("photo", data.photo[0], "profile-image.jpg");
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
-    if (croppedImageUrl) {
-      const croppedImageBlob = await fetch(croppedImageUrl)
-        .then((r) => r.blob())
-        .catch((error) => {
-          console.error("Erro ao obter blob da imagem cortada:", error);
-        });
-      if (croppedImageBlob) {
-        formData.append("photo", croppedImageBlob, "cropped-image.jpg");
-      }
-    }
-  
+  const onSubmit: SubmitHandler<{ email: string; password: string }> = async (data) => {
     try {
-      const response = await fetch("http://localhost:5000/register", { method: "POST", body: formData });
-      if (response.ok) {
-        Swal.fire({
-          icon: "success",
-          title: "Sucesso!",
-          text: "Cadastro realizado com sucesso.",
-        }).then(() => navigate("/Login"));
-        reset();
+      const response = await axios.post('/auth/login', data);
+      const { token } = response.data;
+
+      if (token) {
+        login(data.email, token);
+        Swal.fire('Sucesso!', 'Login realizado com sucesso.', 'success').then(() => {
+          navigate('/Home');
+        });
       } else {
-        console.error("Erro ao cadastrar o usuário");
+        Swal.fire({
+          icon: 'error',
+          title: 'Falha no Login',
+          text: 'E-mail ou senha incorretos.',
+          footer: `<a href="/Cadastro" style="color: #eb832e;">Clique aqui para se cadastrar</a>`
+        });
       }
     } catch (error) {
-      console.error("Erro na requisição", error);
+      Swal.fire('Erro', 'Houve um problema ao tentar fazer login.', 'error');
+    }
+    reset();
+  };
+
+  const handleFormKeyPress = (event: React.KeyboardEvent<HTMLFormElement>) => {
+    if (event.key === 'Enter') {
+      handleSubmit(onSubmit)();
+    }
+  };
+
+  const handleInputKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'Enter') {
+      handleSubmit(onSubmit)();
     }
   };
 
   return (
-    <Box sx={{ display: 'flex', height: '100vh' }}>
-      <ImageSection sx={{ flex: 2 }}>
-        <Box>
-          <StyledTypography>
-            <h4>
-              Faltam poucos passos<br /> para<br /> se tornar um Dev!
-            </h4>
-          </StyledTypography>
-          <img src="src/assets/Personagem.svg" alt="Ilustração" style={{ width: '80%' }} />
-        </Box>
-      </ImageSection>
+    <LoginContainer>
+      {/* Seção do formulário */}
+      <FormSection>
+        <Form onSubmit={handleSubmit(onSubmit)} onKeyPress={handleFormKeyPress}>
+          <Typography variant="h5" style={{textAlign: 'left', fontFamily: 'Lilita One',fontSize: '80px', marginBottom: '20px', color: '#ff7f00' }}>
+            Quack()
+          </Typography>
+          <Typography variant="h6" style={{textAlign: 'left', fontFamily: 'Montserrat Alternates', fontSize: '30px',marginBottom: '10px', fontWeight: 'bold' }}>
+            Bem Vindo Dev! <br />
+            Jefte o mestre supremo
+          </Typography>
+          <Typography variant="body2" style={{textAlign: 'left', fontFamily: 'Montserrat Alternates',  marginBottom: '30px', color: '#777' }}>
+            Bem vindo de volta dev! Por favor, informe seu Usuário e Senha para entrar na plataforma
+          </Typography>
 
-      <Box sx={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '0 5%' }}>
-        <Box sx={{ width: '100%', maxWidth: 400 }}>
-          <Form onSubmit={handleSubmit(onSubmit)}>
-            <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: 2 }}>
-              <IconButton onClick={() => navigate(-1)} aria-label="voltar">
-                <ArrowBackIcon />
-              </IconButton>
-              <Typography variant="h5" sx={{ marginLeft: 1 }}>
-                Olá Dev!
-              </Typography>
-            </Box>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <Controller
-                  name="photo"
-                  control={control}
-                  render={() => (
-                    <>
-                      <ProfileImageUploader setCroppedImageUrl={setCroppedImageUrl} />
-                      <Inputinho>Tamanho (máximo de 1GB)</Inputinho>
-                      {errors.photo && (
-                        <Typography color="error">{errors.photo.message}</Typography>
-                        
-                      )}
-                    </>
-                  )}
-                />
-              </Grid>
-
-              <Grid item xs={12}>
-                <Controller
-                  name="name"
-                  control={control}
-                  render={({ field }) => (
-                    <TextField
-                      {...field}
-                      label="Nome completo"
-                      variant="outlined"
-                      fullWidth
-                      error={!!errors.name}
-                      helperText={errors.name ? errors.name.message : ""}
-                    />
-                  )}
-                />
-              </Grid>
-
-              <Grid item xs={12}>
-                <Controller
-                  name="username"
-                  control={control}
-                  render={({ field }) => (
-                    <TextField
-                      {...field}
-                      label="Nome de usuário"
-                      variant="outlined"
-                      fullWidth
-                      error={!!errors.username}
-                      helperText={errors.username ? errors.username.message : ""}
-                    />
-                  )}
-                />
-              </Grid>
-
-              <Grid item xs={12}>
-                <Controller
-                  name="email"
-                  control={control}
-                  render={({ field }) => (
-                    <TextField
-                      {...field}
-                      label="E-mail"
-                      variant="outlined"
-                      fullWidth
-                      error={!!errors.email}
-                      helperText={errors.email ? errors.email.message : ""}
-                    />
-                  )}
-                />
-              </Grid>
-
-              <Grid item xs={12}>
-                <Controller
-                  name="phone"
-                  control={control}
-                  render={({ field }) => (
-                    <InputMask
-                      mask="(99) 99999-9999"
-                      {...field}
-                      onChange={(e) => field.onChange(e.target.value)}
-                    >
-                      {() => (
-                        <TextField
-                          label="Telefone"
-                          variant="outlined"
-                          fullWidth
-                          error={!!errors.phone}
-                          helperText={errors.phone ? errors.phone.message : ""}
-                        />
-                      )}
-                    </InputMask>
-                  )}
-                />
-              </Grid>
-
-              <Grid item xs={12}>
-                <Controller
-                  name="cpf"
-                  control={control}
-                  render={({ field }) => (
-                    <InputMask
-                      mask="999.999.999-99"
-                      {...field}
-                      onChange={(e) => field.onChange(e.target.value)}
-                    >
-                      {() => (
-                        <TextField
-                          label="CPF"
-                          variant="outlined"
-                          fullWidth
-                          error={!!errors.cpf}
-                          helperText={errors.cpf ? errors.cpf.message : ""}
-                        />
-                      )}
-                    </InputMask>
-                  )}
-                />
-              </Grid>
-
-              <Grid item xs={12}>
-                <Controller
-                  name="password"
-                  control={control}
-                  render={({ field }) => (
-                    <TextField
-                      {...field}
-                      label="Senha"
-                      variant="outlined"
-                      type="password"
-                      fullWidth
-                      error={!!errors.password}
-                      helperText={errors.password ? errors.password.message : ""}
-                    />
-                  )}
-                />
-              </Grid>
-
-              <Grid item xs={12}>
-                <Button type="submit" variant="contained" fullWidth sx={{ backgroundColor: '#6C63FF', color: 'white', }}>
-                  Registrar-se
-                </Button>
-              </Grid>
-
-              <Grid item xs={12}>
-                <Typography align="center" sx={{ marginY: 2 }}>
-                  ou
-                </Typography>
-
-                <GoogleButton>
-                  <img src="/src/Icons/Google.svg" alt="Google" style={{ height: '20px', fontFamily: 'Montserrat Alternates', marginRight: '10px' }} />
-                  Iniciar sessão com o Google
-                </GoogleButton>
-              </Grid>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <Controller
+                name="email"
+                control={control}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    label="Nome de usuário"
+                    fullWidth
+                    error={!!errors.email}
+                    helperText={errors.email ? errors.email.message : ""}
+                    onKeyPress={handleInputKeyPress}
+                  />
+                )}
+              />
             </Grid>
-          </Form>
-        </Box>
-      </Box>
-    </Box>
+            <Grid item xs={12}>
+              <Controller
+                name="password"
+                control={control}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    label="Digite sua senha"
+                    type={showPassword ? "text" : "password"}
+                    fullWidth
+                    error={!!errors.password}
+                    helperText={errors.password ? errors.password.message : ""}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
+                            edge="end"
+                          >
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      )
+                    }}
+                    onKeyPress={handleInputKeyPress}
+                  />
+                )}
+              />
+            </Grid>
+            <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <div>
+                <Label>
+                  <Input type="checkbox" style={{fontFamily: 'Montserrat Alternates',color: '#eb832e',  marginRight: '5px' }} />
+                  Lembrar senha
+                </Label>
+              </div>
+              <LoginLink onClick={() => navigate('/EsqueciSenha')}>
+                Esqueci minha senha
+              </LoginLink>
+            </Grid>
+            <Grid item xs={12}>
+              <StyledButton type="submit">Iniciar sessão</StyledButton>
+            </Grid>
+            <Grid item xs={12}>
+              <GoogleButton>
+                <img src="/src/Icons/Google.svg" alt="Google" style={{height: '20px',fontFamily: 'Montserrat Alternates', marginRight: '10px' }} />
+                Iniciar sessão com o Google
+              </GoogleButton>
+            </Grid>
+          </Grid>
+
+          <Typography style={{ marginTop: '20px' }}>
+            Não tem uma conta? <LoginLink onClick={() => navigate('/Cadastro')}>Clique aqui e se inscreva!</LoginLink>
+          </Typography>
+        </Form>
+      </FormSection>
+
+      {/* Seção de Apresentação */}
+      <ImageSection>
+        
+        <StyledTypography variant="body1" style={{ marginTop: '20px' }}>
+          <h3>Seja Bem Vindo a Quack()</h3>
+          <A>A plataforma que tem como missão,<br/> ajudar você a aprender e compreender <br/>a</A>
+          <A style={{ color: '#7A5FF5', fontWeight: 'bold' }}> programação!</A>
+        </StyledTypography>
+        <DuckImage src="/src/Assets/LogoReverse.svg" alt="Mascote Quack" />
+      </ImageSection>
+    </LoginContainer>
   );
 }
+
+export default Login;
