@@ -1,16 +1,41 @@
 import styled from 'styled-components';
 
 export const Section = styled.footer`
-  grid-template-columns: repeat(12, 1fr);
-  background-color: #f8f9fa;
-  padding: 20px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
+  background-color: #f8f9fa;
+  padding: 20px 40px;
   position: relative;
   bottom: 0;
   width: 100%;
   overflow-x: hidden; /* Evita a barra de rolagem horizontal */
+  font-family: 'Arial', sans-serif; /* Fonte agradável */
+`;
+
+export const Container = styled.div`
+  width: 75%;
+  margin: 2rem auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #333;
+
+  @media (max-width: 48em) {
+    width: 90%;
+  }
+`;
+
+export const Left = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: 48em) {
+    width: 100%;
+  }
 `;
 
 export const Logo = styled.div`
@@ -36,14 +61,21 @@ export const Logo = styled.div`
 `;
 
 export const SocialIcons = styled.div`
-  img {
+  display: flex;
+  align-items: center;
+  margin: 1rem auto;
+
+  a {
     margin: 0 10px;
-    width: 50px;
-    height: 50px;
-    color: #000;
+    transition: transform 0.3s;
 
     &:hover {
-      color: #ff7300;
+      transform: scale(1.1);
+    }
+
+    img {
+      width: 30px;
+      height: 30px;
     }
   }
 `;
@@ -56,9 +88,35 @@ export const NavMenu = styled.nav`
     font-size: 16px;
     color: #333;
     text-decoration: none;
+    transition: color 0.3s;
 
     &:hover {
       color: #ff7300;
+    }
+  }
+
+  @media (max-width: 48em) {
+    display: none;
+  }
+`;
+
+export const Bottom = styled.div`
+  width: 75%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  a {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 48em) {
+    flex-direction: column;
+    width: 100%;
+
+    span {
+      margin-bottom: 1rem;
     }
   }
 `;

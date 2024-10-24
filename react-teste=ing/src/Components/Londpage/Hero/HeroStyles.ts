@@ -1,13 +1,14 @@
 import styled from 'styled-components';
-import backgroundImg from '../../../Assets/HOMEMSENTADO.svg';
 
 export const Section = styled.section`
   min-height: 80vh;
   width: 100%;
   position: relative;
-  background-color: #F7F5F9;
+  
+  
   overflow-x: hidden; /* Evita a barra de rolagem horizontal */
   padding: 20px 0; /* Adiciona um pouco de espaço vertical */
+  z-index: 1; /* Define um z-index menor que o Navigation */
 `;
 
 export const Container = styled.div`
@@ -40,12 +41,8 @@ export const Column2 = styled.div`
   flex-direction: column;
   line-height: normal;
   width: 40%;
-  background-image: url(${backgroundImg});
-  background-size: cover;
-  background-position: center;
   @media (max-width: 991px) {
     width: 100%;
-    background-image: none; /* Remove a imagem de fundo em telas menores */
   }
 `;
 
@@ -101,17 +98,6 @@ export const CadButton = styled.button`
   }
 `;
 
-export const Vector = styled.div`
-  .svg1 {
-    top: 4%;
-    right: 50%;
-    width: 80%;
-    height: 80%;
-    z-index: 1;
-    position: absolute;
-  }
-`;
-
 export const Img = styled.img`
   aspect-ratio: 0.84;
   object-fit: contain;
@@ -122,4 +108,4 @@ export const Img = styled.img`
     max-width: 100%;
     margin-top: 20px;
   }
-`;
+`

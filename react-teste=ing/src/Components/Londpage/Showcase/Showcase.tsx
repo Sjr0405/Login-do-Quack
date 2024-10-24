@@ -1,4 +1,4 @@
-
+import React from 'react';
 import { Section, Container, Title, Card, Vector } from './ShowcaseStyles';
 import svg7 from '../../../svgs/Landpage-svgs/7.svg';
 import placeholder7 from '../../../Assets/Placeholders/placeholder7.svg';

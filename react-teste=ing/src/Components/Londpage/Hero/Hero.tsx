@@ -1,13 +1,9 @@
-import { Section, Container, Column, Column2, Titulo, Subtitulo, CadButton, Vector, Img } from './BannerStyles';
-import svg5 from '../../../svgs/Landpage-svgs/5.svg';
-import imgSrc from '../../../Assets/HOMEMSENTADO.svg'; 
+import { Section, Container, Column, Column2, Titulo, Subtitulo, CadButton, Img } from './HeroStyles';
+import imgSrc from '../../../Assets/HOMEMSENTADO.svg';
 
 const Banner = () => {
   return (
-    <Section id="Banner">
-      <Vector>
-        <img className="svg1" src={svg5} alt="svg" />
-      </Vector>
+    <Section id="Hero">
       <Container>
         <Column>
           <Titulo>
@@ -38,7 +34,7 @@ const Banner = () => {
         <Column2>
           <Img
             loading="lazy"
-            srcSet={imgSrc}
+            src={imgSrc}
             alt="Imagem do homem"
           />
         </Column2>
