@@ -208,11 +208,17 @@ const Login = () => {
     reset();
   };
 
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLFormElement>) => {
+    if (event.key === 'Enter') {
+      handleSubmit(onSubmit)();
+    }
+  };
+
   return (
     <LoginContainer>
       {/* Seção do formulário */}
       <FormSection>
-        <Form onSubmit={handleSubmit(onSubmit)}>
+        <Form onSubmit={handleSubmit(onSubmit)} onKeyPress={handleKeyPress}>
           <Typography variant="h5" style={{textAlign: 'left', fontFamily: 'Lilita One',fontSize: '80px', marginBottom: '20px', color: '#ff7f00' }}>
             Quack()
           </Typography>
