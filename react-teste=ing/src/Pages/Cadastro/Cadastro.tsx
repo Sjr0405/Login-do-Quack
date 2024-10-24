@@ -11,32 +11,6 @@ import styled from 'styled-components';
 import 'react-image-crop/dist/ReactCrop.css';
 import ProfileImageUploader from './ProfileImageUploader.tsx'; 
 
-
-const schema = yup.object().shape({
-  photo: yup.mixed().test("fileSize", "Tamanho máximo da imagem é de 1GB", (value) => {
-    if (!value || (Array.isArray(value) && value.length === 0)) {
-      return true;
-    }
-    return Array.isArray(value) && value[0].size <= 1000000000;
-  }),
-  name: yup.string().required("Nome completo é obrigatório"),
-  email: yup.string().email("Email inválido").required("Email é obrigatório"),
-  username: yup.string().required("Nome de usuário é obrigatório"),
-  phone: yup.string().required("Telefone é obrigatório").min(14, "Telefone inválido"),
-  cpf: yup.string().required("CPF é obrigatório").min(14, "CPF inválido"),
-  password: yup.string().min(8, "A senha deve ter no mínimo 8 caracteres").required("Senha é obrigatória"),
-});
-
-interface FormData {
-  name: string;
-  email: string;
-  username: string;
-  phone: string;
-  cpf: string;
-  password: string;
-  photo: FileList;
-}
-
 const Form = styled.form`
   width: 100%;
   margin: 0 auto;
@@ -112,6 +86,33 @@ const Inputinho = styled(InputLabel)`
   color: lightgray;
 `;
 
+const schema = yup.object().shape({
+  photo: yup.mixed().test("fileSize", "Tamanho máximo da imagem é de 5MB", (value) => {
+    if (!value || (Array.isArray(value) && value.length === 0)) {
+      return true;
+    }
+    return Array.isArray(value) && value[0].size <= 5000000; // Limite para 5MB
+  }),
+  name: yup.string().required("Nome completo é obrigatório"),
+  email: yup.string().email("Email inválido").required("Email é obrigatório"),
+  username: yup.string().required("Nome de usuário é obrigatório"),
+  phone: yup.string().required("Telefone é obrigatório").min(14, "Telefone inválido"),
+  cpf: yup.string().required("CPF é obrigatório").min(14, "CPF inválido"),
+  password: yup.string().min(8, "A senha deve ter no mínimo 8 caracteres").required("Senha é obrigatória"),
+  bornAt: yup.string().required("Data de nascimento é obrigatória"),
+});
+
+interface FormData {
+  name: string;
+  email: string;
+  username: string;
+  phone: string;
+  cpf: string;
+  password: string;
+  photo: FileList;
+  bornAt: string;
+}
+
 export default function Cadastro() {
   const { handleSubmit, control, formState: { errors }, reset } = useForm<FormData>({
     resolver: yupResolver(schema),
@@ -127,8 +128,16 @@ export default function Cadastro() {
     formData.append("password", data.password);
     formData.append("phone", data.phone);
     formData.append("cpf", data.cpf);
-    formData.append("photo", data.photo[0], "profile-image.jpg");
+    formData.append("bornAt", data.bornAt);
 
+    // Adicionar a data de registro atual
+    const registerAt = new Date().toISOString();
+    formData.append("registerAt", registerAt);
+
+    formData.append("points", "0");  // Pontos iniciais
+    formData.append("imagePath", ""); // Caminho da imagem, ajustar conforme necessário
+
+    // Prioridade para imagem cortada, caso disponível
     if (croppedImageUrl) {
       const croppedImageBlob = await fetch(croppedImageUrl)
         .then((r) => r.blob())
@@ -138,10 +147,17 @@ export default function Cadastro() {
       if (croppedImageBlob) {
         formData.append("photo", croppedImageBlob, "cropped-image.jpg");
       }
+    } else if (data.photo && data.photo[0]) {
+      // Caso não haja imagem cortada, enviar a imagem original
+      formData.append("photo", data.photo[0], "profile-image.jpg");
     }
-  
+
     try {
-      const response = await fetch("http://localhost:5000/register", { method: "POST", body: formData });
+      const response = await fetch("http://localhost:5000/auth/register", {
+        method: "POST",
+        body: formData, // Enviar o FormData
+      });
+
       if (response.ok) {
         Swal.fire({
           icon: "success",
@@ -150,10 +166,21 @@ export default function Cadastro() {
         }).then(() => navigate("/Login"));
         reset();
       } else {
-        console.error("Erro ao cadastrar o usuário");
+        const errorData = await response.json();
+        console.error("Erro ao cadastrar o usuário", errorData);
+        Swal.fire({
+          icon: "error",
+          title: "Erro",
+          text: errorData.message || "Algo deu errado!",
+        });
       }
     } catch (error) {
       console.error("Erro na requisição", error);
+      Swal.fire({
+        icon: "error",
+        title: "Erro",
+        text: "Não foi possível realizar o cadastro.",
+      });
     }
   };
 
@@ -189,10 +216,9 @@ export default function Cadastro() {
                   render={() => (
                     <>
                       <ProfileImageUploader setCroppedImageUrl={setCroppedImageUrl} />
-                      <Inputinho>Tamanho (máximo de 1GB)</Inputinho>
+                      <Inputinho>Tamanho (máximo de 5MB)</Inputinho>
                       {errors.photo && (
                         <Typography color="error">{errors.photo.message}</Typography>
-                        
                       )}
                     </>
                   )}
@@ -255,11 +281,7 @@ export default function Cadastro() {
                   name="phone"
                   control={control}
                   render={({ field }) => (
-                    <InputMask
-                      mask="(99) 99999-9999"
-                      {...field}
-                      onChange={(e) => field.onChange(e.target.value)}
-                    >
+                    <InputMask mask="(99) 99999-9999" {...field}>
                       {() => (
                         <TextField
                           label="Telefone"
@@ -279,11 +301,7 @@ export default function Cadastro() {
                   name="cpf"
                   control={control}
                   render={({ field }) => (
-                    <InputMask
-                      mask="999.999.999-99"
-                      {...field}
-                      onChange={(e) => field.onChange(e.target.value)}
-                    >
+                    <InputMask mask="999.999.999-99" {...field}>
                       {() => (
                         <TextField
                           label="CPF"
@@ -305,9 +323,9 @@ export default function Cadastro() {
                   render={({ field }) => (
                     <TextField
                       {...field}
+                      type="password"
                       label="Senha"
                       variant="outlined"
-                      type="password"
                       fullWidth
                       error={!!errors.password}
                       helperText={errors.password ? errors.password.message : ""}
@@ -317,12 +335,28 @@ export default function Cadastro() {
               </Grid>
 
               <Grid item xs={12}>
-                <Button type="submit" variant="contained" fullWidth sx={{ backgroundColor: '#6C63FF', color: 'white', }}>
-                  Registrar-se
-                </Button>
+                <Controller
+                  name="bornAt"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      type="date"
+                      label="Data de Nascimento"
+                      variant="outlined"
+                      fullWidth
+                      error={!!errors.bornAt}
+                      helperText={errors.bornAt ? errors.bornAt.message : ""}
+                    />
+                  )}
+                />
               </Grid>
 
               <Grid item xs={12}>
+                <Button type="submit" variant="contained" color="primary" fullWidth sx={{ color: 'white' , backgroundColor: '#7A5FF5'}}>
+                  Cadastrar
+                </Button>
+              
                 <Typography align="center" sx={{ marginY: 2 }}>
                   ou
                 </Typography>

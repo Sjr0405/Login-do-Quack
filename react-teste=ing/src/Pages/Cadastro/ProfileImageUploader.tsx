@@ -58,28 +58,36 @@ const ImagePreview = styled.img`
 
 const UploadIcon = styled.i`
   position: absolute;
-  margin: 0 auto;
-  font-size: 50px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+  color: #eb832e;
 `;
 
 const HiddenInput = styled.input`
   position: absolute;
-  margin: 0 auto;
-  width: 100px;
-  height: 100px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   opacity: 0;
+  cursor: pointer;
 `;
 
 const CroppedImage = styled.img`
   margin-top: 20px;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  box-shadow: 2px 3px 12px rgba(0, 0, 0, 0.6);
 `;
 
 const ProfileImageUploader: React.FC = () => {
   const [croppedImageUrl, setCroppedImageUrl] = useState<string | null>(null);
   const [imageRef, setImageRef] = useState<HTMLImageElement | null>(null);
-  const [scaleX] = useState(1);
-  const [scaleY] = useState(1);
-  const [hasImage, setHasImage] = useState(false); // Estado para controlar se a imagem foi carregada
+  const [hasImage, setHasImage] = useState(false);
   const imagePreviewRef = useRef<HTMLImageElement | null>(null);
 
   const onCropComplete = (crop: Crop) => {
@@ -95,10 +103,10 @@ const ProfileImageUploader: React.FC = () => {
 
         ctx.drawImage(
           imageRef,
-          crop.x * scaleX,
-          crop.y * scaleY,
-          crop.width * scaleX,
-          crop.height * scaleY,
+          crop.x,
+          crop.y,
+          crop.width,
+          crop.height,
           0,
           0,
           crop.width,
@@ -130,7 +138,8 @@ const ProfileImageUploader: React.FC = () => {
         if (imagePreviewRef.current) {
           imagePreviewRef.current.src = img.src;
         }
-        setHasImage(true); // Define hasImage como true quando a imagem é carregada
+        setHasImage(true);
+        onCropComplete({ x: 0, y: 0, width: 100, height: 100 }); 
       };
       img.src = URL.createObjectURL(file);
     }
@@ -142,7 +151,7 @@ const ProfileImageUploader: React.FC = () => {
         <form id="form-form">
           <ImageUpload hasImage={hasImage}>
             <ImagePreview ref={imagePreviewRef} alt="Preview" />
-            <UploadIcon />
+            {!hasImage && <UploadIcon className="fas fa-upload" />}
             <HiddenInput
               type="file"
               onChange={handleImageChange}

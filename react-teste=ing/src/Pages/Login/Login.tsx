@@ -1,12 +1,15 @@
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import styled from 'styled-components';
-import { TextField, Grid, Box, Typography } from "@mui/material";
+import { TextField, Grid, Box, Typography, IconButton, InputAdornment } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useState } from 'react';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../AuthContext';
 import axios from "axios";
+
 
 const A = styled.a`
   color: white;
@@ -177,6 +180,13 @@ const Login = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
 
+  
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   const onSubmit: SubmitHandler<{
     email: string; password: string }> = async (data) => {
     try {
@@ -242,10 +252,19 @@ const Login = () => {
                   <TextField
                     {...field}
                     label="Digite sua senha"
-                    type="password"
+                    type={showPassword ? "text" : "password"} // Alterar o tipo do campo de senha
                     fullWidth
                     error={!!errors.password}
                     helperText={errors.password ? errors.password.message : ""}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton onClick={togglePasswordVisibility} edge="end">
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
                   />
                 )}
               />
@@ -278,7 +297,6 @@ const Login = () => {
         </Form>
       </FormSection>
 
-      {/* Seção de Apresentação */}
       <ImageSection>
         
         <StyledTypography variant="body1" style={{ marginTop: '20px' }}>
