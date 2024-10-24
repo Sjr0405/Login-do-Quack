@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Input } from '@mui/material';
 
 // Container principal
 const ProfileContainer = styled.div`
@@ -8,7 +9,7 @@ const ProfileContainer = styled.div`
   flex-direction: column;
   align-items: center;
   font-family: 'Arial', sans-serif;
-  padding: 20px;
+
   background-color: #f5f5f5;
   width: 100%;
   height: auto;
@@ -27,35 +28,45 @@ const ProfileSection = styled.div`
   display: flex;
   align-items: center;
   justify-content: left;
-  width: 80%;
-  margin: 20px 0;
+  width: 100%;
+  margin-bottom: 2%;
 `;
 
 const ProfileImageContainer = styled.div`
+  margin-left: 5%;
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
+const ProfileImageBuble = styled.div`
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 10px solid #ff6f00;
+`; 
+
 const ProfileImage = styled.img`
   width: 130px;
   height: 130px;
   border-radius: 50%;
-  border: 5px solid #ff6f00;
 `;
 
 const EditIcon = styled.div`
-  margin-top: 10px;
-  width: 50px;
+  width: 70px;
   height: 50px;
   background-color: #fff;
   display: flex;
+  border: #E9E8E8FF 2px solid;
   justify-content: center;
   align-items: center;
   border-radius: 20%;
   cursor: pointer;
 
-  img {
+  img { 
     width: 30px;
     height: 30px;
   }
@@ -92,11 +103,13 @@ const ProfileInfo = styled.div`
 
 const Content = styled.div`
   display: flex;
+  align-items: center;
+  width: 100%;
   `;
 
 const BadgeCollectionContainer = styled.div`
   padding: 20px;
-  border: 2px solid #000;
+  border: 2px solid #E9E8E8FF;
   border-radius: 10px;
   background-color: #fff;
   width: fit-content;
@@ -125,7 +138,6 @@ const BadgeItem = styled.div`
   border-radius: 15px;
   width: 150px;
   height: 150px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 `;
 
 const BadgeImage = styled.img`
@@ -142,10 +154,9 @@ const BadgeText = styled.p`
 
 const StatsSection = styled.div`
   padding: 20px;
-  border: 2px solid #000;
   border-radius: 15px;
-  width: 350px;
-  background-color: #fff;
+  width: 100%;
+  background-color: transparent;
   margin: 0 auto;
 `;
 
@@ -153,12 +164,15 @@ const StatsTitle = styled.h2`
   font-size: 24px;
   color: #ff7f00;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 1%;
 `;
 
 const StatsGrid = styled.div`
   display: flex;
   flex-direction: column;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 15px;
   gap: 20px;
 `;
 
@@ -169,7 +183,6 @@ const StatItem = styled.div`
   background-color: #f1f1f1;
   border-radius: 15px;
   padding: 10px 20px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 `;
 
 const StatIcon = styled.img`
@@ -181,7 +194,7 @@ const StatLabel = styled.p`
   font-size: 16px;
   font-weight: bold;
   margin-left: 10px;
-  color: #333;
+  color: #000;
 `;
 
 const StatValue = styled.p`
@@ -209,27 +222,48 @@ const Progress = styled.div`
   font-size: 12px;
 `;
 
+const ImgBuble = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+`; 
+
 // Botão "Acesse nossa loja!"
 const StoreButton = styled.button`
-  position: absolute;
-  top: 20px;
-  right: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  right: 4%;
+  font-size: 25px;
+  font-weight: 500;
+  font-family: 'Lilita One', sans-serif;
+  color: #fff;
   padding: 10px 20px;
-  background-color: #ff6f00;
+  background-color: #FF3E41;
   color: white;
   border: none;
   border-radius: 10px;
-  font-size: 16px;
   cursor: pointer;
 
   &:hover {
-    background-color: #ff9a3e;
+    background-color: #e62e33;
+  }
+
+  img {
+    width: 40px;
+    height: 40px;
   }
 `;
 
 const TabContainer = styled.div`
   margin-left: 36%;
-  width: 300px;
+  width: 45%;
   border: 1px solid #ddd;
   border-radius: 15px;
   overflow: hidden;
@@ -251,7 +285,7 @@ const TabButton = styled.div<{ active?: boolean }>`
   color: ${({ active }) => (active ? '#6e52fa' : '#bcbcbc')};
   border-bottom: 3px solid ${({ active }) => (active ? '#6e52fa' : '#e0e0e0')};
   padding-bottom: 5px;
-  font-size: 16px;
+  font-size: 20px;
 `;
 
 const TabContent = styled.div`
@@ -262,35 +296,70 @@ const TabContent = styled.div`
 
 const Heading = styled.h3`
   color: #6e6e6e;
-  font-size: 18px;
+  font-size: 20px;
   margin-bottom: 10px;
   font-weight: bold;
 `;
 
 const SubText = styled.p`
   color: #bcbcbc;
-  font-size: 14px;
+  font-size: 16 px;
   line-height: 1.5;
   margin: 0;
+`;
+
+const SearchBar = styled.div`
+  display: flex;
+  align-items: center;
+  width: 20%;
+
+  Input {
+    width: 100%;
+    height: 40px;
+    padding: 0 10px;
+    font-size: 18px;
+  }
+
+  img {
+    cursor: pointer;
+  }
 `;
 
 const Perfil = ({ changeSection }: { changeSection: (section: string) => void }) => {
 
   const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState('');
   const [activeTab, setActiveTab] = useState('NaAsa'); 
 
   return (
     <ProfileContainer>
 
     <Header>
-      <h2>Seu Perfil</h2>
-      <StoreButton onClick={() => changeSection('Loja')}>Acesse nossa loja!</StoreButton>
+      <h2 style={{ fontSize: '30px',fontWeight: '500' ,fontFamily: 'Montserrat Alternates' }}>Seu perfil</h2>
+
+      <SearchBar>
+            <Input
+              type="search"
+              placeholder="Pesquisar por nome..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </SearchBar>
+      
+      <StoreButton onClick={() => changeSection('Loja')}>
+      <ImgBuble>
+        <img src="/src/svgs/Home-svgs/Perfil/Loja.svg" alt="Icône de loja" />
+      </ImgBuble>
+        Acesse nossa loja!
+      </StoreButton>
     </Header>
     
       
       <ProfileSection>
         <ProfileImageContainer>
+          <ProfileImageBuble>
           <ProfileImage src="https://randomuser.me/api/portraits/men/1.jpg" alt="Foto do perfil" />
+          </ProfileImageBuble>
         </ProfileImageContainer>
         <ProfileInfo>
           <h2>Thiago de Andrade</h2>
@@ -343,12 +412,7 @@ const Perfil = ({ changeSection }: { changeSection: (section: string) => void })
     </TabContainer>
           </ProfileSection>
           
-
-
-      
-
         <Content>
-
         <div style={{ display: 'flex', flexDirection: 'column', marginRight: '5%' }}>
       <BadgeTitle>Coleção de emblemas:</BadgeTitle>
       <BadgeCollectionContainer>
@@ -399,7 +463,7 @@ const Perfil = ({ changeSection }: { changeSection: (section: string) => void })
           </StatItem>
           <StatItem>
             <StatIcon src="/path/to/icon2.svg" alt="Nível" />
-            <StatLabel>Nível</StatLabel>
+            <StatLabel style={{ textAlign: 'center'}}>20<br/>Nível</StatLabel>
             <ProgressBar>
               <Progress />
             </ProgressBar>
