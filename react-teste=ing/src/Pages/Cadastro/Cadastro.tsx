@@ -87,12 +87,6 @@ const Inputinho = styled(InputLabel)`
 `;
 
 const schema = yup.object().shape({
-  photo: yup.mixed().test("fileSize", "Tamanho máximo da imagem é de 5MB", (value) => {
-    if (!value || (Array.isArray(value) && value.length === 0)) {
-      return true;
-    }
-    return Array.isArray(value) && value[0].size <= 5000000; // Limite para 5MB
-  }),
   name: yup.string().required("Nome completo é obrigatório"),
   email: yup.string().email("Email inválido").required("Email é obrigatório"),
   username: yup.string().required("Nome de usuário é obrigatório"),
@@ -100,6 +94,7 @@ const schema = yup.object().shape({
   cpf: yup.string().required("CPF é obrigatório").min(14, "CPF inválido"),
   password: yup.string().min(8, "A senha deve ter no mínimo 8 caracteres").required("Senha é obrigatória"),
   bornAt: yup.string().required("Data de nascimento é obrigatória"),
+  photo: yup.array().of(yup.mixed().nullable()).nullable() as yup.Schema<File[] | undefined>,
 });
 
 interface FormData {
@@ -109,8 +104,8 @@ interface FormData {
   phone: string;
   cpf: string;
   password: string;
-  photo: FileList;
   bornAt: string;
+  photo?: File[] | undefined;
 }
 
 export default function Cadastro() {
@@ -130,14 +125,12 @@ export default function Cadastro() {
     formData.append("cpf", data.cpf);
     formData.append("bornAt", data.bornAt);
 
-    // Adicionar a data de registro atual
     const registerAt = new Date().toISOString();
     formData.append("registerAt", registerAt);
 
-    formData.append("points", "0");  // Pontos iniciais
-    formData.append("imagePath", ""); // Caminho da imagem, ajustar conforme necessário
+    formData.append("points", "0");
+    formData.append("imagePath", "");
 
-    // Prioridade para imagem cortada, caso disponível
     if (croppedImageUrl) {
       const croppedImageBlob = await fetch(croppedImageUrl)
         .then((r) => r.blob())
@@ -148,14 +141,13 @@ export default function Cadastro() {
         formData.append("photo", croppedImageBlob, "cropped-image.jpg");
       }
     } else if (data.photo && data.photo[0]) {
-      // Caso não haja imagem cortada, enviar a imagem original
       formData.append("photo", data.photo[0], "profile-image.jpg");
     }
 
     try {
       const response = await fetch("http://localhost:5000/auth/register", {
         method: "POST",
-        body: formData, // Enviar o FormData
+        body: formData,
       });
 
       if (response.ok) {
@@ -172,14 +164,16 @@ export default function Cadastro() {
           icon: "error",
           title: "Erro",
           text: errorData.message || "Algo deu errado!",
+          footer: "erro: " + errorData.message,
         });
       }
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("Erro na requisição", error);
       Swal.fire({
         icon: "error",
         title: "Erro",
         text: "Não foi possível realizar o cadastro.",
+        footer: "erro: " + (error as Error).message,
       });
     }
   };
