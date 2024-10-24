@@ -1,13 +1,14 @@
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import styled from 'styled-components';
-import { TextField, Grid, Box, Typography } from "@mui/material";
+import { TextField, Grid, Box, Typography, IconButton, InputAdornment } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../AuthContext';
-//
 import axios from 'axios'; 
+import { useState } from 'react';
 
 const A = styled.a`
   color: white;
@@ -177,6 +178,11 @@ const Login = () => {
 
   const { login } = useAuth();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   const onSubmit: SubmitHandler<{ email: string; password: string }> = async (data) => {
     try {
@@ -242,10 +248,23 @@ const Login = () => {
                   <TextField
                     {...field}
                     label="Digite sua senha"
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     fullWidth
                     error={!!errors.password}
                     helperText={errors.password ? errors.password.message : ""}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
+                            edge="end"
+                          >
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      )
+                    }}
                   />
                 )}
               />
